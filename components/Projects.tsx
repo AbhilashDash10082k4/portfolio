@@ -71,13 +71,13 @@ export function Projects() {
                                 </div>
                             </div>
                             <div className="flex gap-4 mt-auto pt-6 border-t border-white/10">
-                                <Button variant="outline" size="sm" asChild className="flex-1">
+                                <Button variant="outline" size="sm" className="flex-1">
                                     <Link href={project.github} target="_blank">
                                         <Github className="w-4 h-4 mr-2" />
                                         Code
                                     </Link>
                                 </Button>
-                                <Button variant="primary" size="sm" asChild className="flex-1">
+                                <Button variant="primary" size="sm" className="flex-1">
                                     <Link href={project.demo} target="_blank">
                                         <ExternalLink className="w-4 h-4 mr-2" />
                                         Demo
