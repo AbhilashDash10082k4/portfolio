@@ -20,7 +20,7 @@ export function Hero() {
         )}
       /> */}
       <BackgroundRippleEffect />
-       <Spotlight
+      <Spotlight
         className="-top-40 left-0 md:-top-20 md:left-60"
         fill="white"
       />
@@ -46,9 +46,10 @@ export function Hero() {
           transition={{ duration: 0.5 }}
           className="col-span-1 flex flex-col justify-center sm:justify-evenly px-4 sm:px-6 md:px-10 lg:px-12"
         >
-
           <div className="font-bold tracking-tight bg-clip-text text-transparent bg-linear-to-b from-white to-white/60">
-            <span className="text-sm sm:text-lg md:text-xl font-medium text-gray-400">Hi,</span>
+            <span className="text-sm sm:text-lg md:text-xl font-medium text-gray-400">
+              Hi,
+            </span>
             <br></br>
             <span className="font-semibold text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl">
               I am Abhilash Dash
@@ -85,7 +86,7 @@ export function Hero() {
           >
             {/* Soft blurred background for depth */}
             <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-3xl sm:blur-[80px] md:blur-[120px]"></div>
-            
+
             {/* Image with subtle glow */}
             <Image
               src="/dp.jpg"
@@ -108,10 +109,13 @@ export function Hero() {
             .querySelector("#about")
             ?.scrollIntoView({ behavior: "smooth" });
         }}
-        className="absolute z-10 bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center gap-1 px-2 py-5 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/30 transition-all group"
+        className="absolute z-30 bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center gap-1 px-2 py-5 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/30 transition-all group"
       >
         <ChevronDown className="w-5 h-5 text-white/60 group-hover:text-white transition-colors animate-bounce" />
       </motion.button>
+
+      {/* Bottom fade to seamlessly transition into About section's #04071D background */}
+      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#04071D] via-[#04071D]/50 to-transparent pointer-events-none z-20" />
     </Section>
   );
 }
