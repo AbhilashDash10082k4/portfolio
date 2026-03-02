@@ -62,7 +62,23 @@ const SkillRay = React.memo(
 SkillRay.displayName = "SkillRay";
 
 // Memoized Icon Component to prevent re-renders when hoveredSkill changes
-const SkillIcon = React.memo(({ skill, left, top, setHoveredSkill }: any) => {
+interface Skill {
+  name: string;
+  icon: string;
+}
+
+const SkillIcon = React.memo(
+  ({
+    skill,
+    left,
+    top,
+    setHoveredSkill,
+  }: {
+    skill: Skill;
+    left: string;
+    top: string;
+    setHoveredSkill: (name: string | null) => void;
+  }) => {
   const isEnlarged = skill.name === "Linux" || skill.name === "MongoDB";
 
   return (

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { Card } from "@/components/ui/card";
-import { Briefcase } from "lucide-react";
+
 
 const experience = [
     {
@@ -41,7 +41,7 @@ export function Experience() {
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">Work Experience</h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto">
-                        My professional journey and the companies I've had the privilege to work with.
+                        My professional journey and the companies I&apos;ve had the privilege to work with.
                     </p>
                 </motion.div>
 

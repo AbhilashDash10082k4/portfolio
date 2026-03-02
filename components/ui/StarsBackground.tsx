@@ -4,9 +4,16 @@ import React, {
   useState,
   useEffect,
   useRef,
-  RefObject,
   useCallback,
 } from "react";
+
+interface Star {
+  x: number;
+  y: number;
+  radius: number;
+  opacity: number;
+  twinkleSpeed: number | null;
+}
 
 interface StarsBackgroundProps {
   starDensity?: number;
@@ -25,7 +32,7 @@ export const StarsBackground = ({
   maxTwinkleSpeed = 1,
   className,
 }: StarsBackgroundProps) => {
-  const [stars, setStars] = useState<any[]>([]);
+  const [stars, setStars] = useState<Star[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const generateStars = useCallback(
@@ -73,13 +80,14 @@ export const StarsBackground = ({
     updateStars();
 
     const resizeObserver = new ResizeObserver(updateStars);
-    if (canvasRef.current) {
-      resizeObserver.observe(canvasRef.current);
+    const currentCanvas = canvasRef.current;
+    if (currentCanvas) {
+      resizeObserver.observe(currentCanvas);
     }
 
     return () => {
-      if (canvasRef.current) {
-        resizeObserver.unobserve(canvasRef.current);
+      if (currentCanvas) {
+        resizeObserver.unobserve(currentCanvas);
       }
     };
   }, [
