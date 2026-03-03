@@ -115,8 +115,12 @@ export function Navbar() {
               <Linkedin className="w-5 h-5" />
             </Link>
           </div>
-          <Button size="sm" variant="primary" className="bg-linear-to-b text-cyan-300 from-zinc-800 via-zinc-500 to-zinc-300">
-            Resume
+          <Button 
+            size="sm" 
+            variant="primary" 
+            onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+          >
+            Contact Me
           </Button>
         </div>
 

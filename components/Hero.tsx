@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <Section
       id="hero"
-      className="flex items-center justify-center min-h-screen relative"
+      className="flex items-center justify-center min-h-screen relative py-20 md:py-0"
     >
       {/* Background Gradient Animation */}
       {/* <div
@@ -24,6 +24,13 @@ export function Hero() {
         className="-top-40 left-0 md:-top-20 md:left-60"
         fill="white"
       />
+
+      {/* Atmospheric Background Layers */}
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_35%,rgba(34,211,238,0.12),transparent_40%)] pointer-events-none z-0" />
+      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_30%,rgba(34,211,238,0.08),transparent_50%)] pointer-events-none z-0" />
+      
+      {/* Grid background with reduced opacity for better clarity */}
+      <div className="absolute inset-x-0 top-0 h-full w-full bg-[url('/grid.svg')] bg-size-[40px_40px] opacity-[0.4] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
       {/* Badge below navbar */}
       <div className="absolute top-40 sm:top-24 md:top-32 left-0 right-0 z-20 flex justify-center">
@@ -39,62 +46,84 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 flex flex-col-reverse md:grid md:grid-cols-2 relative z-10 gap-6 sm:gap-8 md:gap-10 lg:gap-12 pt-24 sm:pt-28 md:pt-0">
+      <div className="container mx-auto px-6 md:px-12 flex flex-col md:grid md:grid-cols-2 items-center relative z-10 gap-12 max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="col-span-1 flex flex-col justify-center sm:justify-evenly px-4 sm:px-6 md:px-10 lg:px-12"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="col-span-1 flex flex-col justify-center items-center md:items-start text-center md:text-left h-full"
         >
-          <div className="font-bold tracking-tight bg-clip-text text-transparent bg-linear-to-b from-white to-white/60">
-            <span className="text-sm sm:text-lg md:text-xl font-medium text-gray-400">
-              Hi,
-            </span>
-            <br></br>
-            <span className="font-semibold text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl">
-              I am Abhilash Dash
-            </span>
-            <span className="text-lg sm:text-2xl md:text-3xl font-bold">,</span>
-            <br />
-            <span className="font-bold text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl bg-linear-to-t from-cyan-700 to-cyan-200 bg-clip-text text-transparent">
-              Fullstack Engineer
-            </span>
-            <br></br>
-            <br></br>
-            <h3 className="text-white/80 font-thin text-xs sm:text-sm md:text-lg lg:text-xl tracking-tight leading-normal">
-              I build fast, scalable web applications with a strong focus on
-              clean UI and performance.
-            </h3>
+          <div className="space-y-4 tracking-tight font-outfit relative">
+            {/* Subtle glow pulse behind headline */}
+            <div className="absolute -inset-x-20 -inset-y-10 bg-cyan-500/5 blur-[100px] animate-pulse-glow pointer-events-none" />
+            
+            <div className="relative mb-2">
+              <h2 className="text-sm md:text-base font-light text-cyan-400/70 tracking-widest uppercase font-outfit">
+                Hi, I&apos;m <span className="text-white font-normal">Abhilash Dash</span>
+              </h2>
+            </div>
+            
+            <h1 className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-thin text-white tracking-tight leading-[1.2] font-outfit">
+              Fullstack & AI <br className="hidden sm:block" />
+              <span className="text-cyan-400 whitespace-nowrap">Systems Builder</span>
+            </h1>
+            
+            <p className="relative text-neutral-400 font-light text-base md:text-lg lg:text-xl tracking-tight leading-relaxed max-w-lg pt-4 font-outfit">
+              I design and build scalable web platforms, automation systems, and AI tools that help businesses grow without increasing operational complexity.
+            </p>
           </div>
 
-          <div className="flex gap-4">
-            {/* <Button size="lg" className="group">
-              View Projects
-              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button variant="outline" size="lg">
-              Contact Me
-            </Button> */}
+          <div className="flex flex-col sm:flex-row gap-6 mt-12 w-full md:w-auto px-6 md:px-0">
+            <motion.button 
+              whileHover={{ y: -4, scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+              className="group relative px-8 py-5 rounded-xl bg-linear-to-r from-cyan-600 to-cyan-400 text-black font-bold transition-all overflow-hidden shadow-[0_0_20px_rgba(34,211,238,0.2)] w-full sm:w-auto"
+            >
+              {/* Internal Shimmer */}
+              <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.3)_50%,transparent_75%)] bg-[length:250%_250%] opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity pointer-events-none" />
+              <span className="relative z-10 transition-transform duration-300 group-hover:scale-105 inline-block">Book a Strategy Call</span>
+              {/* Outer glow ring */}
+              <div className="absolute -inset-[2px] rounded-xl bg-cyan-400/20 blur-[2px] group-hover:bg-cyan-400/40 transition-all opacity-0 group-hover:opacity-100" />
+            </motion.button>
+            
+            <motion.button 
+              whileHover={{ y: -4, scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
+              className="px-8 py-5 rounded-xl border border-white/10 bg-white/5 text-white/70 font-medium hover:bg-white/10 hover:border-white/20 hover:text-white transition-all backdrop-blur-sm text-center shadow-lg w-full sm:w-auto"
+            >
+              View Solutions
+            </motion.button>
           </div>
         </motion.div>
-        <div className="col-span-1 flex items-center justify-center mt-6 sm:mt-8 md:mt-0">
+        <div className="col-span-1 flex items-center justify-center relative">
+          {/* Large soft radial glow behind the entire column */}
+          <div className="absolute w-[150%] h-[150%] bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.05)_0%,transparent_70%)] -z-10 pointer-events-none" />
+          
           <motion.div
-            className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            className="group relative w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {/* Soft blurred background for depth */}
-            <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-3xl sm:blur-[80px] md:blur-[120px]"></div>
+            {/* Animated Gradient Ring */}
+            <div className="absolute inset-0 rounded-full border border-cyan-500/20 group-hover:border-cyan-500/40 transition-colors duration-700">
+               <div className="absolute inset-[-4px] rounded-full border border-cyan-500/10 animate-[spin_8s_linear_infinite]" />
+            </div>
 
-            {/* Image with subtle glow */}
-            <Image
-              src="/dp.jpg"
-              alt="dp"
-              width={300}
-              height={300}
-              className="relative z-10 rounded-full border border-cyan-400/40 w-full h-full object-cover opacity-90 shadow-lg shadow-cyan-500"
-            />
+            {/* Image with subtle styling */}
+            <div className="relative w-full h-full p-2">
+              <Image
+                src="/dp.jpg"
+                alt="dp"
+                width={300}
+                height={300}
+                className="relative z-10 rounded-full border border-white/5 w-full h-full object-cover brightness-[0.85] transition-all duration-700 group-hover:brightness-100 group-hover:border-cyan-500/20"
+              />
+            </div>
           </motion.div>
         </div>
       </div>
@@ -115,7 +144,7 @@ export function Hero() {
       </motion.button>
 
       {/* Bottom fade to seamlessly transition into About section's #04071D background */}
-      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#04071D] via-[#04071D]/50 to-transparent pointer-events-none z-20" />
+      <div className="absolute bottom-0 left-0 right-0 h-96 bg-linear-to-t from-[#04071D] via-[#04071D]/40 to-transparent pointer-events-none z-20" />
     </Section>
   );
 }

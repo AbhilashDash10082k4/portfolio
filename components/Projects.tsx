@@ -55,7 +55,7 @@ export function Projects() {
                     {projects.map((project, index) => (
                         <Card key={index} gradient className="flex flex-col h-full group">
                             <div className="flex-1">
-                                <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
+                                <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">
                                     {project.title}
                                 </h3>
                                 <p className="text-muted-foreground mb-6">{project.description}</p>

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import SmoothScrolling from "@/components/SmoothScroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,11 +35,13 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased bg-background text-foreground`}
-      >
+        >
+        <SmoothScrolling>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />
+        </SmoothScrolling>
       </body>
     </html>
   );
