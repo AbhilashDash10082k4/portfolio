@@ -1,5 +1,6 @@
+"use client";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import React, { useState } from "react";
 import Image from "next/image";
 import { 
@@ -13,9 +14,15 @@ import {
 
 const TechIcon = ({ icon, name, className }: { icon: string; name: string; className?: string }) => {
   if (icon.startsWith("/")) {
+    const shouldInvert = name === "Next.js" || name === "Node.js" || name === "AWS" || name === "Prisma" || name === "OpenAI" || name === "Rust" || name === "Kafka";
     return (
       <div className={cn("relative", className)}>
-        <Image src={icon} alt={name} fill className="object-contain" />
+        <Image 
+          src={icon} 
+          alt={name} 
+          fill 
+          className={cn("object-contain", shouldInvert && "invert brightness-200")} 
+        />
       </div>
     );
   }
@@ -109,7 +116,10 @@ const SkillIcon = React.memo(
               : "w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14",
             "object-contain transition-all duration-300 group-hover:scale-125",
             (skill.name === "Next.js" ||
+              skill.name === "Node.js" ||
+              skill.name === "OpenAI" ||
               skill.name === "Express" ||
+              skill.name === "Kafka" ||
               skill.name === "Rust" ||
               skill.name === "Linux" ||
               skill.name === "GitHub") &&
@@ -182,10 +192,16 @@ export const EngineeringCapabilities = () => {
       mainIcon: <Monitor className="w-5 h-5" />,
       tech: [
         { name: "Next.js", icon: "/icons8-next.js-48.svg" },
-        { name: "SEO", icon: "lucide:Search" },
-        { name: "Optimization", icon: "lucide:Zap" },
         { name: "React", icon: "/react.svg" },
-        { name: "Tailwind", icon: "/icons8-tailwind-css-48.svg" }
+        { name: "Tailwind", icon: "/icons8-tailwind-css-48.svg" },
+        { name: "PostgreSQL", icon: "/icons8-postgresql-48.svg" },
+        { name: "Prisma", icon: "/prisma.svg" },
+        { name: "MongoDB", icon: "/mongodb-green.svg" },
+        { name: "Redis", icon: "/Redis.svg" },
+        { name: "Kafka", icon: "/kafka.svg" },
+        { name: "Rust", icon: "/rust-logo.svg" },
+        { name: "Node.js", icon: "/nodejs.svg" },
+        { name: "Supabase", icon: "/icons8-supabase-48.svg" }
       ],
       enables: ["Faster load times", "Better SEO ranking", "Higher lead conversion"],
       color: "blue" as const,
@@ -196,11 +212,12 @@ export const EngineeringCapabilities = () => {
       description: "Automated workflows that eliminate manual tasks and integrate business tools seamlessly.",
       mainIcon: <Workflow className="w-5 h-5" />,
       tech: [
-        { name: "Node.js", icon: "/nodejs.svg" },
+        { name: "Webhook", icon: "/webhook.svg" },
         { name: "Cron Jobs", icon: "lucide:Clock" },
         { name: "APIs", icon: "lucide:Webhook" },
-        { name: "Supabase", icon: "lucide:Database" },
-        { name: "n8n", icon: "lucide:Workflow" }
+        { name: "Supabase", icon: "/icons8-supabase-48.svg" },
+        { name: "n8n", icon: "/n8n-color.svg" },
+        { name: "OpenAI", icon: "/openai.svg" }
       ],
       enables: ["Zero manual data entry", "Real-time tool syncing", "Reduced operational overhead"],
       color: "purple" as const,
@@ -211,7 +228,7 @@ export const EngineeringCapabilities = () => {
       description: "Custom AI systems that assist sales, support, and operations using intelligent automation.",
       mainIcon: <Brain className="w-5 h-5" />,
       tech: [
-        { name: "OpenAI", icon: "lucide:Sparkles" },
+        { name: "OpenAI", icon: "/openai.svg" },
         { name: "LangChain", icon: "lucide:LinkIcon" },
         { name: "LangGraph", icon: "lucide:Binary" },
         { name: "Vector DBs", icon: "lucide:Database" },
@@ -228,6 +245,7 @@ export const EngineeringCapabilities = () => {
       tech: [
         { name: "Docker", icon: "/icons8-docker-48.svg" },
         { name: "Kubernetes", icon: "/icons8-kubernetes-48.svg" },
+        { name: "AWS", icon: "/aws.svg" },
         { name: "CI/CD", icon: "lucide:RefreshCw" },
         { name: "Vercel", icon: "/vercel.svg" },
         { name: "Monitoring", icon: "lucide:BarChart" }
@@ -239,10 +257,18 @@ export const EngineeringCapabilities = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full mt-12 pb-20">
-      {regions.map((region) => (
-        <CapabilityBlock key={region.title} {...region} />
-      ))}
+    <div className="flex flex-col w-full mt-12 pb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full">
+        {regions.map((region) => (
+          <CapabilityBlock key={region.title} {...region} />
+        ))}
+      </div>
+      
+      {/* Icon Attributions */}
+      <div className="mt-8 text-[10px] text-neutral-600 font-light flex flex-wrap gap-x-4 gap-y-2 justify-center opacity-50 hover:opacity-100 transition-opacity">
+        <span dangerouslySetInnerHTML={{ __html: '<a target="_blank" href="https://icons8.com/icon/grZaE9tjqDyr/supabase">Supabase</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>' }} />
+        <span dangerouslySetInnerHTML={{ __html: 'Webhook Icon by <a class="link_pro" href="https://freeicons.io/vector-and-svg-logos-icons-20/webhooks-icon-9217">Raj Dev</a> on <a href="https://freeicons.io">freeicons.io</a>' }} />
+      </div>
     </div>
   );
 };
@@ -267,7 +293,7 @@ const CapabilityBlock = ({
       viewport={{ once: true }}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.2 }}
-      className="group relative flex flex-col p-6 md:p-8 rounded-2xl border border-white/[0.08] bg-[#020412]/60 hover:bg-[#020412]/80 hover:border-cyan-500/30 transition-all duration-200 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] h-full overflow-hidden"
+      className="group relative flex flex-col p-6 md:p-8 rounded-2xl border border-white/8 bg-[#020412]/60 hover:bg-[#020412]/80 hover:border-cyan-500/30 transition-all duration-200 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] h-full overflow-hidden"
     >
       {/* Dynamic Mesh Gradient Background */}
       <div className={cn(
@@ -279,7 +305,7 @@ const CapabilityBlock = ({
       )} />
 
       {/* Decorative Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]" />
 
       <div className="relative z-10">
         <div className="flex items-start justify-between mb-8">
@@ -315,7 +341,7 @@ const CapabilityBlock = ({
           {tech.map((t) => (
             <div 
               key={t.name} 
-              className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-[#0A0C1A] border border-white/[0.05] hover:border-cyan-500/30 hover:bg-[#0E1122] transition-all duration-200 group/chip"
+              className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-[#0A0C1A] border border-white/5 hover:border-cyan-500/30 hover:bg-[#0E1122] transition-all duration-200 group/chip"
             >
               <TechIcon 
                 icon={t.icon} 
@@ -336,7 +362,7 @@ const CapabilityBlock = ({
         </div>
       </div>
 
-      <div className="mt-auto pt-8 border-t border-white/[0.08] relative z-10 bg-gradient-to-t from-white/[0.02] to-transparent p-4 -mx-4 rounded-b-[2rem]">
+      <div className="mt-auto pt-8 border-t border-white/8 relative z-10 bg-linear-to-t from-white/2 to-transparent p-4 -mx-4 rounded-b-4xl">
         <div className="flex items-center justify-between mb-5">
           <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-white/30">
             Operational Value
@@ -375,11 +401,11 @@ const CapabilityBlock = ({
 
       {/* Interactive side-border glow */}
       <div className={cn(
-        "absolute left-0 top-1/4 bottom-1/4 w-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-700",
-        color === "blue" && "bg-gradient-to-b from-transparent via-blue-400 to-transparent",
-        color === "purple" && "bg-gradient-to-b from-transparent via-purple-400 to-transparent",
-        color === "emerald" && "bg-gradient-to-b from-transparent via-emerald-400 to-transparent",
-        color === "cyan" && "bg-gradient-to-b from-transparent via-cyan-400 to-transparent"
+        "absolute left-0 top-1/4 bottom-1/4 w-px opacity-0 group-hover:opacity-100 transition-opacity duration-700",
+        color === "blue" && "bg-linear-to-b from-transparent via-blue-400 to-transparent",
+        color === "purple" && "bg-linear-to-b from-transparent via-purple-400 to-transparent",
+        color === "emerald" && "bg-linear-to-b from-transparent via-emerald-400 to-transparent",
+        color === "cyan" && "bg-linear-to-b from-transparent via-cyan-400 to-transparent"
       )} />
     </motion.div>
   );
@@ -403,7 +429,7 @@ export const SpiralSkills = () => {
       <div className="absolute inset-0 bg-cyan-500/10 rounded-full blur-3xl opacity-50" />
 
       <div className="z-30 w-32 h-32 md:w-32 md:h-32 bg-[#0a0d26] rounded-full flex flex-col items-center justify-center shadow-2xl shadow-cyan-500/30 border border-white/10 relative overflow-hidden transition-transform duration-300 hover:scale-105 cursor-default">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/20 to-blue-600/20 opacity-50" />
+        <div className="absolute inset-0 bg-linear-to-br from-cyan-600/20 to-blue-600/20 opacity-50" />
         <span className="text-white font-thin text-xl md:text-xl tracking-[0.2em] relative z-10 pointer-events-none text-center uppercase">
           SKILLS
         </span>

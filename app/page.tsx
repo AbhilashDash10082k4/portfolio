@@ -1,6 +1,6 @@
-import { Hero } from "@/components/Hero";
-import { About } from "@/components/About";
-import { SolutionsSection } from "@/components/solutions/SolutionsSection";
+import { Hero } from "@/components/Hero/Hero"; 
+import { About } from "@/components/About/About";
+import { SolutionsSection } from "@/components/Solutions/SolutionsSection";
 import { LiveLabSection } from "@/components/live-lab/LiveLabSection";
 import { Experience } from "@/components/Experience";
 import { Contact } from "@/components/Contact";
@@ -12,7 +12,7 @@ export default function Home() {
       <About />
       <SolutionsSection />
       <LiveLabSection />
-      <Experience />
+      {/* <Experience /> */}
       <Contact />
     </div>
   );

@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export const SolutionsSection = () => {
     return (
-        <Section id="solutions" className="pt-12 pb-24 relative overflow-hidden">
+        <Section id="solutions" className="pt-8 md:pt-8 pb-24 relative overflow-hidden">
             {/* Background Accents */}
             <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] -z-10 rounded-full" />
             <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[120px] -z-10 rounded-full" />

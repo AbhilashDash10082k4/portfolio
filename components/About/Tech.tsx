@@ -29,7 +29,7 @@ export function Tech() {
                 viewport={{ once: true }}
                 className="mb-12 text-center"
               >
-                <h3 className="text-white/30 text-xs uppercase tracking-[0.5em] font-bold font-outfit mb-3">
+                <h3 className="text-white text-2xl uppercase tracking-[0.5em] font-bold font-outfit mb-3">
                   Engineering Capabilities
                 </h3>
                 <div className="h-px w-24 bg-linear-to-r from-transparent via-cyan-500/50 to-transparent mx-auto" />

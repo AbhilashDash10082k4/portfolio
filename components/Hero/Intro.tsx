@@ -70,11 +70,12 @@ export function Intro() {
               {/* Image with subtle styling */}
               <div className="relative w-full h-full p-2">
                 <Image
-                  src="/dp.jpg"
+                  src="/dp.webp"
                   alt="dp"
                   width={400}
                   height={400}
                   className="relative z-10 rounded-full border border-white/10 w-full h-full object-cover brightness-[0.9] transition-all duration-700 group-hover:brightness-105 group-hover:border-cyan-500/30 shadow-2xl"
+                  priority
                 />
               </div>
             </motion.div>

@@ -29,55 +29,12 @@ export function Content() {
             <BusinessMetrics />
           </div>
 
-          <div className="py-12">
+          <div className="pt-10 pb-6 md:pt-12 md:pb-8">
             <DeliverResults />
           </div>
 
-          <div className="py-12 flex flex-col items-center">
+          <div className="pt-4 pb-14 md:pt-6 md:pb-16 flex flex-col items-center">
             {/* Top Row: Profile & Bio (Centered) */}
-            <div className="w-full max-w-6xl flex flex-col items-center text-center gap-10 z-10">
-              <div className="relative py-12 px-8 w-full flex flex-col items-center">
-                {/* Visual Anchor: Subtle Background Panel & Glow */}
-                <div className="absolute inset-0 bg-white/1 border-y border-white/5 shadow-[0_0_50px_rgba(34,211,238,0.03)] pointer-events-none" />
-                
-                <div className="relative space-y-4 mb-2">
-                  <h2 className="text-4xl md:text-5xl font-thin text-white tracking-tight font-outfit">
-                    Software Architecture
-                  </h2>
-                  <div className="h-px w-24 bg-linear-to-r from-transparent via-cyan-500/50 to-transparent mx-auto" />
-                  <p className="text-cyan-400 font-medium text-sm tracking-[0.3em] uppercase font-outfit">
-                    Engineering for Scale & Performance
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex flex-col gap-6 text-neutral-300 font-light leading-relaxed text-lg md:text-xl font-outfit max-w-5xl">
-                <p>
-                  I approach software engineering as the{" "}
-                  <span className="text-white font-medium uppercase tracking-wider">strategic bedrock</span>{" "}
-                  of modern business operations, where every line of code is an investment in scalability.
-                </p>
-                <p>
-                  By bridging{" "}
-                  <span className="text-white font-medium uppercase tracking-wider">clean architecture</span>{" "}
-                  with performance-driven design, I translate complex requirements into robust systems that handle growth without technical debt.
-                </p>
-                <p>
-                  My focus remains on delivering{" "}
-                  <span className="text-white font-medium uppercase tracking-wider">production-grade assets</span>{" "}
-                  that produce measurable ROI—ensuring your technical infrastructure directly drives long-term business outcomes.
-                </p>
-              </div>
-
-              <div className="mt-8 flex flex-row gap-6">
-                <button className="px-8 py-4 rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm font-outfit tracking-wider text-sm">
-                  Download Resume
-                </button>
-                <button className="px-8 py-4 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 hover:text-white transition-all duration-300 backdrop-blur-sm font-outfit tracking-wider text-sm">
-                  Contact Me
-                </button>
-              </div>
-            </div>
 
             {/* Bottom Row: Technical Skills Grid (Full Width) */}
             <div className="w-full pt-12 flex flex-col items-center justify-center relative">
