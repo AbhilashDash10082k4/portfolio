@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "motion/react";
 import { DemoSwitcher } from "./DemoSwitcher";
 import { DemoFrame } from "./DemoFrame";
 import { ArchitectureBreakdown } from "./ArchitectureBreakdown";

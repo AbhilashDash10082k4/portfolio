@@ -1,13 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils";
-import { 
-  Rocket, 
-  Zap, 
-  Bot, 
-  MessageSquare, 
+import {
   ArrowUpRight,
   CheckCircle2
 } from "lucide-react";
@@ -25,20 +21,21 @@ interface CapabilityCardProps {
 export const CapabilityCard = ({ title, description, impact, tech, icon, color, delay }: CapabilityCardProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ 
         opacity: 1, 
         y: 0,
-        transition: { duration: 0.5, delay }
+        transition: { duration: 0.5, delay, ease: [0.25, 0.46, 0.45, 0.94] }
       }}
-      viewport={{ once: true }}
+      viewport={{ once: false, margin: "-60px" }}
       whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2 }}
-      className="relative group p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden flex flex-col h-full"
+      style={{ willChange: "transform, opacity" }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="relative group p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden flex flex-col h-full transition-[border-color,box-shadow] duration-300"
     >
       {/* Background Gradient Glow */}
       <div className={cn(
-        "absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl -z-10",
+        "absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl -z-10 pointer-events-none",
         color === "purple" && "bg-purple-500/10",
         color === "blue" && "bg-blue-500/10",
         color === "emerald" && "bg-emerald-500/10",

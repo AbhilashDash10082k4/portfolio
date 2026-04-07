@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ export const SolutionCard = ({
             whileHover={{ scale: 1.02, y: -5 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             className={cn(
-                "relative group overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm p-6 flex flex-col justify-between transition-all hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/30",
+                "relative group overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm p-6 flex flex-col justify-between transition-[border-color,box-shadow,opacity,transform] hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/30",
                 isLarge ? "md:col-span-2 md:row-span-2 min-h-[400px]" : "md:col-span-2 row-span-1 min-h-[220px]",
                 className
             )}

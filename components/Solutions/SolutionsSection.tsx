@@ -4,7 +4,7 @@ import React from "react";
 import { SolutionCategory } from "./SolutionCategory";
 import { SolutionCard } from "./SolutionCard";
 import { Section } from "@/components/ui/section";
-import { motion } from "framer-motion";
+import { motion } from "motion/react"
 
 export const SolutionsSection = () => {
     return (
@@ -18,7 +18,7 @@ export const SolutionsSection = () => {
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     className="max-w-3xl space-y-4"
                 >
                     <h2 className="text-sm font-semibold tracking-widest uppercase text-blue-500">

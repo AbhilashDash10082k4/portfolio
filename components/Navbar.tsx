@@ -1,26 +1,31 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import Link from "next/link";
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import * as React from 'react';
+import Link from 'next/link';
+import {
+  motion,
+  useScroll,
+  useMotionValueEvent,
+  AnimatePresence,
+} from 'motion/react';
+import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+  { name: 'About', href: '#about' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Experience', href: '#experience' },
+  { name: 'Contact', href: '#contact' },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [hidden, setHidden] = React.useState(false);
-  const [activeSection, setActiveSection] = React.useState("");
+  const [activeSection, setActiveSection] = React.useState('');
   const { scrollY } = useScroll();
   const lastScrollY = React.useRef(0);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
+  useMotionValueEvent(scrollY, 'change', (latest) => {
     const previous = lastScrollY.current;
     if (latest > previous && latest > 150) {
       setHidden(true);
@@ -52,19 +57,19 @@ export function Navbar() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <motion.header
       variants={{
         visible: { y: 0 },
-        hidden: { y: "-100%" },
+        hidden: { y: '-100%' },
       }}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      animate={hidden ? 'hidden' : 'visible'}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
       className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4"
     >
       <nav className="glass rounded-full px-6 py-3 flex items-center justify-between w-full max-w-5xl bg-black/50 backdrop-blur-md border-white/10">
@@ -84,14 +89,25 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="relative text-sm font-medium text-white/70 hover:text-cyan-400 transition-all duration-300 group hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.querySelector(link.href);
+                  target?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={`relative text-sm font-medium transition-colors duration-300 group hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] ${
+                  isActive
+                    ? 'text-cyan-400'
+                    : 'text-white/70 hover:text-cyan-400'
+                }`}
               >
                 {link.name}
-                {/* Hover underline animation */}
-                <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-linear-to-r from-cyan-500 to-cyan-400 transition-all duration-300 group-hover:w-full" />
-                {/* Active state underline */}
+
+                {/* Hover underline — scaleX transform (DESIGN.md compliant) */}
+                <span className="absolute -bottom-1.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-linear-to-r from-cyan-500 to-cyan-400 transition-transform duration-300 group-hover:scale-x-100" />
+
+                {/* Active indicator — a small dot, visually distinct from the hover underline */}
                 {isActive && (
-                  <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-linear-to-r from-cyan-500 to-cyan-400" />
+                  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400" />
                 )}
               </Link>
             );
@@ -115,10 +131,14 @@ export function Navbar() {
               <Linkedin className="w-5 h-5" />
             </Link>
           </div>
-          <Button 
-            size="sm" 
-            variant="primary" 
-            onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+          <Button
+            size="sm"
+            variant="primary"
+            onClick={() =>
+              document
+                .querySelector('#contact')
+                ?.scrollIntoView({ behavior: 'smooth' })
+            }
           >
             Contact Me
           </Button>
@@ -131,7 +151,7 @@ export function Navbar() {
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
-              key={isOpen ? "close" : "menu"}
+              key={isOpen ? 'close' : 'menu'}
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
