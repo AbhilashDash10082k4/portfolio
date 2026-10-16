@@ -1,5 +1,8 @@
 'use client';
 
+// IMPORTANT: Keep ReactLenis mounted at the root. Smooth scrolling is intentional;
+// do not replace this with an inert/native-scroll wrapper without explicit approval.
+
 import { ReactLenis } from 'lenis/react';
 
 export default function SmoothScrolling({ children }) {

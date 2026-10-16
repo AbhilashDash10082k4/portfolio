@@ -8,7 +8,7 @@ Use this document as the navigation index when changing the site. Prefer updatin
 |---|---|---|
 | `app/page.tsx` | Composes homepage sections and controls their order. | `components/Hero/Hero.tsx`, `components/Solutions/SolutionsSection.tsx`, `components/About/About.tsx`, `components/live-lab/LiveLabSection.tsx`, `components/Contact.tsx` |
 | `app/layout.tsx` | Root HTML shell, fonts, metadata, global styles, navigation and footer. | `app/globals.css`, `components/Navbar.tsx`, `components/Footer.tsx`, `components/SmoothScroll.jsx` |
-| `app/globals.css` | Global theme variables, utility animations, reduced-motion and portfolio hero styles. | Hero, navigation, selected work, all page sections |
+| `app/globals.css` | Global theme variables, utility animations, reduced-motion rules, and shared styles. | Hero, navigation, selected work, all page sections |
 | `next.config.ts` | Next.js framework configuration. | Build/deployment configuration |
 
 ## Content and portfolio projects
@@ -28,13 +28,13 @@ Edit `data/portfolio-projects.ts`. Keep statuses truthful (`Planned`, `In progre
 
 | File | Responsibility | Connected files |
 |---|---|---|
-| `components/Hero/Hero.tsx` | First-screen composition and lightweight CSS background. | `components/Hero/Intro.tsx`, `components/Hero/ScrollButton.tsx`, `components/ui/section.tsx`, `app/globals.css` |
+| `components/Hero/Hero.tsx` | First-screen composition with the original ripple, spotlight, cyan atmospheric layers, grid, and bottom fade. | `components/Hero/Intro.tsx`, `components/Hero/ScrollButton.tsx`, `components/ui/background-ripple-effect.tsx`, `components/ui/spotlight.tsx`, `app/globals.css` |
 | `components/Hero/Intro.tsx` | Hero message, portrait, and CTAs to contact and projects. | `public/dp.webp`, `components/Contact.tsx`, `components/Solutions/SolutionsSection.tsx` |
 | `components/Hero/ScrollButton.tsx` | Scroll affordance to the next content section. | `components/Hero/Hero.tsx`, section IDs in `app/page.tsx` |
 | `components/Navbar.tsx` | Responsive navigation, mobile menu, active-section tracking, contact CTA. | Section IDs in `app/page.tsx`, `components/Contact.tsx`, `components/ui/button.tsx` |
 | `components/Footer.tsx` | Site-wide footer and verified profile link. | `app/layout.tsx` |
 | `components/Contact.tsx` | Contact CTA and verified contact destination. | `app/page.tsx`, `components/Navbar.tsx` |
-| `components/SmoothScroll.jsx` | Scroll wrapper. If native browser scrolling is retained, keep this wrapper inert and avoid adding a client-side animation loop. | `app/layout.tsx`, `app/globals.css` |
+| `components/SmoothScroll.jsx` | Root Lenis smooth-scrolling provider. Keep `ReactLenis` mounted; do not remove or replace it with native scrolling without explicit approval. | `app/layout.tsx`, `lenis/react`, `app/globals.css` |
 
 ## About and service content
 
