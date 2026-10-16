@@ -186,3 +186,76 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Premium portfolio system — used by Hero, Intro, and selected-work cards. */
+:root {
+  --background: #08090b;
+  --foreground: #f3f4f6;
+  --primary: #d9f99d;
+  --primary-foreground: #10120b;
+  --secondary: #191b20;
+  --secondary-foreground: #e5e7eb;
+  --accent: #d9f99d;
+  --accent-foreground: #10120b;
+  --muted: #17191d;
+  --muted-foreground: #a1a1aa;
+  --card: rgba(255, 255, 255, 0.035);
+  --card-foreground: #f3f4f6;
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.portfolio-hero {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 78% 35%, rgba(217, 249, 157, 0.055), transparent 42%),
+    linear-gradient(180deg, #08090b 0%, #0a0b0e 100%);
+}
+
+.portfolio-hero__glow {
+  position: absolute;
+  inset: 8% 0 auto auto;
+  width: min(65vw, 760px);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(217, 249, 157, 0.07), transparent 68%);
+  pointer-events: none;
+}
+
+.portfolio-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+  pointer-events: none;
+}
+
+.portfolio-portrait {
+  box-shadow: 0 24px 100px rgba(0, 0, 0, 0.32);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
