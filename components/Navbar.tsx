@@ -67,8 +67,8 @@ export function Navbar() {
         aria-label="Main navigation"
         className="glass flex w-full max-w-5xl items-center justify-between rounded-full border border-white/10 bg-black/65 px-5 py-3 backdrop-blur-md sm:px-6"
       >
-        <Link href="/" className="text-lg font-semibold tracking-tight text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300">
-          Portfolio<span className="text-cyan-300">.</span>
+        <Link href="/" className="text-lg font-semibold tracking-tight text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-lime-200">
+          Portfolio<span className="text-lime-200">.</span>
         </Link>
 
         <div className="hidden items-center gap-7 md:flex">
@@ -80,7 +80,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 aria-current={isActive ? "location" : undefined}
-                className={`text-sm transition-colors hover:text-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 ${isActive ? "text-cyan-300" : "text-white/65"}`}
+                className={`text-sm transition-colors hover:text-lime-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-200 ${isActive ? "text-lime-200" : "text-white/65"}`}
               >
                 {link.name}
               </Link>
@@ -94,7 +94,7 @@ export function Navbar() {
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub profile (opens in a new tab)"
-            className="text-white/65 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+            className="text-white/65 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-200"
           >
             <Github aria-hidden="true" className="size-5" />
           </Link>
