@@ -43,6 +43,10 @@ const DEMOS = [
 ];
 
 export const LiveLabSection = () => {
+    const sectionRef = useRef<HTMLElement>(null);
+    const isInView = useInView(sectionRef, { once: false, margin: "-80px" });
+    const prefersReducedMotion = useReducedMotion();
+    const animateAmbientEffects = isInView && !prefersReducedMotion;
     const [activeDemoId, setActiveDemoId] = useState(DEMOS[0].id);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -174,16 +178,16 @@ const AutomationMock = () => (
                     stroke="#ffffff20" 
                     strokeWidth="2" 
                     strokeDasharray="4 4"
-                    animate={{ strokeDashoffset: [0, -20] }}
-                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    animate={animateAmbientEffects ? { strokeDashoffset: [0, -20] } : { strokeDashoffset: 0 }}
+                    transition={{ repeat: animateAmbientEffects ? Infinity : 0, duration: 1, ease: "linear" }}
                 />
                 <motion.path 
                     d="M 250 150 L 350 150" 
                     stroke="#ffffff20" 
                     strokeWidth="2" 
                     strokeDasharray="4 4"
-                    animate={{ strokeDashoffset: [0, -20] }}
-                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    animate={animateAmbientEffects ? { strokeDashoffset: [0, -20] } : { strokeDashoffset: 0 }}
+                    transition={{ repeat: animateAmbientEffects ? Infinity : 0, duration: 1, ease: "linear" }}
                 />
 
                 {/* Nodes */}
@@ -203,16 +207,8 @@ const AutomationMock = () => (
                     <motion.div
                         key={i}
                         className="absolute w-1 h-1 bg-blue-400 rounded-full"
-                        animate={{
-                            x: [100, 300],
-                            opacity: [0, 1, 0]
-                        }}
-                        transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            delay: i * 0.4,
-                            ease: "linear"
-                        }}
+                        animate={animateAmbientEffects ? { x: [100, 300], opacity: [0, 1, 0] } : { opacity: 0 }}
+                        transition={{ duration: 2, repeat: animateAmbientEffects ? Infinity : 0, delay: i * 0.4, ease: "linear" }}
                         style={{ top: '50%' }}
                     />
                 ))}
