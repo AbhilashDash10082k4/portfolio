@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "motion/react";
 import { DemoSwitcher } from "./DemoSwitcher";
 import { DemoFrame } from "./DemoFrame";
 import { ArchitectureBreakdown } from "./ArchitectureBreakdown";
@@ -43,6 +43,10 @@ const DEMOS = [
 ];
 
 export const LiveLabSection = () => {
+    const sectionRef = useRef<HTMLElement>(null);
+    const isInView = useInView(sectionRef, { once: false, margin: "-80px" });
+    const prefersReducedMotion = useReducedMotion();
+    const animateAmbientEffects = isInView && !prefersReducedMotion;
     const [activeDemoId, setActiveDemoId] = useState(DEMOS[0].id);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -59,7 +63,7 @@ export const LiveLabSection = () => {
     };
 
     return (
-        <Section id="live-lab" className="py-24 bg-[#030617]">
+        <Section ref={sectionRef} id="live-lab" className="py-24 bg-[#030617]">
             <div className="container mx-auto px-4 space-y-12">
                 <div className="text-center space-y-4 max-w-2xl mx-auto">
                     <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
@@ -174,16 +178,16 @@ const AutomationMock = () => (
                     stroke="#ffffff20" 
                     strokeWidth="2" 
                     strokeDasharray="4 4"
-                    animate={{ strokeDashoffset: [0, -20] }}
-                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    animate={animateAmbientEffects ? { strokeDashoffset: [0, -20] } : { strokeDashoffset: 0 }}
+                    transition={{ repeat: animateAmbientEffects ? Infinity : 0, duration: 1, ease: "linear" }}
                 />
                 <motion.path 
                     d="M 250 150 L 350 150" 
                     stroke="#ffffff20" 
                     strokeWidth="2" 
                     strokeDasharray="4 4"
-                    animate={{ strokeDashoffset: [0, -20] }}
-                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    animate={animateAmbientEffects ? { strokeDashoffset: [0, -20] } : { strokeDashoffset: 0 }}
+                    transition={{ repeat: animateAmbientEffects ? Infinity : 0, duration: 1, ease: "linear" }}
                 />
 
                 {/* Nodes */}
@@ -203,16 +207,8 @@ const AutomationMock = () => (
                     <motion.div
                         key={i}
                         className="absolute w-1 h-1 bg-blue-400 rounded-full"
-                        animate={{
-                            x: [100, 300],
-                            opacity: [0, 1, 0]
-                        }}
-                        transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            delay: i * 0.4,
-                            ease: "linear"
-                        }}
+                        animate={animateAmbientEffects ? { x: [100, 300], opacity: [0, 1, 0] } : { opacity: 0 }}
+                        transition={{ duration: 2, repeat: animateAmbientEffects ? Infinity : 0, delay: i * 0.4, ease: "linear" }}
                         style={{ top: '50%' }}
                     />
                 ))}
