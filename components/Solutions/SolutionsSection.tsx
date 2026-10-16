@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * Portfolio projects section.
  *
