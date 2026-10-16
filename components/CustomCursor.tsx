@@ -1,31 +1,60 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 
-/**
- * Two-layer custom pointer for mouse/trackpad users only.
- * Touch devices and reduced-motion users keep their normal pointer behavior.
- */
+/** Two-layer cursor for mouse/trackpad devices. Touch input remains native. */
 export function CustomCursor() {
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
-  const ringX = useSpring(x, { stiffness: 260, damping: 28, mass: 0.45 });
-  const ringY = useSpring(y, { stiffness: 260, damping: 28, mass: 0.45 });
+  const ringX = useSpring(x, { stiffness: 300, damping: 26, mass: 0.35 });
+  const ringY = useSpring(y, { stiffness: 300, damping: 26, mass: 0.35 });
+  const [finePointer, setFinePointer] = useState(false);
 
   useEffect(() => {
-    const finePointer = window.matchMedia("(pointer: fine)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!finePointer || reducedMotion) return;
+    const query = window.matchMedia("(pointer: fine)");
+    const syncPointer = () => setFinePointer(query.matches);
+    syncPointer();
+    query.addEventListener("change", syncPointer);
 
-    const handleMove = (event: MouseEvent) => {
+    const handleMove = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
       x.set(event.clientX);
       y.set(event.clientY);
     };
+    const handleLeave = () => {
+      x.set(-100);
+      y.set(-100);
+    };
 
-    window.addEventListener("mousemove", handleMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMove);
+    window.addEventListener("pointermove", handleMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", handleLeave);
+    return () => {
+      query.removeEventListener("change", syncPointer);
+      window.removeEventListener("pointermove", handleMove);
+      document.documentElement.removeEventListener("pointerleave", handleLeave);
+    };
   }, [x, y]);
+
+  useEffect(() => {
+    if (!finePointer) return;
+    const targets = document.querySelectorAll<HTMLElement>('a, button, input, textarea, select, [role="button"]');
+    const enter = () => document.documentElement.classList.add("cursor-hovering");
+    const leave = () => document.documentElement.classList.remove("cursor-hovering");
+    targets.forEach((target) => {
+      target.addEventListener("pointerenter", enter);
+      target.addEventListener("pointerleave", leave);
+    });
+    return () => {
+      targets.forEach((target) => {
+        target.removeEventListener("pointerenter", enter);
+        target.removeEventListener("pointerleave", leave);
+      });
+      document.documentElement.classList.remove("cursor-hovering");
+    };
+  }, [finePointer]);
+
+  if (!finePointer) return null;
 
   return (
     <>
