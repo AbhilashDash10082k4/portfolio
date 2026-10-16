@@ -7,6 +7,7 @@ export function StudioBackground() {
     <div className="studio-background" aria-hidden="true">
       <div className="studio-aurora studio-aurora-one" />
       <div className="studio-aurora studio-aurora-two" />
+      <div className="studio-aurora studio-aurora-three" />
       <div className="studio-grid" />
       <div className="studio-particles">
         {Array.from({ length: 12 }, (_, index) => <span key={index} className="studio-particle" />)}
