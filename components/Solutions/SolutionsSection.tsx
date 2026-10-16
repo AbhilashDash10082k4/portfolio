@@ -1,13 +1,13 @@
 /**
  * Selected-work section for the homepage.
- * Related files: data/projects.ts owns project content; app/page.tsx mounts
+ * Related files: data/portfolio-projects.ts owns project content; app/page.tsx mounts
  * this section; components/Navbar.tsx targets its #projects anchor.
  * Keep this a Server Component: rendering the data does not require client JS.
  */
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
-import { projects } from "@/data/projects";
+import { portfolioProjects } from "@/data/portfolio-projects";
 
 const statusStyles = {
   "In progress": "border-emerald-400/25 bg-emerald-400/10 text-emerald-300",
@@ -35,9 +35,9 @@ export const SolutionsSection = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project, index) => (
+          {portfolioProjects.map((project, index) => (
             <article
-              key={project.id}
+              key={project.slug}
               className="group flex min-h-72 flex-col rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition-colors duration-200 hover:border-cyan-300/30 hover:bg-white/[0.045] sm:p-7"
             >
               <div className="mb-7 flex items-start justify-between gap-3">
