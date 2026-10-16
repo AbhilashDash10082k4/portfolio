@@ -10,6 +10,7 @@ type AmbientNodes = {
 
 export function AmbientAudioToggle({ className = "" }: { className?: string }) {
   const [enabled, setEnabled] = React.useState(false);
+  const [volume, setVolume] = React.useState(0.008);
   const audio = React.useRef<AmbientNodes | null>(null);
 
   React.useEffect(() => {
@@ -52,20 +53,43 @@ export function AmbientAudioToggle({ className = "" }: { className?: string }) {
     await current.context.resume();
     const now = current.context.currentTime;
     current.master.gain.cancelScheduledValues(now);
-    current.master.gain.setTargetAtTime(enabled ? 0 : 0.012, now, enabled ? 0.18 : 1.8);
+    current.master.gain.setTargetAtTime(enabled ? 0 : volume, now, enabled ? 0.18 : 1.8);
     setEnabled((previous) => !previous);
   };
 
+  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const nextVolume = Number(event.currentTarget.value);
+    setVolume(nextVolume);
+    if (audio.current && enabled) {
+      const now = audio.current.context.currentTime;
+      audio.current.master.gain.cancelScheduledValues(now);
+      audio.current.master.gain.setTargetAtTime(nextVolume, now, 0.15);
+    }
+  };
+
   return (
-    <button
-      type="button"
-      className={className}
-      onClick={() => void toggleAudio()}
-      aria-pressed={enabled}
-      aria-label={enabled ? "Turn ambient sound off" : "Turn ambient sound on"}
-      title={enabled ? "Ambient sound on — click to turn off" : "Ambient sound off — click to turn on"}
-    >
-      {enabled ? <Volume2 aria-hidden="true" className="size-4" /> : <VolumeX aria-hidden="true" className="size-4" />}
-    </button>
+    <span className="inline-flex items-center gap-2">
+      <button
+        type="button"
+        className={className}
+        onClick={() => void toggleAudio()}
+        aria-pressed={enabled}
+        aria-label={enabled ? "Turn ambient sound off" : "Turn ambient sound on"}
+        title={enabled ? "Ambient sound on — click to turn off" : "Ambient sound off — click to turn on"}
+      >
+        {enabled ? <Volume2 aria-hidden="true" className="size-4" /> : <VolumeX aria-hidden="true" className="size-4" />}
+      </button>
+      <input
+        type="range"
+        aria-label="Ambient sound volume"
+        title="Ambient sound volume"
+        min="0"
+        max="0.012"
+        step="0.001"
+        value={volume}
+        onChange={handleVolumeChange}
+        className="w-14 accent-[var(--accent-strong)]"
+      />
+    </span>
   );
 }
