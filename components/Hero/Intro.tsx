@@ -1,6 +1,6 @@
 /**
  * Homepage hero copy, portrait, and primary calls to action.
- * The global StudioBackground is mounted by app/layout.tsx.
+ * On small screens, the message and name appear before the portrait.
  */
 import Image from "next/image";
 import Link from "next/link";
@@ -8,13 +8,15 @@ import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
 export function Intro() {
   return (
-    <div className="grid items-center gap-12 md:grid-cols-[minmax(0,1.15fr)_minmax(260px,0.72fr)] md:gap-16">
-      <div className="order-2 max-w-3xl text-center md:order-1 md:text-left">
+    <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(260px,0.72fr)] md:gap-16">
+      <div className="order-1 max-w-3xl text-center md:text-left">
         <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-4 py-2 text-xs font-bold tracking-wide text-muted shadow-sm">
           <span aria-hidden="true" className="size-2 rounded-full bg-accent-strong shadow-[0_0_12px_rgba(43,122,109,0.35)]" />
           Independent engineer · Full-stack, AI & automation
         </p>
-        <p className="mb-4 text-sm font-semibold text-muted">Hi, I’m Abhilash Dash.</p>
+        <p className="hero-name mx-auto mb-3 md:mx-0">
+          Hi, I’m <span className="hero-name-script">Abhilash Dash</span>
+        </p>
         <h1 className="page-title mx-auto md:mx-0">
           Strategic business solutions
           <span className="mt-2 block text-accent-strong">& digital engineering.</span>
@@ -36,7 +38,7 @@ export function Intro() {
           <span>Business automation</span>
         </div>
       </div>
-      <div className="order-1 mx-auto w-full max-w-[330px] md:order-2 md:max-w-[390px]">
+      <div className="order-2 mx-auto w-full max-w-[330px] md:max-w-[390px]">
         <div className="relative rounded-[2rem] border border-border bg-surface/70 p-2 shadow-[0_30px_100px_var(--shadow)]">
           <div className="absolute -inset-3 -z-10 rounded-[2.5rem] border border-accent-strong/15" />
           <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-surface-muted">
