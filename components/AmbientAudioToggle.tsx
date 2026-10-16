@@ -1,95 +1,70 @@
 "use client";
 
 import * as React from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { Disc3, ExternalLink, X } from "lucide-react";
 
-type AmbientNodes = {
-  context: AudioContext;
-  master: GainNode;
-};
-
+/**
+ * Licensed Spotify embed for Ashke. The visitor explicitly opens the player
+ * and starts playback; the site never downloads or autoplays copyrighted audio.
+ * Ashke is the first track in the linked Spotify playlist.
+ */
 export function AmbientAudioToggle({ className = "" }: { className?: string }) {
-  const [enabled, setEnabled] = React.useState(false);
-  const [volume, setVolume] = React.useState(0.008);
-  const audio = React.useRef<AmbientNodes | null>(null);
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    return () => {
-      const current = audio.current;
-      if (current && current.context.state !== "closed") void current.context.close();
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
     };
-  }, []);
-
-  const toggleAudio = async () => {
-    if (typeof window === "undefined" || !("AudioContext" in window)) return;
-
-    if (!audio.current) {
-      const context = new window.AudioContext();
-      const master = context.createGain();
-      master.gain.value = 0;
-      master.connect(context.destination);
-
-      const tones = [
-        { frequency: 110, type: "sine" as OscillatorType, gain: 0.38 },
-        { frequency: 164.81, type: "sine" as OscillatorType, gain: 0.22 },
-        { frequency: 220, type: "triangle" as OscillatorType, gain: 0.07 },
-      ];
-
-      tones.forEach((tone) => {
-        const oscillator = context.createOscillator();
-        const gain = context.createGain();
-        oscillator.type = tone.type;
-        oscillator.frequency.value = tone.frequency;
-        gain.gain.value = tone.gain;
-        oscillator.connect(gain);
-        gain.connect(master);
-        oscillator.start();
-      });
-
-      audio.current = { context, master };
-    }
-
-    const current = audio.current;
-    await current.context.resume();
-    const now = current.context.currentTime;
-    current.master.gain.cancelScheduledValues(now);
-    current.master.gain.setTargetAtTime(enabled ? 0 : volume, now, enabled ? 0.18 : 1.8);
-    setEnabled((previous) => !previous);
-  };
-
-  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const nextVolume = Number(event.currentTarget.value);
-    setVolume(nextVolume);
-    if (audio.current && enabled) {
-      const now = audio.current.context.currentTime;
-      audio.current.master.gain.cancelScheduledValues(now);
-      audio.current.master.gain.setTargetAtTime(nextVolume, now, 0.15);
-    }
-  };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   return (
-    <span className="inline-flex items-center gap-2">
+    <span className="relative inline-flex">
       <button
         type="button"
         className={className}
-        onClick={() => void toggleAudio()}
-        aria-pressed={enabled}
-        aria-label={enabled ? "Turn ambient sound off" : "Turn ambient sound on"}
-        title={enabled ? "Ambient sound on — click to turn off" : "Ambient sound off — click to turn on"}
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        aria-haspopup="dialog"
+        aria-label={open ? "Close Ashke music player" : "Open Ashke by Karan Aujla music player"}
+        title={open ? "Close music player" : "Listen to Ashke by Karan Aujla"}
       >
-        {enabled ? <Volume2 aria-hidden="true" className="size-4" /> : <VolumeX aria-hidden="true" className="size-4" />}
+        {open ? <X aria-hidden="true" className="size-4" /> : <Disc3 aria-hidden="true" className="size-4" />}
       </button>
-      <input
-        type="range"
-        aria-label="Ambient sound volume"
-        title="Ambient sound volume"
-        min="0"
-        max="0.012"
-        step="0.001"
-        value={volume}
-        onChange={handleVolumeChange}
-        className="w-14 accent-[var(--accent-strong)]"
-      />
+      {open && (
+        <div
+          role="dialog"
+          aria-label="Ashke music player"
+          className="absolute right-0 top-[calc(100%+0.75rem)] z-[80] w-[min(88vw,22rem)] rounded-2xl border border-border bg-surface p-3 shadow-2xl"
+        >
+          <div className="mb-3 flex items-center justify-between gap-3 px-1">
+            <div>
+              <p className="text-sm font-extrabold">Ashke</p>
+              <p className="text-xs text-muted">Karan Aujla · MXRCI</p>
+            </div>
+            <a
+              href="https://open.spotify.com/embed/playlist/6uoQcJ0Tv9qMVF7t83jQYt"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-xs font-bold text-accent-strong hover:underline"
+            >
+              Spotify <ExternalLink aria-hidden="true" className="size-3" />
+            </a>
+          </div>
+          <iframe
+            title="Spotify player featuring Ashke by Karan Aujla and MXRCI"
+            src="https://open.spotify.com/embed/playlist/6uoQcJ0Tv9qMVF7t83jQYt?utm_source=generator&theme=0"
+            width="100%"
+            height="152"
+            style={{ border: 0, borderRadius: 12 }}
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          />
+          <p className="mt-2 px-1 text-[11px] leading-5 text-muted">Press play in the Spotify player to listen. Playback and volume are controlled by Spotify.</p>
+        </div>
+      )}
     </span>
   );
 }
