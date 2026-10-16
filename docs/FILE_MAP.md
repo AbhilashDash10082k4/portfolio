@@ -6,8 +6,8 @@ Use this index before changing the site. Keep shared behavior in its canonical c
 
 | File | Responsibility | Connected files |
 |---|---|---|
-| \`app/layout.tsx\` | Root shell, Manrope font, metadata, theme provider, global background, cursor, navbar, footer, and Lenis wrapper. | \`app/globals.css\`, \`components/ThemeProvider.tsx\`, \`components/StudioBackground.tsx\`, \`components/CustomCursor.tsx\`, \`components/Navbar.tsx\`, \`components/Footer.tsx\`, \`components/SmoothScroll.jsx\` |
-| \`app/page.tsx\` | Homepage composition: hero, project preview, services, contact CTA. | \`components/Hero/Hero.tsx\`, \`components/Solutions/SolutionsSection.tsx\`, \`components/Contact.tsx\` |
+| \`app/layout.tsx\` | Root shell, Manrope and cursive display fonts, metadata, theme provider, animated loader/background, cursor, navbar, footer, and Lenis wrapper. | \`app/globals.css\`, \`components/ThemeProvider.tsx\`, \`components/StudioBackground.tsx\`, \`components/CustomCursor.tsx\`, \`components/Navbar.tsx\`, \`components/Footer.tsx\`, \`components/SmoothScroll.jsx\` |
+| \`app/page.tsx\` | Homepage composition: hero, project preview, tech stack, services, contact CTA. | \`components/Hero/Hero.tsx\`, \`components/Solutions/SolutionsSection.tsx\`, \`components/Contact.tsx\` |
 | \`app/about/page.tsx\` | Personal and professional background, including chess as a hobby. | \`app/globals.css\` |
 | \`app/projects/page.tsx\` | Full project list. | \`data/portfolio-projects.ts\`, \`components/Solutions/SolutionsSection.tsx\` |
 | \`app/blog/page.tsx\` | Blog index. Only add links to verified, published destinations. | Existing verified links when available |
