@@ -37,8 +37,9 @@ This document is the source of truth for the portfolio refresh: scope, phase bou
 - `app/page.tsx` — homepage section composition and ordering; related to Hero, selected work, services, Live Lab, About, and Contact sections.
 - `components/Hero/Hero.tsx` — hero message and visual composition; related to ripple and spotlight effects.
 - `components/Hero/Intro.tsx` — supporting hero introduction; related to Hero.
-- `components/Solutions/SolutionsSection.tsx` — current solutions/work presentation; evaluate as the canonical selected-work section.
-- `components/Projects.tsx` — project listing; check whether it duplicates or conflicts with the homepage's canonical work section.
+- `data/portfolio-projects.ts` — canonical typed project records and verified optional links; consumed by `components/Solutions/SolutionsSection.tsx`.
+- `components/Solutions/SolutionsSection.tsx` — canonical selected-work presentation; renders the project records without client-side state.
+- `components/Projects.tsx` — backwards-compatible export of the canonical selected-work section; do not add a second project data source here.
 - `components/Navbar.tsx` — site navigation and active-section behavior; related to section IDs and smooth scrolling.
 - `components/SmoothScroll.jsx` — global scroll behavior; related to root layout and reduced-motion preferences.
 - `components/live-lab/LiveLabSection.tsx` — animated live-lab visual; related to visibility lifecycle and reduced motion.
