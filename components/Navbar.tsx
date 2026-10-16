@@ -65,7 +65,7 @@ export function Navbar() {
         </div>
         <div className="flex items-center gap-1 md:hidden">
           <ThemeToggle className={iconLinkClass} />
-          <button type="button" aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={isOpen} aria-controls="mobile-navigation" className={iconLinkClass} onClick={() => setIsOpen((open) => !open}>
+          <button type="button" aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={isOpen} aria-controls="mobile-navigation" className={iconLinkClass} onClick={() => setIsOpen((open) => !open)}>
             {isOpen ? <X aria-hidden="true" className="size-4" /> : <Menu aria-hidden="true" className="size-4" />}
           </button>
         </div>
