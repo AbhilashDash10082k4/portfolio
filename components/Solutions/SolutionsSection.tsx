@@ -1,133 +1,91 @@
-"use client";
-
-import React from "react";
-import { SolutionCategory } from "./SolutionCategory";
-import { SolutionCard } from "./SolutionCard";
+/**
+ * Selected-work section for the homepage.
+ * Related files: data/portfolio-projects.ts owns project content; app/page.tsx mounts
+ * this section; components/Navbar.tsx targets its #projects anchor.
+ * Keep this a Server Component: rendering the data does not require client JS.
+ */
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
-import { motion } from "motion/react"
+import { portfolioProjects } from "@/data/portfolio-projects";
+
+const statusStyles = {
+  "In progress": "border-emerald-400/25 bg-emerald-400/10 text-emerald-300",
+  Prototype: "border-sky-400/25 bg-sky-400/10 text-sky-300",
+  Planned: "border-white/15 bg-white/5 text-white/55",
+} as const;
 
 export const SolutionsSection = () => {
-    return (
-        <Section id="solutions" className="pt-8 md:pt-8 pb-24 relative overflow-hidden">
-            {/* Background Accents */}
-            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] -z-10 rounded-full" />
-            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[120px] -z-10 rounded-full" />
+  return (
+    <Section id="projects" className="relative py-20 md:py-28">
+      <div className="container mx-auto max-w-7xl px-5 md:px-8">
+        <div className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">
+              Selected work & experiments
+            </p>
+            <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
+              Building useful software,{" "}
+              <span className="text-white/45">one problem at a time.</span>
+            </h2>
+          </div>
+          <p className="max-w-md text-sm leading-6 text-white/55 md:text-base">
+            A transparent snapshot of products and automation ideas I’m building. Each card shows its current status; links appear only when there’s a real destination to visit.
+          </p>
+        </div>
 
-            <div className="container mx-auto px-4 space-y-24">
-                {/* Section header */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false }}
-                    className="max-w-3xl space-y-4"
-                >
-                    <h2 className="text-sm font-semibold tracking-widest uppercase text-blue-500">
-                        Expertise & Capability
-                    </h2>
-                    <h3 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-                        Digital solutions for <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-400">scalable business growth</span>
-                    </h3>
-                    <p className="text-white/40 text-lg leading-relaxed">
-                        I build high-performance systems that automate complexity and drive revenue. 
-                        Not just code—strategic business infrastructure.
-                    </p>
-                </motion.div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {portfolioProjects.map((project, index) => (
+            <article
+              key={project.slug}
+              className="group flex min-h-72 flex-col rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition-colors duration-200 hover:border-cyan-300/30 hover:bg-white/[0.045] sm:p-7"
+            >
+              <div className="mb-7 flex items-start justify-between gap-3">
+                <span className="font-mono text-xs tracking-wider text-white/30">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${statusStyles[project.status]}`}>
+                  {project.status}
+                </span>
+              </div>
 
-                <div className="space-y-32">
-                    {/* Category: Conversion Websites */}
-                    <SolutionCategory 
-                        title="Conversion-Centric Interfaces"
-                        description="High-performance web systems designed to turn traffic into measurable revenue."
-                        color="blue"
-                    >
-                        <SolutionCard 
-                            isLarge
-                            title="Enterprise SaaS Landing System"
-                            description="A complete conversion framework built for high-scale B2B products. Includes A/B testing, dynamic content injection, and optimized lead flows."
-                            techStack={["Next.js", "Tailwind CSS", "Framer Motion", "Stripe"]}
-                            metrics={[
-                                { label: "Conversion Rate", value: "+32%" },
-                                { label: "Load Time", value: "<0.8s" }
-                            ]}
-                            cta={{ label: "View Architecture", href: "#" }}
-                        />
-                        <SolutionCard 
-                            title="Interactive Portfolio"
-                            description="Dynamic showcase for high-ticket service providers."
-                            techStack={["GSAP", "Three.js"]}
-                            className="col-span-2 row-span-1"
-                        />
-                        <SolutionCard 
-                            title="Sales Funnel Engine"
-                            description="Built-in analytics and user behavior tracking."
-                            techStack={["PostgreSQL", "Analytics SDK"]}
-                            className="col-span-2 row-span-1"
-                        />
-                    </SolutionCategory>
+              <div className="flex-1">
+                <h3 className="mb-3 text-xl font-semibold tracking-tight text-white sm:text-2xl">
+                  {project.title}
+                </h3>
+                <p className="text-sm leading-6 text-white/55">{project.summary}</p>
+              </div>
 
-                    {/* Category: Business Automation */}
-                    <SolutionCategory 
-                        title="Business Process Automation"
-                        description="Eliminating manual bottlenecks with robust, event-driven internal systems."
-                        color="purple"
-                    >
-                        <SolutionCard 
-                            title="Onboarding Pipeline"
-                            description="Fully automated client onboarding and project provisioning."
-                            techStack={["Node.js", "Redis", "Zapier"]}
-                            className="col-span-2 row-span-1"
-                        />
-                        <SolutionCard 
-                            title="Inventory Sync engine"
-                            description="Real-time multi-channel stock synchronization."
-                            techStack={["Shopify API", "Webhooks"]}
-                            className="col-span-2 row-span-1"
-                        />
-                        <SolutionCard 
-                            isLarge
-                            title="Operational Workspace"
-                            description="Custom ERP/CRM internal management tool that unified 3 legacy systems into a single source of truth."
-                            techStack={["React", "TanStack Query", "Drizzle ORM"]}
-                            metrics={[
-                                { label: "Manual Hours Saved", value: "24h/wk" },
-                                { label: "User Satisfaction", value: "98%" }
-                            ]}
-                            cta={{ label: "View Workflow", href: "#" }}
-                        />
-                    </SolutionCategory>
+              <div className="mt-7">
+                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/35">
+                  {project.role}
+                </p>
+                <ul aria-label={`${project.title} technology and focus areas`} className="flex flex-wrap gap-2">
+                  {project.stack.map((item) => (
+                    <li key={item} className="rounded-md border border-white/10 px-2 py-1 text-xs text-white/65">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                    {/* Category: AI Agents & Chatbots */}
-                    <SolutionCategory 
-                        title="Intelligent AI Agents"
-                        description="Autonomous systems that process data, make decisions, and interact with users."
-                        color="emerald"
-                    >
-                        <SolutionCard 
-                            isLarge
-                            title="AI Sales Assistant"
-                            description="Context-aware AI that qualifies leads, handles objections, and schedules meetings 24/7 with zero human oversight."
-                            techStack={["OpenAI", "LangChain", "Vector stores"]}
-                            metrics={[
-                                { label: "Lead Qualification", value: "+45%" },
-                                { label: "Response Time", value: "Inst." }
-                            ]}
-                            cta={{ label: "Test Simulation", href: "#" }}
-                        />
-                        <SolutionCard 
-                            title="Data Analyst Agent"
-                            description="Talk to your database using natural language."
-                            techStack={["LlamaIndex", "SQLAlchemy"]}
-                            className="col-span-2 row-span-1"
-                        />
-                        <SolutionCard 
-                            title="Knowledge Base Bot"
-                            description="Internal RAG bot for company documentation."
-                            techStack={["Pinecone", "Next.js"]}
-                            className="col-span-2 row-span-1"
-                        />
-                    </SolutionCategory>
+              {project.repositoryUrl && (
+                <div className="mt-6 border-t border-white/10 pt-4">
+                  <Link
+                    href={project.repositoryUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`View ${project.title} source code on GitHub (opens in a new tab)`}
+                    className="inline-flex items-center gap-2 text-sm font-medium text-cyan-300 transition-colors hover:text-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+                  >
+                    View source <ArrowUpRight aria-hidden="true" className="size-4" />
+                  </Link>
                 </div>
-            </div>
-        </Section>
-    );
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
 };
