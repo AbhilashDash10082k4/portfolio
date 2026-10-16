@@ -38,18 +38,24 @@ export function CustomCursor() {
 
   useEffect(() => {
     if (!finePointer) return;
-    const targets = document.querySelectorAll<HTMLElement>('a, button, input, textarea, select, [role="button"]');
-    const enter = () => document.documentElement.classList.add("cursor-hovering");
-    const leave = () => document.documentElement.classList.remove("cursor-hovering");
-    targets.forEach((target) => {
-      target.addEventListener("pointerenter", enter);
-      target.addEventListener("pointerleave", leave);
-    });
+    const selector = 'a, button, input, textarea, select, [role="button"]';
+    const handlePointerOver = (event: PointerEvent) => {
+      if (event.target instanceof Element && event.target.closest(selector)) {
+        document.documentElement.classList.add("cursor-hovering");
+      }
+    };
+    const handlePointerOut = (event: PointerEvent) => {
+      const fromInteractive = event.target instanceof Element && event.target.closest(selector);
+      const toInteractive = event.relatedTarget instanceof Element && event.relatedTarget.closest(selector);
+      if (fromInteractive && !toInteractive) {
+        document.documentElement.classList.remove("cursor-hovering");
+      }
+    };
+    document.addEventListener("pointerover", handlePointerOver);
+    document.addEventListener("pointerout", handlePointerOut);
     return () => {
-      targets.forEach((target) => {
-        target.removeEventListener("pointerenter", enter);
-        target.removeEventListener("pointerleave", leave);
-      });
+      document.removeEventListener("pointerover", handlePointerOver);
+      document.removeEventListener("pointerout", handlePointerOut);
       document.documentElement.classList.remove("cursor-hovering");
     };
   }, [finePointer]);
