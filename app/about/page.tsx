@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ChessKnight, Compass, Code2, Lightbulb } from "lucide-react";
+import { Compass, Code2, Lightbulb } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About | Abhilash Dash",
@@ -30,7 +30,7 @@ export default function AboutPage() {
         <article className="surface-card flex flex-col justify-between p-7 sm:p-9">
           <div>
             <p className="page-eyebrow">Beyond the keyboard</p>
-            <ChessKnight className="mt-6 size-9 text-accent-strong" aria-hidden="true" />
+            <span className="mt-6 block text-4xl leading-none text-accent-strong" aria-hidden="true">♞</span>
             <h2 className="mt-4 text-2xl font-bold tracking-tight">A chess player, too.</h2>
             <p className="mt-4 leading-7 text-muted">I enjoy playing chess. It’s a good reminder to be patient, recognize patterns, and think a few moves ahead—skills that come in handy when working through a difficult engineering problem.</p>
           </div>
