@@ -1,133 +1,124 @@
 "use client";
 
-import React from "react";
-import { SolutionCategory } from "./SolutionCategory";
-import { SolutionCard } from "./SolutionCard";
+/**
+ * Portfolio projects section.
+ *
+ * Purpose:
+ * - Render the canonical project records as responsive, accessible project cards.
+ * - Show honest project status and only render links that are actually configured.
+ *
+ * Related files:
+ * - data/portfolio-projects.ts owns the project content and verified URLs.
+ * - app/page.tsx places this section on the homepage.
+ * - components/Navbar.tsx links to this section through #projects.
+ *
+ * Keep claims and status labels factual. Do not add sample URLs or fabricated metrics.
+ */
+
+import { portfolioProjects } from "@/data/portfolio-projects";
 import { Section } from "@/components/ui/section";
-import { motion } from "motion/react"
 
 export const SolutionsSection = () => {
-    return (
-        <Section id="solutions" className="pt-8 md:pt-8 pb-24 relative overflow-hidden">
-            {/* Background Accents */}
-            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] -z-10 rounded-full" />
-            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[120px] -z-10 rounded-full" />
+  return (
+    <Section id="projects" className="relative overflow-hidden py-20 md:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/4 top-0 -z-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-[100px]"
+      />
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="mb-12 max-w-3xl md:mb-16">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-400">
+            Selected work & explorations
+          </p>
+          <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
+            Products built around{" "}
+            <span className="text-white/55">real problems.</span>
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-white/60 md:text-lg">
+            Full-stack products, AI agents, and business automation. Projects
+            are labeled honestly as they move from idea to implementation.
+          </p>
+        </div>
 
-            <div className="container mx-auto px-4 space-y-24">
-                {/* Section header */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false }}
-                    className="max-w-3xl space-y-4"
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {portfolioProjects.map((project, index) => (
+            <article
+              key={project.slug}
+              className="group flex min-h-72 flex-col rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition-colors duration-200 hover:border-cyan-400/30 hover:bg-white/[0.045] md:p-7"
+            >
+              <div className="mb-8 flex items-start justify-between gap-4">
+                <span className="font-mono text-xs text-white/35">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] font-medium text-white/65">
+                  {project.status}
+                </span>
+              </div>
+
+              <h3 className="text-xl font-semibold tracking-tight text-white transition-colors group-hover:text-cyan-200">
+                {project.title}
+              </h3>
+              <p className="mt-3 flex-1 text-sm leading-6 text-white/60">
+                {project.summary}
+              </p>
+
+              <div className="mt-6">
+                <p className="mb-3 text-xs text-white/40">
+                  <span className="text-white/60">Role:</span> {project.role}
+                </p>
+                <ul
+                  aria-label={`${project.title} technology stack`}
+                  className="flex flex-wrap gap-2"
                 >
-                    <h2 className="text-sm font-semibold tracking-widest uppercase text-blue-500">
-                        Expertise & Capability
-                    </h2>
-                    <h3 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-                        Digital solutions for <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-400">scalable business growth</span>
-                    </h3>
-                    <p className="text-white/40 text-lg leading-relaxed">
-                        I build high-performance systems that automate complexity and drive revenue. 
-                        Not just code—strategic business infrastructure.
-                    </p>
-                </motion.div>
-
-                <div className="space-y-32">
-                    {/* Category: Conversion Websites */}
-                    <SolutionCategory 
-                        title="Conversion-Centric Interfaces"
-                        description="High-performance web systems designed to turn traffic into measurable revenue."
-                        color="blue"
+                  {project.stack.map((technology) => (
+                    <li
+                      key={technology}
+                      className="rounded-md border border-white/10 bg-black/20 px-2 py-1 text-[11px] text-white/60"
                     >
-                        <SolutionCard 
-                            isLarge
-                            title="Enterprise SaaS Landing System"
-                            description="A complete conversion framework built for high-scale B2B products. Includes A/B testing, dynamic content injection, and optimized lead flows."
-                            techStack={["Next.js", "Tailwind CSS", "Framer Motion", "Stripe"]}
-                            metrics={[
-                                { label: "Conversion Rate", value: "+32%" },
-                                { label: "Load Time", value: "<0.8s" }
-                            ]}
-                            cta={{ label: "View Architecture", href: "#" }}
-                        />
-                        <SolutionCard 
-                            title="Interactive Portfolio"
-                            description="Dynamic showcase for high-ticket service providers."
-                            techStack={["GSAP", "Three.js"]}
-                            className="col-span-2 row-span-1"
-                        />
-                        <SolutionCard 
-                            title="Sales Funnel Engine"
-                            description="Built-in analytics and user behavior tracking."
-                            techStack={["PostgreSQL", "Analytics SDK"]}
-                            className="col-span-2 row-span-1"
-                        />
-                    </SolutionCategory>
+                      {technology}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                    {/* Category: Business Automation */}
-                    <SolutionCategory 
-                        title="Business Process Automation"
-                        description="Eliminating manual bottlenecks with robust, event-driven internal systems."
-                        color="purple"
+              {(project.repositoryUrl ||
+                project.demoUrl ||
+                project.caseStudyUrl) && (
+                <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 border-t border-white/10 pt-4 text-sm">
+                  {project.repositoryUrl && (
+                    <a
+                      href={project.repositoryUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-cyan-300 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
                     >
-                        <SolutionCard 
-                            title="Onboarding Pipeline"
-                            description="Fully automated client onboarding and project provisioning."
-                            techStack={["Node.js", "Redis", "Zapier"]}
-                            className="col-span-2 row-span-1"
-                        />
-                        <SolutionCard 
-                            title="Inventory Sync engine"
-                            description="Real-time multi-channel stock synchronization."
-                            techStack={["Shopify API", "Webhooks"]}
-                            className="col-span-2 row-span-1"
-                        />
-                        <SolutionCard 
-                            isLarge
-                            title="Operational Workspace"
-                            description="Custom ERP/CRM internal management tool that unified 3 legacy systems into a single source of truth."
-                            techStack={["React", "TanStack Query", "Drizzle ORM"]}
-                            metrics={[
-                                { label: "Manual Hours Saved", value: "24h/wk" },
-                                { label: "User Satisfaction", value: "98%" }
-                            ]}
-                            cta={{ label: "View Workflow", href: "#" }}
-                        />
-                    </SolutionCategory>
-
-                    {/* Category: AI Agents & Chatbots */}
-                    <SolutionCategory 
-                        title="Intelligent AI Agents"
-                        description="Autonomous systems that process data, make decisions, and interact with users."
-                        color="emerald"
+                      Repository <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                  {project.demoUrl && (
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-cyan-300 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
                     >
-                        <SolutionCard 
-                            isLarge
-                            title="AI Sales Assistant"
-                            description="Context-aware AI that qualifies leads, handles objections, and schedules meetings 24/7 with zero human oversight."
-                            techStack={["OpenAI", "LangChain", "Vector stores"]}
-                            metrics={[
-                                { label: "Lead Qualification", value: "+45%" },
-                                { label: "Response Time", value: "Inst." }
-                            ]}
-                            cta={{ label: "Test Simulation", href: "#" }}
-                        />
-                        <SolutionCard 
-                            title="Data Analyst Agent"
-                            description="Talk to your database using natural language."
-                            techStack={["LlamaIndex", "SQLAlchemy"]}
-                            className="col-span-2 row-span-1"
-                        />
-                        <SolutionCard 
-                            title="Knowledge Base Bot"
-                            description="Internal RAG bot for company documentation."
-                            techStack={["Pinecone", "Next.js"]}
-                            className="col-span-2 row-span-1"
-                        />
-                    </SolutionCategory>
+                      Live demo <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                  {project.caseStudyUrl && (
+                    <a
+                      href={project.caseStudyUrl}
+                      className="text-cyan-300 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+                    >
+                      Case study <span aria-hidden="true">→</span>
+                    </a>
+                  )}
                 </div>
-            </div>
-        </Section>
-    );
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
 };
