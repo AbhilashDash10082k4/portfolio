@@ -1,21 +1,20 @@
-'use client';
-import { ChevronDown } from 'lucide-react';
-import { motion } from 'motion/react';
+"use client";
+
+import { ChevronDown } from "lucide-react";
+import { motion } from "motion/react";
 
 export function ScrollButton() {
   return (
     <motion.button
+      type="button"
+      aria-label="Scroll to selected projects"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 1 }}
-      onClick={() => {
-        document
-          .querySelector('#about')
-          ?.scrollIntoView({ behavior: 'smooth' });
-      }}
-      className="absolute z-30 bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center w-7 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/30 transition-all group"
+      transition={{ duration: 1, delay: 0.8 }}
+      onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+      className="absolute bottom-7 left-1/2 z-30 flex h-12 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-border bg-surface/70 text-muted shadow-sm backdrop-blur-sm transition hover:border-accent-strong/40 hover:text-accent-strong"
     >
-      <ChevronDown className="w-5 h-5 text-white/50 group-hover:text-white transition-colors animate-bounce" />
+      <ChevronDown aria-hidden="true" className="size-5 animate-bounce" />
     </motion.button>
   );
 }
