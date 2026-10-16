@@ -1,4 +1,9 @@
-import type { Metadata } from "next";
+/**
+ * Root application shell: global fonts, metadata, styles, navigation, scroll
+ * behavior, and footer. Related files: app/globals.css defines theme tokens;
+ * components/Navbar.tsx and components/Footer.tsx wrap every page.
+ */
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
@@ -21,9 +26,15 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Software Engineer",
+  title: "Portfolio | Full-Stack Engineer & AI Automation",
   description:
-    "A showcase of my work as a Software Engineer specializing in building exceptional digital experiences.",
+    "Selected software projects and experiments in full-stack engineering, AI agents, and business automation.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#050505",
 };
 
 export default function RootLayout({
@@ -35,12 +46,11 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased bg-background text-foreground`}
-        >
+      >
         <SmoothScrolling>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
         </SmoothScrolling>
       </body>
     </html>
