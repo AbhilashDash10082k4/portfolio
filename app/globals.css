@@ -250,6 +250,44 @@ textarea {
   background: var(--surface);
 }
 
+.form-label {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: var(--foreground);
+  font-size: 0.85rem;
+  font-weight: 750;
+}
+
+.form-field {
+  display: block;
+  width: 100%;
+  min-height: 3.15rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: var(--surface);
+  padding: 0.8rem 0.95rem;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.9rem;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.form-field::placeholder {
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+.form-field:focus {
+  border-color: var(--accent-strong);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-strong) 15%, transparent);
+}
+
+.form-field option {
+  background: var(--surface);
+  color: var(--foreground);
+}
+
 .custom-cursor-ring,
 .custom-cursor-dot {
   position: fixed;
