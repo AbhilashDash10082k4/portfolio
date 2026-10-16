@@ -1,43 +1,25 @@
 /**
- * Contact call-to-action.
- * Related files: components/Navbar.tsx links to #contact; app/page.tsx mounts
- * this section. Use only verified contact destinations; no inert form or
- * placeholder email/social profile is presented as a working contact method.
+ * Homepage contact invitation. The full enquiry form lives at /contact.
  */
 import Link from "next/link";
-import { ArrowUpRight, Github } from "lucide-react";
-import { Section } from "@/components/ui/section";
+import { ArrowUpRight, Mail } from "lucide-react";
 
 export function Contact() {
   return (
-    <Section id="contact" className="py-20 md:py-28">
-      <div className="container mx-auto max-w-5xl px-5 md:px-8">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.025] p-7 sm:p-10 md:p-14">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">
-            Have a problem worth solving?
-          </p>
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
-                Let’s build something useful.
-              </h2>
-              <p className="mt-5 max-w-xl text-sm leading-6 text-white/55 sm:text-base">
-                I’m interested in thoughtful full-stack products, AI agents, and business automation. Reach out through GitHub to start a conversation.
-              </p>
-            </div>
-            <Link
-              href="https://github.com/AbhilashDash10082k4"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-cyan-300 px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
-            >
-              <Github aria-hidden="true" className="size-4" />
-              Contact on GitHub
-              <ArrowUpRight aria-hidden="true" className="size-4" />
-            </Link>
+    <section className="page-container py-16 md:py-28">
+      <div className="relative overflow-hidden rounded-[2rem] border border-accent-strong/20 bg-surface/90 p-7 shadow-[0_30px_100px_var(--shadow)] sm:p-10 md:p-14">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-24 size-80 rounded-full bg-accent/30 blur-3xl" />
+        <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
+            <p className="page-eyebrow mb-4">Have a problem worth solving?</p>
+            <h2 className="text-4xl font-semibold tracking-[-0.065em] sm:text-5xl md:text-6xl">Let’s build something valuable.</h2>
+            <p className="page-copy mt-5 max-w-xl">Tell me what you’re working on, what’s getting in the way, and what a good outcome would look like. I’ll get back to you by email.</p>
           </div>
+          <Link href="/contact" className="primary-button w-full shrink-0 sm:w-fit sm:px-7 sm:text-base">
+            Start a conversation <Mail aria-hidden="true" className="size-5" /><ArrowUpRight aria-hidden="true" className="size-4" />
+          </Link>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }
