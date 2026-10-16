@@ -20,9 +20,9 @@ Use this index before changing the site. Keep shared behavior in its canonical c
 |---|---|---|
 | \`components/ThemeProvider.tsx\` | Light-first theme state via next-themes. | \`app/layout.tsx\`, \`components/ThemeToggle.tsx\` |
 | \`components/ThemeToggle.tsx\` | Accessible light/dark toggle. | \`components/Navbar.tsx\` |
-| \`components/StudioBackground.tsx\` | Decorative soft aurora, fine grid, and sparse particles. | \`app/globals.css\` |
-| \`components/CustomCursor.tsx\` | Two-layer pointer effect for fine-pointer devices only. | \`app/layout.tsx\`, \`app/globals.css\` |
-| \`components/AmbientAudioToggle.tsx\` | Optional synthesized ambient pad; starts only after an explicit click. | \`components/Navbar.tsx\` |
+| \`components/StudioBackground.tsx\` | Three drifting aurora globules, visible fine grid, and sparse particles. | \`app/globals.css\` |
+| \`components/CustomCursor.tsx\` | Two-layer pointer effect with hover response for fine-pointer devices. | \`app/layout.tsx\`, \`app/globals.css\` |
+| \`components/AmbientAudioToggle.tsx\` | User-initiated Spotify embed featuring Ashke; no copyrighted audio is bundled or autoplayed. | \`components/Navbar.tsx\` |
 | \`components/SmoothScroll.jsx\` | Root Lenis smooth-scrolling provider. **Keep ReactLenis mounted; never remove, replace, or make it inert without explicit approval.** | \`app/layout.tsx\`, \`lenis/react\` |
 | \`components/Navbar.tsx\` | Cross-route navigation, theme and audio controls, GitHub link, and contact CTA. | All app routes |
 | \`components/Footer.tsx\` | Shared footer, email, GitHub, and blog navigation. | \`app/layout.tsx\` |
