@@ -7,6 +7,6 @@
  */
 export default function SmoothScrolling({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}) {
   return children;
 }
