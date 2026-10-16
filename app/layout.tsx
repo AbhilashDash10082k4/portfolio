@@ -1,40 +1,33 @@
 /**
- * Root application shell: global fonts, metadata, styles, navigation, scroll
- * behavior, and footer. Related files: app/globals.css defines theme tokens;
- * components/Navbar.tsx and components/Footer.tsx wrap every page.
+ * Root shell: Manrope typography, light-first theme, global atmosphere,
+ * navigation, and Lenis. Keep SmoothScrolling mounted around every route.
  */
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import SmoothScrolling from "@/components/SmoothScroll";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { StudioBackground } from "@/components/StudioBackground";
+import { CustomCursor } from "@/components/CustomCursor";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Full-Stack Engineer & AI Automation",
+  title: "Abhilash Dash | Full-Stack Engineering, AI Agents & Automation",
   description:
-    "Selected software projects and experiments in full-stack engineering, AI agents, and business automation.",
+    "I build full-stack products, AI agents, and business automations that turn complex ideas into useful systems.",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#050505",
+  themeColor: "#F7F8F4",
 };
 
 export default function RootLayout({
@@ -43,15 +36,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased bg-background text-foreground`}
-      >
-        <SmoothScrolling>
-          <Navbar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
-        </SmoothScrolling>
+    <html lang="en" suppressHydrationWarning>
+      <body className={manrope.variable + " antialiased bg-background text-foreground"}>
+        <ThemeProvider>
+          <StudioBackground />
+          <CustomCursor />
+          <SmoothScrolling>
+            <Navbar />
+            <main className="relative z-10 min-h-screen">{children}</main>
+            <Footer />
+          </SmoothScrolling>
+        </ThemeProvider>
       </body>
     </html>
   );
