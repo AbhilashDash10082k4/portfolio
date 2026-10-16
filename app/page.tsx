@@ -1,10 +1,11 @@
 /**
- * Homepage reading order: hero, selected projects, service focus, and CTA.
+ * Homepage reading order: hero, selected projects, tech stack, service focus, CTA.
  * Dedicated About, Projects, Blog, and Contact routes live under app/.
  */
 import { Hero } from "@/components/Hero/Hero";
 import { SolutionsSection } from "@/components/Solutions/SolutionsSection";
 import { Contact } from "@/components/Contact";
+import { TechStackSection } from "@/components/TechStackSection";
 import Link from "next/link";
 import { ArrowUpRight, Bot, Code2, Workflow } from "lucide-react";
 
@@ -13,6 +14,7 @@ export default function Home() {
     <div className="relative overflow-x-clip">
       <Hero />
       <SolutionsSection limit={3} />
+      <TechStackSection />
       <section className="page-container py-16 md:py-24">
         <div className="mb-10 max-w-2xl">
           <p className="page-eyebrow">What I can help with</p>
