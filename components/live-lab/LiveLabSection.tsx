@@ -70,7 +70,7 @@ export const LiveLabSection = () => {
                         The Interactive <span className="text-blue-500 italic">Live Lab</span>
                     </h2>
                     <p className="text-white/40">
-                        Explore the engine behind my solutions. Real-time simulations of production-grade systems.
+                        Explore illustrative interface concepts for AI assistants and automation workflows. These mockups demonstrate interaction patterns, not connected production systems.
                     </p>
                 </div>
 
@@ -217,12 +217,12 @@ const AutomationMock = () => (
 
         <div className="grid grid-cols-2 gap-8 w-full">
             <div className="bg-white/5 p-4 rounded-xl border border-white/5 space-y-2">
-                <div className="text-[10px] uppercase text-white/40 tracking-widest font-bold">Processed</div>
-                <div className="text-2xl font-bold font-mono">1,248</div>
+                <div className="text-[10px] uppercase text-white/40 tracking-widest font-bold">Example metric</div>
+                <div className="text-2xl font-bold font-mono">Demo</div>
             </div>
             <div className="bg-white/5 p-4 rounded-xl border border-white/5 space-y-2">
-                <div className="text-[10px] uppercase text-white/40 tracking-widest font-bold">Success Rate</div>
-                <div className="text-2xl font-bold font-mono">99.9%</div>
+                <div className="text-[10px] uppercase text-white/40 tracking-widest font-bold">Status</div>
+                <div className="text-2xl font-bold font-mono">Illustrative</div>
             </div>
         </div>
     </motion.div>
