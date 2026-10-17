@@ -1273,3 +1273,16 @@ textarea {
     mask-image: linear-gradient(to bottom, transparent 0%, #000 7%, #000 72%, transparent 100%);
   }
 }
+
+
+/* Final cross-browser edge blend: use one standard radial mask, not mask-layer compositing. */
+.hero-portrait-layer {
+  overflow: hidden !important;
+  isolation: isolate;
+}
+.hero-portrait-layer img {
+  -webkit-mask-image: radial-gradient(ellipse 95% 80% at 50% 50%, #000 42%, rgba(0,0,0,.82) 65%, transparent 100%) !important;
+  mask-image: radial-gradient(ellipse 95% 80% at 50% 50%, #000 42%, rgba(0,0,0,.82) 65%, transparent 100%) !important;
+  -webkit-mask-composite: source-over !important;
+  mask-composite: add !important;
+}
