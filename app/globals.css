@@ -225,8 +225,8 @@ textarea {
   overflow: hidden;
   background:
     radial-gradient(ellipse at 50% 40%, rgba(185, 239, 88, 0.22), transparent 52%),
-    #f7f8f4;
-  color: #151a17;
+    #101412;
+  color: #f3f5ef;
 }
 
 .intro-loader-content {
@@ -236,7 +236,7 @@ textarea {
 
 .intro-loader-label {
   margin-bottom: 1.2rem;
-  color: #2b7a6d;
+  color: #9ddc7d;
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.28em;
@@ -256,7 +256,7 @@ textarea {
 
 .intro-loader-brand span {
   display: inline-block;
-  color: #151a17;
+  color: #f3f5ef;
   text-shadow: 0 10px 34px rgba(43, 122, 109, 0.12);
 }
 
@@ -270,7 +270,7 @@ textarea {
   margin: 2rem auto 0;
   overflow: hidden;
   border-radius: 99px;
-  background: #e2e7df;
+  background: #303b33;
 }
 
 .intro-loader-track span {
