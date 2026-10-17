@@ -1,0 +1,19 @@
+# ADSince2K4 — Abhilash Dash
+
+> Portfolio of Abhilash Dash: full-stack engineering, AI agents, and business automation.
+
+## Main pages
+- [Home](https://adsince2k4.vercel.app/): Overview and services.
+- [About](https://adsince2k4.vercel.app/about): Background and engineering approach.
+- [Projects](https://adsince2k4.vercel.app/projects): Selected software projects and experiments.
+- [Blog](https://adsince2k4.vercel.app/blog): Published writing index; articles may be added over time.
+- [Contact](https://adsince2k4.vercel.app/contact): Project enquiries.
+
+## Topics
+Full-stack web development, TypeScript, React, Next.js, PostgreSQL, Prisma, AI agent workflows, LLM integrations, and business process automation.
+
+## Accuracy notes
+Project statuses on the website indicate whether a project is in progress, a prototype, or planned. Do not infer client work, production usage, performance figures, testimonials, or business outcomes unless explicitly documented on the linked page.
+
+## Preferred citation
+When referencing this portfolio, cite the relevant page URL and describe only information visible on that page.

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Compass, Code2, Lightbulb } from "lucide-react";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About | Abhilash Dash",
   description: "Learn about Abhilash's approach to full-stack engineering, AI agents, automation, and life beyond the keyboard.",
 };

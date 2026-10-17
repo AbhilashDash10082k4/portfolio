@@ -3,6 +3,7 @@ import { Mail, MessageCircle } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact | Abhilash Dash",
   description: "Tell Abhilash about your website, AI agent, or business automation project.",
 };

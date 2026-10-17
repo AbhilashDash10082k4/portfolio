@@ -40,3 +40,13 @@ Use this index before changing the site. Keep shared behavior in its canonical c
 - Run \`pnpm lint\`, \`pnpm exec tsc --noEmit\`, and \`pnpm build\`.
 - Verify the mobile menu, theme toggle, reduced-motion behavior, custom cursor on desktop, audio opt-in, contact form, and all route links.
 - Do not invent blog URLs, project links, metrics, or claims. The current repository did not expose a published blog URL, so the blog page should use a truthful empty state until a real destination is supplied.
+
+
+## SEO and AI discovery
+
+| File | Responsibility | Connected files |
+|---|---|---|
+| `app/robots.ts` | Crawler rules and sitemap discovery for public routes. | `app/sitemap.ts` |
+| `app/sitemap.ts` | Canonical public routes for search indexing. | `app/layout.tsx` |
+| `public/llms.txt` | Concise site map for AI assistants; informational convention, not a guaranteed ranking signal. | Public routes and project data |
+| `public/AI.md` | Short project and site facts for AI agents to reduce repeated repository exploration. | `data/portfolio-projects.ts`, app routes |

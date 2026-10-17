@@ -29,7 +29,7 @@ export const SolutionsSection = ({ limit }: { limit?: number }) => {
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project, index) => (
-            <article key={project.slug} className="group flex min-h-72 flex-col rounded-2xl border border-border bg-surface/80 p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-accent-strong/40 hover:shadow-xl sm:p-7">
+            <article key={project.slug} className="project-card glass-panel group flex min-h-72 flex-col rounded-2xl p-6 sm:p-7">
               <div className="mb-7 flex items-start justify-between gap-3">
                 <span className="font-mono text-xs tracking-wider text-muted/70">{String(index + 1).padStart(2, "0")}</span>
                 <span className={"rounded-full border px-2.5 py-1 text-[11px] font-bold " + statusStyles[project.status]}>{project.status}</span>
@@ -44,13 +44,18 @@ export const SolutionsSection = ({ limit }: { limit?: number }) => {
                   {project.stack.map((item) => <li key={item} className="rounded-md border border-border bg-surface-muted/70 px-2 py-1 text-xs text-muted">{item}</li>)}
                 </ul>
               </div>
-              {project.repositoryUrl && (
-                <div className="mt-6 border-t border-border pt-4">
-                  <Link href={project.repositoryUrl} target="_blank" rel="noreferrer" aria-label={"View " + project.title + " source code on GitHub (opens in a new tab)"} className="inline-flex items-center gap-2 text-sm font-extrabold text-accent-strong transition-colors hover:underline">
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border/70 pt-4">
+                {project.repositoryUrl ? (
+                  <Link href={project.repositoryUrl} target="_blank" rel="noreferrer" aria-label={"View " + project.title + " source code on GitHub (opens in a new tab)"} className="project-card-cta">
                     View source <ArrowUpRight aria-hidden="true" className="size-4" />
                   </Link>
-                </div>
-              )}
+                ) : (
+                  <span className="text-xs font-semibold text-muted">Building in public</span>
+                )}
+                <Link href={"/contact?project=" + encodeURIComponent(project.title)} className="project-card-cta">
+                  Discuss a similar build <ArrowUpRight aria-hidden="true" className="size-4" />
+                </Link>
+              </div>
             </article>
           ))}
         </div>
