@@ -22,7 +22,8 @@ export function CustomCursor() {
       x.set(event.clientX);
       y.set(event.clientY);
     };
-    const handleLeave = (event: PointerEvent) => {\n      if (event.relatedTarget !== null) return;
+    const handleLeave = (event: PointerEvent) => {
+      if (event.relatedTarget !== null) return;
       x.set(-100);
       y.set(-100);
     };
