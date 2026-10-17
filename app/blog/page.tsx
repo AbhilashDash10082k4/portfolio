@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, BookOpenText, Mail } from "lucide-react";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog | Abhilash Dash",
   description: "Notes and articles on software engineering, AI agents, and automation.",
 };
