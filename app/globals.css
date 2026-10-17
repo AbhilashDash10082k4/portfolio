@@ -1505,3 +1505,32 @@ textarea {
 @media (prefers-reduced-motion: reduce) {
   .hero-portrait-layer, .hero-copy-layer { opacity: 1 !important; transform: none !important; }
 }
+
+
+/* Full-viewport smoky photo: extend the supplied silhouette image behind the fixed navbar
+   and through the entire first screen, while keeping text, cursor, and Lenis untouched. */
+.hero-portrait-positioner {
+  top: -8rem !important;
+  height: calc(100vh + 8rem) !important;
+  height: calc(100svh + 8rem) !important;
+  background: var(--background) !important;
+}
+.hero-portrait-layer,
+.hero-portrait-layer img {
+  height: 100% !important;
+}
+.hero-portrait-layer img {
+  object-fit: cover !important;
+  object-position: center 36% !important;
+}
+@media (max-width: 767px) {
+  .hero-portrait-positioner {
+    top: -8rem !important;
+    height: calc(100vh + 8rem) !important;
+    height: calc(100svh + 8rem) !important;
+  }
+  .hero-portrait-layer img {
+    object-fit: cover !important;
+    object-position: center 34% !important;
+  }
+}
