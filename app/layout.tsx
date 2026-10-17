@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     siteName: "ADSince2K4 · Abhilash Dash",
     title: "Abhilash Dash | Full-Stack Engineering, AI Agents & Automation",
     description: "Full-stack products, AI agents, and business automations built around real problems.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "ADSince2K4 — Abhilash Dash" }],
+    images: [{ url: "/dp.webp", width: 1200, height: 630, alt: "ADSince2K4 — Abhilash Dash" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Abhilash Dash | Full-Stack Engineering, AI Agents & Automation",
     description: "Full-stack products, AI agents, and business automations built around real problems.",
-    images: ["/og-image.png"],
+    images: ["/dp.webp"],
   },
   robots: {
     index: true,
