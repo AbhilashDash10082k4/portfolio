@@ -53,15 +53,17 @@ export function Intro() {
           <span aria-hidden="true" className="size-2 rounded-full bg-accent-strong" />
           Independent engineer · Full-stack, AI & automation
         </p>
-        <div ref={imageRef} className="hero-portrait-layer">
-          <Image
-            src="/Contemplative%20Silhouette%20in%20Smoky%20Backlight.png"
-            alt="Abhilash Dash silhouetted against a smoky backlight"
-            width={1600}
-            height={1200}
-            priority
-            sizes="(max-width: 767px) 100vw, 96vw"
-          />
+        <div className="hero-portrait-positioner" aria-hidden="true">
+          <div ref={imageRef} className="hero-portrait-layer">
+            <Image
+              src="/Contemplative%20Silhouette%20in%20Smoky%20Backlight.png"
+              alt=""
+              width={1600}
+              height={1200}
+              priority
+              sizes="100vw"
+            />
+          </div>
         </div>
         <div ref={copyRef} className="hero-copy-layer">
           <p className="hero-name mb-2">Hi, I’m <span className="hero-name-script">Abhilash Dash</span></p>

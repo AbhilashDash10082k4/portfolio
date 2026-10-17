@@ -1,5 +1,5 @@
 /**
- * Root shell: Manrope typography, light-first theme, global atmosphere,
+ * Root shell: Manrope typography, dark-first theme, global atmosphere,
  * cursor, startup loader, navigation, and Lenis. Keep Lenis mounted.
  */
 import type { Metadata, Viewport } from "next";
