@@ -1685,9 +1685,9 @@ canvas {
 }
 
 
-/* Reference-match pass: full-bleed image, lifted portrait, luminous contrast, and twinkling stars. */
+/* Reference-match pass: align the silhouette to the supplied desktop composition. */
 .hero-portrait-positioner {
-  /* Extend beyond the hero's start so the photo reaches the viewport's top edge. */
+  /* Full-bleed photo continues behind the navbar and reaches every viewport edge. */
   top: -10rem !important;
   height: calc(100vh + 10rem) !important;
   height: calc(100svh + 10rem) !important;
@@ -1695,26 +1695,33 @@ canvas {
   border: 0 !important;
   outline: 0 !important;
   background:
-    radial-gradient(ellipse at 50% 37%, rgba(210, 238, 174, .11), transparent 34%),
-    linear-gradient(180deg, rgba(2, 7, 4, .22) 0%, transparent 24%, rgba(2, 7, 4, .08) 68%, rgba(2, 7, 4, .28) 100%),
+    radial-gradient(ellipse at 50% 37%, rgba(210, 238, 174, .12), transparent 35%),
+    linear-gradient(180deg, rgba(2, 7, 4, .16) 0%, transparent 24%, rgba(2, 7, 4, .08) 68%, rgba(2, 7, 4, .28) 100%),
     #050a07 !important;
+}
+.hero-portrait-layer,
+.hero-portrait-layer img {
+  height: 100% !important;
 }
 .hero-portrait-layer {
   overflow: hidden !important;
   border: 0 !important;
   outline: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
+/* The reference places the head near the upper quarter and the copy over the chest.
+   Bottom object alignment moves the source crop up; the small transform fine-tunes it. */
 .hero-portrait-layer img {
   object-fit: cover !important;
-  /* Lift the subject so the overlaid headline sits on the chest, below the neck. */
-  object-position: center 50% !important;
-  transform: translate3d(0, -7.5%, 0) scale(1.12) !important;
+  object-position: center 100% !important;
+  transform: translate3d(0, -4%, 0) scale(1.12) !important;
   transform-origin: center center !important;
-  filter: saturate(.94) contrast(1.2) brightness(.96) !important;
+  filter: saturate(1.02) contrast(1.22) brightness(.96) !important;
   -webkit-mask-image: none !important;
   mask-image: none !important;
 }
-/* A subtle center backlight and cinematic vignette deepen the smoky green contrast. */
+/* Backlight and vignette retain smoke detail while making the silhouette read clearly. */
 .hero-portrait-positioner::before {
   content: "" !important;
   position: absolute !important;
@@ -1722,11 +1729,10 @@ canvas {
   inset: 0 !important;
   pointer-events: none !important;
   background:
-    radial-gradient(ellipse at 51% 37%, rgba(222, 242, 185, .16) 0%, rgba(159, 196, 126, .08) 17%, transparent 42%),
-    radial-gradient(ellipse at 50% 48%, transparent 24%, rgba(1, 5, 3, .18) 68%, rgba(1, 5, 3, .5) 100%);
-  mix-blend-mode: screen;
+    radial-gradient(ellipse at 51% 37%, rgba(222, 242, 185, .12) 0%, rgba(159, 196, 126, .06) 18%, transparent 43%),
+    radial-gradient(ellipse at 50% 48%, transparent 24%, rgba(1, 5, 3, .16) 68%, rgba(1, 5, 3, .48) 100%);
 }
-/* Tiny white star points are pinned to the darker left/right margins like the reference. */
+/* Fixed-position star points remain anchored to the viewport's darker margins. */
 .hero-portrait-positioner::after {
   content: "" !important;
   position: fixed !important;
@@ -1739,18 +1745,73 @@ canvas {
     radial-gradient(circle at 17.3% 62.1%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.5) 1.5px, transparent 3.5px),
     radial-gradient(circle at 17.3% 74.0%, rgba(255,255,255,.92) 0 1px, rgba(222,255,218,.6) 1.5px, transparent 3.5px),
     radial-gradient(circle at 8.3% 92.5%, rgba(255,255,255,.98) 0 1px, rgba(222,255,218,.7) 1.5px, transparent 3.5px),
-    radial-gradient(circle at 90.4% 14.2%, rgba(255,255,255,.98) 0 1px, rgba(222,255,218,.7) 1.5px, transparent 3.5px),
+    radial-gradient(circle at 90.4% 14.2%, rgba(255,255,255,.98) 0 1px, rgba(222,255,218,.7) 1.4px, transparent 3px),
     radial-gradient(circle at 91.0% 70.7%, rgba(255,255,255,.92) 0 1px, rgba(222,255,218,.6) 1.5px, transparent 3.5px),
     radial-gradient(circle at 78.3% 84.5%, rgba(255,255,255,.94) 0 1px, rgba(222,255,218,.6) 1.5px, transparent 3.5px),
     radial-gradient(circle at 69.6% 16.0%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.5) 1.5px, transparent 3.5px),
     radial-gradient(circle at 78.1% 56.0%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.5) 1.5px, transparent 3.5px);
-  filter: drop-shadow(0 0 4px rgba(225,255,221,.58));
-  opacity: .78;
+  filter: drop-shadow(0 0 4px rgba(225,255,221,.62));
+  opacity: .8;
   animation: reference-star-glow 3.8s ease-in-out infinite alternate;
 }
+.hero-shooting-star {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: #fff;
+  box-shadow: 0 0 5px 2px rgba(255,255,255,.85), 0 0 14px 5px rgba(213,255,202,.45);
+  will-change: transform, opacity;
+  animation: shooting-star-travel 8.5s linear infinite;
+}
+.hero-shooting-star::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  width: clamp(72px, 9vw, 150px);
+  height: 2px;
+  transform: translateX(100%) rotate(-24deg);
+  transform-origin: right center;
+  background: linear-gradient(90deg, transparent, rgba(226,255,219,.12) 30%, rgba(255,255,255,.96));
+  filter: drop-shadow(0 0 4px rgba(225,255,221,.85));
+}
+.hero-shooting-star--one {
+  top: 19vh;
+  left: 7vw;
+  animation-delay: -2.2s;
+}
+.hero-shooting-star--two {
+  top: 36vh;
+  left: 13vw;
+  transform: scale(.72);
+  animation-delay: -6.3s;
+  animation-duration: 11s;
+}
+@keyframes shooting-star-travel {
+  0%, 4% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-24deg); }
+  6% { opacity: 1; }
+  16% { opacity: .95; transform: translate3d(43vw, 24vh, 0) rotate(-24deg); }
+  18%, 100% { opacity: 0; transform: translate3d(48vw, 27vh, 0) rotate(-24deg); }
+}
 @keyframes reference-star-glow {
-  0% { opacity: .48; filter: drop-shadow(0 0 2px rgba(225,255,221,.35)); }
-  100% { opacity: 1; filter: drop-shadow(0 0 7px rgba(225,255,221,.9)); }
+  0% { opacity: .52; filter: drop-shadow(0 0 2px rgba(225,255,221,.35)); }
+  100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(225,255,221,.95)); }
+}
+/* Make the loader progress fill instead of sliding a short segment back and forth. */
+.intro-loader-track span {
+  width: 0;
+  transform: none;
+  animation: loader-fill 1.3s linear forwards !important;
+}
+@keyframes loader-fill {
+  from { width: 0%; }
+  to { width: 100%; }
 }
 @media (max-width: 767px) {
   .hero-portrait-positioner {
@@ -1759,9 +1820,9 @@ canvas {
     height: calc(100svh + 7rem) !important;
   }
   .hero-portrait-layer img {
-    object-position: center 50% !important;
-    transform: translate3d(0, -5.5%, 0) scale(1.08) !important;
-    filter: saturate(.92) contrast(1.16) brightness(.9) !important;
+    object-position: center 100% !important;
+    transform: translate3d(0, -8%, 0) scale(1.08) !important;
+    filter: saturate(.98) contrast(1.16) brightness(.9) !important;
   }
   .hero-portrait-positioner::after {
     background-image:
@@ -1772,8 +1833,15 @@ canvas {
       radial-gradient(circle at 94% 52%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px),
       radial-gradient(circle at 88% 83%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px);
   }
+  .hero-shooting-star--two { top: 43vh; left: 5vw; }
+}
+@media (max-width: 380px) {
+  .hero-copy-layer .page-title { font-size: clamp(1.8rem, 8vw, 2.25rem) !important; }
+  .hero-copy-layer .hero-name-script { font-size: clamp(1.9rem, 8.2vw, 2.4rem) !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-portrait-layer img { transform: none !important; }
   .hero-portrait-positioner::after { animation: none !important; opacity: .8; }
+  .hero-shooting-star { animation: none !important; display: none !important; }
+  .intro-loader-track span { animation: none !important; width: 100% !important; }
 }
