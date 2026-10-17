@@ -7,7 +7,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Github, Menu, X, ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AmbientAudioToggle } from "@/components/AmbientAudioToggle";
@@ -24,15 +24,31 @@ const iconLinkClass = "inline-flex size-10 items-center justify-center rounded-f
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [hidden, setHidden] = React.useState(false);
-  const { scrollY } = useScroll();
   const lastScrollY = React.useRef(0);
   const pathname = usePathname();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = lastScrollY.current;
-    setHidden(latest > previous && latest > 180);
-    lastScrollY.current = latest;
-  });
+  React.useEffect(() => {
+    // Native scroll events work consistently with Lenis root scrolling across browsers.
+    let frame = 0;
+    const update = () => {
+      const current = window.scrollY || document.documentElement.scrollTop || 0;
+      const previous = lastScrollY.current;
+      if (Math.abs(current - previous) > 2) {
+        setHidden(current > previous && current > 180);
+        lastScrollY.current = current;
+      }
+      frame = 0;
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    lastScrollY.current = window.scrollY || 0;
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   React.useEffect(() => {
     setIsOpen(false);
