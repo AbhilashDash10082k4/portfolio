@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Disc3, ExternalLink, Pause, X } from "lucide-react";
+import { Disc3, ExternalLink, X } from "lucide-react";
 
 /**
  * One-click Spotify soundtrack entry point. Spotify owns track playback and
