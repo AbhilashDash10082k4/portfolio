@@ -22,17 +22,17 @@ export function CustomCursor() {
       x.set(event.clientX);
       y.set(event.clientY);
     };
-    const handleLeave = () => {
+    const handleLeave = (event: PointerEvent) => {\n      if (event.relatedTarget !== null) return;
       x.set(-100);
       y.set(-100);
     };
 
     window.addEventListener("pointermove", handleMove, { passive: true });
-    document.documentElement.addEventListener("pointerleave", handleLeave);
+    document.addEventListener("pointerout", handleLeave);
     return () => {
       query.removeEventListener("change", syncPointer);
       window.removeEventListener("pointermove", handleMove);
-      document.documentElement.removeEventListener("pointerleave", handleLeave);
+      document.removeEventListener("pointerout", handleLeave);
     };
   }, [x, y]);
 
