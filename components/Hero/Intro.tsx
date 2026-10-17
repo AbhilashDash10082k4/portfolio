@@ -55,8 +55,8 @@ export function Intro() {
         </p>
         <div ref={imageRef} className="hero-portrait-layer">
           <Image
-            src="/dp.webp"
-            alt="Portrait of Abhilash Dash"
+            src="/Contemplative%20Silhouette%20in%20Smoky%20Backlight.png"
+            alt="Abhilash Dash silhouetted against a smoky backlight"
             width={1600}
             height={1200}
             priority
