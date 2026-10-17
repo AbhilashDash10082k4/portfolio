@@ -1112,3 +1112,116 @@ textarea {
 @media (prefers-reduced-motion: reduce) {
   .hero-portrait-layer, .hero-copy-layer { opacity: 1 !important; transform: none !important; }
 }
+
+
+/* Final hero correction: no dome, prominent badge, full-width blended portrait,
+   and a deterministic GSAP-driven fade (not CSS scroll timelines). */
+.hero-stage {
+  display: flex !important;
+  min-height: 0 !important;
+  flex-direction: column !important;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  padding: clamp(5.25rem, 10vh, 6.75rem) 0 1.5rem !important;
+  text-align: center;
+}
+.hero-stage > .hero-eyebrow {
+  position: relative;
+  z-index: 3;
+  order: 0;
+  display: inline-flex;
+  align-items: center;
+  margin: 0 auto clamp(.85rem, 1.8vh, 1.25rem) !important;
+  border-color: color-mix(in srgb, var(--accent-strong) 36%, var(--border)) !important;
+  background: color-mix(in srgb, var(--surface) 92%, transparent) !important;
+  color: var(--foreground) !important;
+  opacity: 1;
+  text-shadow: none;
+}
+.hero-portrait-layer {
+  position: relative !important;
+  z-index: 0 !important;
+  order: 1;
+  inset: auto !important;
+  display: block;
+  width: min(96vw, 82rem) !important;
+  height: clamp(17rem, 37vh, 26rem) !important;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,.72) 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,.72) 82%, transparent 100%);
+  will-change: opacity, transform;
+}
+.hero-portrait-layer::before,
+.hero-portrait-layer::after { display: none !important; content: none !important; }
+.hero-portrait-layer img {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 32% !important;
+  opacity: .94 !important;
+  filter: saturate(.84) contrast(1.02);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, rgba(0,0,0,.84) 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 72%, rgba(0,0,0,.84) 88%, transparent 100%);
+}
+.hero-copy-layer {
+  position: relative !important;
+  z-index: 2 !important;
+  order: 2;
+  width: min(100%, 76rem) !important;
+  padding: .2rem .75rem 0 !important;
+  text-align: center;
+  text-shadow: none !important;
+  will-change: opacity, transform;
+}
+.hero-copy-layer .hero-name-script {
+  font-size: clamp(2rem, 3.8vw, 3.3rem) !important;
+}
+.hero-copy-layer .page-title {
+  max-width: 100%;
+  font-size: clamp(2rem, 3.8vw, 3.65rem) !important;
+  line-height: 1.02;
+  letter-spacing: -.065em;
+}
+.hero-copy-layer .page-copy {
+  margin-top: .5rem !important;
+  font-size: clamp(.9rem, 1.1vw, 1rem);
+  line-height: 1.55;
+}
+.hero-copy-layer .hero-actions { margin-top: .8rem !important; }
+.hero-editorial-note { display: none !important; }
+@media (min-width: 768px) and (max-height: 850px) {
+  .hero-stage { padding-top: 5.1rem !important; }
+  .hero-portrait-layer { height: clamp(14rem, 32vh, 21rem) !important; }
+  .hero-copy-layer .hero-name { margin-bottom: 0 !important; }
+  .hero-copy-layer .hero-name-script { font-size: clamp(1.8rem, 3vw, 2.7rem) !important; }
+  .hero-copy-layer .page-title { font-size: clamp(1.8rem, 3vw, 2.9rem) !important; }
+  .hero-copy-layer .page-copy { margin-top: .35rem !important; }
+  .hero-copy-layer .hero-actions { margin-top: .55rem !important; }
+}
+@media (max-width: 767px) {
+  .hero-stage { padding: 5.5rem 0 1.5rem !important; }
+  .hero-portrait-layer { width: 100% !important; height: clamp(16rem, 34vh, 22rem) !important; }
+  .hero-copy-layer { padding: .3rem 0 0 !important; }
+  .hero-copy-layer .hero-name-script { font-size: clamp(2rem, 8vw, 2.8rem) !important; }
+  .hero-copy-layer .page-title { font-size: clamp(1.8rem, 7.5vw, 2.8rem) !important; }
+  .hero-copy-layer .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-copy-layer .primary-button, .hero-copy-layer .secondary-button {
+    min-height: 3rem;
+    padding-block: .7rem;
+    font-size: .9rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-portrait-layer, .hero-copy-layer { opacity: 1 !important; transform: none !important; }
+}
