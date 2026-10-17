@@ -1683,3 +1683,97 @@ canvas {
     transform: none !important;
   }
 }
+
+
+/* Reference-match pass: full-bleed image, lifted portrait, luminous contrast, and twinkling stars. */
+.hero-portrait-positioner {
+  /* Extend beyond the hero's start so the photo reaches the viewport's top edge. */
+  top: -10rem !important;
+  height: calc(100vh + 10rem) !important;
+  height: calc(100svh + 10rem) !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background:
+    radial-gradient(ellipse at 50% 37%, rgba(210, 238, 174, .11), transparent 34%),
+    linear-gradient(180deg, rgba(2, 7, 4, .22) 0%, transparent 24%, rgba(2, 7, 4, .08) 68%, rgba(2, 7, 4, .28) 100%),
+    #050a07 !important;
+}
+.hero-portrait-layer {
+  overflow: hidden !important;
+  border: 0 !important;
+  outline: 0 !important;
+}
+.hero-portrait-layer img {
+  object-fit: cover !important;
+  /* Lift the subject so the overlaid headline sits on the chest, below the neck. */
+  object-position: center 50% !important;
+  transform: translate3d(0, -7.5%, 0) scale(1.12) !important;
+  transform-origin: center center !important;
+  filter: saturate(.94) contrast(1.2) brightness(.96) !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+/* A subtle center backlight and cinematic vignette deepen the smoky green contrast. */
+.hero-portrait-positioner::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 1 !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  background:
+    radial-gradient(ellipse at 51% 37%, rgba(222, 242, 185, .16) 0%, rgba(159, 196, 126, .08) 17%, transparent 42%),
+    radial-gradient(ellipse at 50% 48%, transparent 24%, rgba(1, 5, 3, .18) 68%, rgba(1, 5, 3, .5) 100%);
+  mix-blend-mode: screen;
+}
+/* Tiny white star points are pinned to the darker left/right margins like the reference. */
+.hero-portrait-positioner::after {
+  content: "" !important;
+  position: fixed !important;
+  z-index: 2 !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  background-image:
+    radial-gradient(circle at 12.2% 17.4%, rgba(255,255,255,.98) 0 1px, rgba(222,255,218,.7) 1.4px, transparent 3px),
+    radial-gradient(circle at 10.7% 41.0%, rgba(255,255,255,.92) 0 1px, rgba(222,255,218,.58) 1.5px, transparent 3.5px),
+    radial-gradient(circle at 17.3% 62.1%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.5) 1.5px, transparent 3.5px),
+    radial-gradient(circle at 17.3% 74.0%, rgba(255,255,255,.92) 0 1px, rgba(222,255,218,.6) 1.5px, transparent 3.5px),
+    radial-gradient(circle at 8.3% 92.5%, rgba(255,255,255,.98) 0 1px, rgba(222,255,218,.7) 1.5px, transparent 3.5px),
+    radial-gradient(circle at 90.4% 14.2%, rgba(255,255,255,.98) 0 1px, rgba(222,255,218,.7) 1.5px, transparent 3.5px),
+    radial-gradient(circle at 91.0% 70.7%, rgba(255,255,255,.92) 0 1px, rgba(222,255,218,.6) 1.5px, transparent 3.5px),
+    radial-gradient(circle at 78.3% 84.5%, rgba(255,255,255,.94) 0 1px, rgba(222,255,218,.6) 1.5px, transparent 3.5px),
+    radial-gradient(circle at 69.6% 16.0%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.5) 1.5px, transparent 3.5px),
+    radial-gradient(circle at 78.1% 56.0%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.5) 1.5px, transparent 3.5px);
+  filter: drop-shadow(0 0 4px rgba(225,255,221,.58));
+  opacity: .78;
+  animation: reference-star-glow 3.8s ease-in-out infinite alternate;
+}
+@keyframes reference-star-glow {
+  0% { opacity: .48; filter: drop-shadow(0 0 2px rgba(225,255,221,.35)); }
+  100% { opacity: 1; filter: drop-shadow(0 0 7px rgba(225,255,221,.9)); }
+}
+@media (max-width: 767px) {
+  .hero-portrait-positioner {
+    top: -7rem !important;
+    height: calc(100vh + 7rem) !important;
+    height: calc(100svh + 7rem) !important;
+  }
+  .hero-portrait-layer img {
+    object-position: center 50% !important;
+    transform: translate3d(0, -5.5%, 0) scale(1.08) !important;
+    filter: saturate(.92) contrast(1.16) brightness(.9) !important;
+  }
+  .hero-portrait-positioner::after {
+    background-image:
+      radial-gradient(circle at 8% 20%, rgba(255,255,255,.95) 0 1px, rgba(222,255,218,.6) 1.4px, transparent 3px),
+      radial-gradient(circle at 7% 46%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px),
+      radial-gradient(circle at 12% 78%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px),
+      radial-gradient(circle at 92% 18%, rgba(255,255,255,.95) 0 1px, rgba(222,255,218,.6) 1.4px, transparent 3px),
+      radial-gradient(circle at 94% 52%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px),
+      radial-gradient(circle at 88% 83%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-portrait-layer img { transform: none !important; }
+  .hero-portrait-positioner::after { animation: none !important; opacity: .8; }
+}
