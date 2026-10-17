@@ -257,11 +257,11 @@ textarea {
 .intro-loader-brand span {
   display: inline-block;
   color: #f3f5ef;
-  text-shadow: 0 10px 34px rgba(43, 122, 109, 0.12);
+  text-shadow: 0 10px 34px rgba(157, 220, 125, 0.12);
 }
 
 .intro-loader-brand span:nth-child(3n) {
-  color: #2b7a6d;
+  color: #9ddc7d;
 }
 
 .intro-loader-track {
