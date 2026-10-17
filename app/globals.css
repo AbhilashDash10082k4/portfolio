@@ -476,3 +476,131 @@ textarea {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Cinematic glass surfaces and depth use CSS so they add no client runtime. */
+.surface-card, .glass-panel {
+  border: 1px solid color-mix(in srgb, var(--surface) 55%, var(--border));
+  background: color-mix(in srgb, var(--surface) 66%, transparent);
+  box-shadow: 0 18px 60px var(--shadow), inset 0 1px 0 rgba(255,255,255,.48);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  backdrop-filter: blur(22px) saturate(1.2);
+}
+.dark .surface-card, .dark .glass-panel {
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  box-shadow: 0 20px 70px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.custom-cursor-ring, .custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  pointer-events: none !important;
+  opacity: 1;
+}
+.custom-cursor-ring { z-index: 99999; }
+.custom-cursor-dot { z-index: 100000; }
+@media (pointer: fine) {
+  html, body, body a, body button, body input, body textarea, body select, body [role="button"] {
+    cursor: none !important;
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  .project-card {
+    transform-style: preserve-3d;
+    will-change: transform;
+    animation: project-depth linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 34%;
+  }
+  @keyframes project-depth {
+    from { opacity: .58; transform: perspective(1100px) translateY(36px) rotateX(5deg) scale(.975); }
+    to { opacity: 1; transform: perspective(1100px) translateY(0) rotateX(0) scale(1); }
+  }
+}
+.project-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+.project-card::before {
+  position: absolute;
+  z-index: -1;
+  inset: -1px;
+  content: "";
+  opacity: 0;
+  background: radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 0%), color-mix(in srgb, var(--accent-strong) 14%, transparent), transparent 55%);
+  transition: opacity 220ms ease;
+}
+.project-card:hover::before { opacity: 1; }
+.project-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  border-radius: 999px;
+  padding: .65rem .9rem;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-size: .78rem;
+  font-weight: 800;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+.project-card-cta:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-strong);
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.hero-stage {
+  position: relative;
+  display: grid;
+  min-height: min(78svh, 760px);
+  place-items: center;
+  isolation: isolate;
+}
+.hero-portrait-layer {
+  position: absolute;
+  z-index: -1;
+  inset: 4% 16% 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+  border-radius: 48% 48% 2rem 2rem;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--surface) 50%, transparent), transparent 70%);
+  box-shadow: 0 32px 100px var(--shadow), inset 0 1px 0 rgba(255,255,255,.45);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.hero-portrait-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  opacity: .78;
+  mask-image: linear-gradient(to bottom, #000 48%, transparent 100%);
+}
+.hero-copy-layer {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 980px);
+  padding-block: 3rem;
+  text-align: center;
+  text-shadow: 0 1px 22px color-mix(in srgb, var(--background) 68%, transparent);
+}
+.hero-copy-layer .page-title, .hero-copy-layer .page-copy { margin-inline: auto; }
+.hero-copy-layer .hero-name-script { font-size: clamp(2.6rem, 5vw, 4.25rem); }
+.hero-copy-layer .hero-actions, .hero-copy-layer .hero-tags, .hero-copy-layer .hero-eyebrow { margin-inline: auto; justify-content: center; }
+@media (max-width: 767px) {
+  .hero-stage { min-height: 680px; padding-top: 3rem; }
+  .hero-portrait-layer { inset: 8% 0 0; border-radius: 45% 45% 1.5rem 1.5rem; }
+  .hero-portrait-layer img { opacity: .48; }
+  .hero-copy-layer { padding-inline: .5rem; }
+  .hero-copy-layer .page-title { font-size: clamp(2.25rem, 11vw, 3.6rem); }
+  .hero-copy-layer .hero-name-script { font-size: clamp(2.55rem, 10vw, 3.6rem); }
+  .hero-copy-layer .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-copy-layer .hero-tags { gap: .65rem 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card { animation: none !important; transform: none !important; }
+}
