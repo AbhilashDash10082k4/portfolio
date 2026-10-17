@@ -1521,7 +1521,7 @@ textarea {
 }
 .hero-portrait-layer img {
   object-fit: cover !important;
-  object-position: center 36% !important;
+  object-position: center 50% !important;
 }
 @media (max-width: 767px) {
   .hero-portrait-positioner {
@@ -1531,6 +1531,6 @@ textarea {
   }
   .hero-portrait-layer img {
     object-fit: cover !important;
-    object-position: center 34% !important;
+    object-position: center 44% !important;
   }
 }
