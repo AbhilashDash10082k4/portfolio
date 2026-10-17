@@ -30,14 +30,13 @@ export const metadata: Metadata = {
   title: "Abhilash Dash | Full-Stack Engineering, AI Agents & Automation",
   description:
     "Abhilash Dash builds full-stack products, AI agents, and business automations for founders and teams.",
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "https://adsince2k4.vercel.app",
     siteName: "ADSince2K4 · Abhilash Dash",
     title: "Abhilash Dash | Full-Stack Engineering, AI Agents & Automation",
     description: "Full-stack products, AI agents, and business automations built around real problems.",
-    images: [{ url: "/dp.webp", width: 1200, height: 630, alt: "ADSince2K4 — Abhilash Dash" }],
+    images: [{ url: "/dp.webp", alt: "ADSince2K4 — Abhilash Dash" }],
   },
   twitter: {
     card: "summary_large_image",
