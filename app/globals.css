@@ -1931,3 +1931,19 @@ canvas {
 @media (prefers-reduced-motion: reduce) {
   .hero-portrait-layer img { transition: none !important; }
 }
+
+
+/* Targeted copy positioning correction from viewport comparison (2026-10-18). */
+/* Tablet and 1024px layouts: undo the overly-low copy anchor from the previous pass.
+   Move only the copy block up; keep the portrait crop/translation and all visual effects intact. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero-copy-layer {
+    padding-top: clamp(18rem, 38svh, 25rem) !important;
+  }
+}
+/* At 1440px, preserve the current composition and lower the copy only slightly. */
+@media (min-width: 1400px) and (max-width: 1799px) {
+  .hero-copy-layer {
+    padding-top: clamp(27rem, min(50svh, 30vw), 72rem) !important;
+  }
+}
