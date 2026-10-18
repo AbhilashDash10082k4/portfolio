@@ -1947,3 +1947,29 @@ canvas {
     padding-top: clamp(27rem, min(50svh, 30vw), 72rem) !important;
   }
 }
+
+/* Final targeted correction: extend only the photo to the viewport top and keep ultrawide copy on the chest. */
+.hero-portrait-positioner {
+  top: -12rem !important;
+  height: calc(100svh + 24rem) !important;
+}
+/* Preserve the existing copy placement on phones and tablets; extend their image only. */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .hero-portrait-positioner {
+    top: -9rem !important;
+    height: calc(100svh + 18rem) !important;
+  }
+}
+@media (max-width: 767px) {
+  .hero-portrait-positioner {
+    top: -7.5rem !important;
+    height: calc(100svh + 15rem) !important;
+  }
+}
+/* On 2560px–4K displays, the viewport is much taller/wider, so anchor the copy
+   lower on the torso. This rule does not affect 1440px or smaller layouts. */
+@media (min-width: 1800px) {
+  .hero-copy-layer {
+    padding-top: clamp(32rem, min(58svh, 35vw), 82rem) !important;
+  }
+}
