@@ -1862,3 +1862,72 @@ canvas {
     text-shadow: 0 2px 3px rgba(0,0,0,.98), 0 4px 14px rgba(0,0,0,.96), 0 0 24px rgba(2,8,3,.92) !important;
   }
 }
+
+
+/* Responsive reference-match pass (2026-10-18).
+   Keep copy in the chest zone based on viewport dimensions, while moving only
+   the portrait pixels upward. The positioner extends behind the navbar and
+   beyond the viewport so the translated image never exposes an empty edge. */
+.hero-portrait-positioner {
+  top: -8rem !important;
+  height: calc(100svh + 16rem) !important;
+  overflow: hidden !important;
+}
+.hero-portrait-layer {
+  height: 100% !important;
+  transform-origin: center center;
+}
+.hero-portrait-layer img {
+  top: -150px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: calc(100% + 150px) !important;
+  object-fit: cover !important;
+  object-position: center 50% !important;
+  transform: none !important;
+}
+.hero-copy-layer {
+  /* The copy stays in the torso/chest area as the portrait scales with the
+     viewport width; this avoids the face-overlap seen on ultrawide monitors. */
+  padding-top: clamp(31rem, min(50svh, 32vw), 76rem) !important;
+}
+@media (max-width: 1024px) and (min-width: 768px) {
+  .hero-portrait-positioner {
+    top: -7rem !important;
+    height: calc(100svh + 14rem) !important;
+  }
+  .hero-portrait-layer img {
+    top: -120px !important;
+    height: calc(100% + 120px) !important;
+  }
+  .hero-copy-layer {
+    padding-top: clamp(31rem, 58svh, 39rem) !important;
+  }
+}
+@media (max-width: 767px) {
+  .hero-portrait-positioner {
+    top: -5.5rem !important;
+    height: calc(100svh + 11rem) !important;
+  }
+  .hero-portrait-layer img {
+    top: -80px !important;
+    height: calc(100% + 80px) !important;
+    object-position: center 50% !important;
+  }
+  .hero-copy-layer {
+    padding-top: 17rem !important;
+  }
+}
+@media (min-width: 1800px) {
+  .hero-portrait-positioner {
+    top: -9rem !important;
+    height: calc(100svh + 18rem) !important;
+  }
+  .hero-portrait-layer img {
+    top: -190px !important;
+    height: calc(100% + 190px) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-portrait-layer img { transition: none !important; }
+}
