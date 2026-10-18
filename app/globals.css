@@ -1889,7 +1889,7 @@ canvas {
 .hero-copy-layer {
   /* The copy stays in the torso/chest area as the portrait scales with the
      viewport width; this avoids the face-overlap seen on ultrawide monitors. */
-  padding-top: clamp(31rem, min(50svh, 32vw), 76rem) !important;
+  padding-top: clamp(25rem, min(46svh, 29vw), 70rem) !important;
 }
 @media (max-width: 1024px) and (min-width: 768px) {
   .hero-portrait-positioner {
