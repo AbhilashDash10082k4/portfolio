@@ -1715,7 +1715,7 @@ canvas {
 .hero-portrait-layer img {
   object-fit: cover !important;
   object-position: center 100% !important;
-  transform: translate3d(0, -4%, 0) scale(1.12) !important;
+  transform: translate3d(0, -14%, 0) scale(1.12) !important;
   transform-origin: center center !important;
   filter: saturate(1.02) contrast(1.22) brightness(.96) !important;
   -webkit-mask-image: none !important;
@@ -1767,7 +1767,7 @@ canvas {
   background: #fff;
   box-shadow: 0 0 5px 2px rgba(255,255,255,.85), 0 0 14px 5px rgba(213,255,202,.45);
   will-change: transform, opacity;
-  animation: shooting-star-travel 8.5s linear infinite;
+  animation: shooting-star-travel 6.5s linear infinite;
 }
 .hero-shooting-star::after {
   content: "";
@@ -1782,22 +1782,21 @@ canvas {
   filter: drop-shadow(0 0 4px rgba(225,255,221,.85));
 }
 .hero-shooting-star--one {
-  top: 19vh;
+  top: calc(10rem + 19vh);
   left: 7vw;
-  animation-delay: -2.2s;
+  animation-delay: 0s;
 }
 .hero-shooting-star--two {
-  top: 36vh;
+  top: calc(10rem + 36vh);
   left: 13vw;
-  transform: scale(.72);
-  animation-delay: -6.3s;
-  animation-duration: 11s;
+  animation-delay: -3.25s;
+  animation-duration: 6.5s;
 }
 @keyframes shooting-star-travel {
-  0%, 4% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-24deg); }
-  6% { opacity: 1; }
-  16% { opacity: .95; transform: translate3d(43vw, 24vh, 0) rotate(-24deg); }
-  18%, 100% { opacity: 0; transform: translate3d(48vw, 27vh, 0) rotate(-24deg); }
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-24deg); }
+  2% { opacity: 1; }
+  22% { opacity: 1; transform: translate3d(43vw, 24vh, 0) rotate(-24deg); }
+  26%, 100% { opacity: 0; transform: translate3d(50vw, 27vh, 0) rotate(-24deg); }
 }
 @keyframes reference-star-glow {
   0% { opacity: .52; filter: drop-shadow(0 0 2px rgba(225,255,221,.35)); }
@@ -1821,7 +1820,7 @@ canvas {
   }
   .hero-portrait-layer img {
     object-position: center 100% !important;
-    transform: translate3d(0, -8%, 0) scale(1.08) !important;
+    transform: translate3d(0, -12%, 0) scale(1.08) !important;
     filter: saturate(.98) contrast(1.16) brightness(.9) !important;
   }
   .hero-portrait-positioner::after {
@@ -1833,7 +1832,8 @@ canvas {
       radial-gradient(circle at 94% 52%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px),
       radial-gradient(circle at 88% 83%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px);
   }
-  .hero-shooting-star--two { top: 43vh; left: 5vw; }
+  .hero-shooting-star--one { top: calc(7rem + 18vh); }
+  .hero-shooting-star--two { top: calc(7rem + 43vh); left: 5vw; }
 }
 @media (max-width: 380px) {
   .hero-copy-layer .page-title { font-size: clamp(1.8rem, 8vw, 2.25rem) !important; }
@@ -1844,4 +1844,21 @@ canvas {
   .hero-portrait-positioner::after { animation: none !important; opacity: .8; }
   .hero-shooting-star { animation: none !important; display: none !important; }
   .intro-loader-track span { animation: none !important; width: 100% !important; }
+}
+
+
+/* Contrast pass: keep the signature name legible over the bright smoke and silhouette. */
+.hero-copy-layer .hero-name-script {
+  color: #b9ff62 !important;
+  text-shadow:
+    0 2px 2px rgba(0, 0, 0, .98),
+    0 5px 14px rgba(0, 0, 0, .95),
+    0 0 26px rgba(2, 8, 3, .9),
+    0 0 1px rgba(255, 255, 255, .75) !important;
+}
+@media (max-width: 767px) {
+  .hero-copy-layer .hero-name-script {
+    color: #b9ff62 !important;
+    text-shadow: 0 2px 3px rgba(0,0,0,.98), 0 4px 14px rgba(0,0,0,.96), 0 0 24px rgba(2,8,3,.92) !important;
+  }
 }
