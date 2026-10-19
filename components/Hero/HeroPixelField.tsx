@@ -23,10 +23,6 @@ function clamp01(value: number) {
   return Math.max(0, Math.min(1, value));
 }
 
-function smooth01(edge0: number, edge1: number, value: number) {
-  const t = clamp01((value - edge0) / (edge1 - edge0));
-  return t * t * (3 - 2 * t);
-}
 
 function buildFieldTextures(
   photo: HTMLImageElement,
@@ -240,8 +236,8 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
       uPhoto: { value: THREE.Texture | null };
       uMask: { value: THREE.Texture | null };
     } | undefined;
-    let targetPointer = new THREE.Vector2(0, 0);
-    let currentPointer = new THREE.Vector2(0, 0);
+    const targetPointer = new THREE.Vector2(0, 0);
+    const currentPointer = new THREE.Vector2(0, 0);
     let previousWidth = 0;
     let previousHeight = 0;
 
