@@ -12,11 +12,11 @@ type PixelFieldProps = {
 };
 
 type FieldTextures = {
-  photoTexture: THREE.CanvasTexture;
-  maskTexture: THREE.CanvasTexture;
+  photoTexture: any;
+  maskTexture: any;
   width: number;
   height: number;
-  geometry: THREE.BufferGeometry;
+  geometry: any;
 };
 
 function clamp01(value: number) {
@@ -218,15 +218,15 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
     let frameId = 0;
     let resizeObserver: ResizeObserver | undefined;
     let scrollTrigger: ScrollTrigger | undefined;
-    let renderer: THREE.WebGLRenderer | undefined;
-    let field: THREE.Points | undefined;
-    let plane: THREE.Mesh | undefined;
-    let geometry: THREE.BufferGeometry | undefined;
-    let planeGeometry: THREE.PlaneGeometry | undefined;
-    let pointsMaterial: THREE.ShaderMaterial | undefined;
-    let planeMaterial: THREE.ShaderMaterial | undefined;
-    let photoTexture: THREE.CanvasTexture | undefined;
-    let maskTexture: THREE.CanvasTexture | undefined;
+    let renderer: any;
+    let field: any;
+    let plane: any;
+    let geometry: any;
+    let planeGeometry: any;
+    let pointsMaterial: any;
+    let planeMaterial: any;
+    let photoTexture: any;
+    let maskTexture: any;
     let uniforms: {
       uTime: { value: number };
       uProgress: { value: number };
