@@ -230,11 +230,11 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
     let uniforms: {
       uTime: { value: number };
       uProgress: { value: number };
-      uPointer: { value: THREE.Vector2 };
-      uResolution: { value: THREE.Vector2 };
+      uPointer: { value: any };
+      uResolution: { value: any };
       uPixelRatio: { value: number };
-      uPhoto: { value: THREE.Texture | null };
-      uMask: { value: THREE.Texture | null };
+      uPhoto: { value: any };
+      uMask: { value: any };
     } | undefined;
     const targetPointer = new THREE.Vector2(0, 0);
     const currentPointer = new THREE.Vector2(0, 0);
