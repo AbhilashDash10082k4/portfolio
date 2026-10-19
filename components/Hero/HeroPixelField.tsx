@@ -308,10 +308,12 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
         canvas.dataset.unavailable = "true";
         return;
       }
-      renderer.setClearColor(0x000000, 0);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-      renderer.outputColorSpace = THREE.SRGBColorSpace;
-      renderer.setSize(host.clientWidth, host.clientHeight, false);
+      const activeRenderer = renderer;
+      if (!activeRenderer) return;
+      activeRenderer.setClearColor(0x000000, 0);
+      activeRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+      activeRenderer.outputColorSpace = THREE.SRGBColorSpace;
+      activeRenderer.setSize(host.clientWidth, host.clientHeight, false);
 
       const scene = new THREE.Scene();
       const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
@@ -374,9 +376,10 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
           }
         `,
       });
-      plane = new THREE.Mesh(planeGeometry, planeMaterial);
-      plane.renderOrder = 1;
-      scene.add(plane);
+      const activePlane: RenderObjectLike = new THREE.Mesh(planeGeometry, planeMaterial);
+      plane = activePlane;
+      activePlane.renderOrder = 1;
+      scene.add(activePlane);
 
       pointsMaterial = new THREE.ShaderMaterial({
         uniforms,
@@ -446,7 +449,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
       });
 
       const rebuild = () => {
-        if (disposed || !renderer || !uniforms || !host.clientWidth || !host.clientHeight) return;
+        if (disposed || !uniforms || !host.clientWidth || !host.clientHeight) return;
         const width = host.clientWidth;
         const height = host.clientHeight;
         if (width === previousWidth && height === previousHeight && geometry) return;
@@ -465,16 +468,18 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
         uniforms.uMask.value = maskTexture;
         uniforms.uResolution.value.set(fieldTextures.width, fieldTextures.height);
 
-        if (field) {
-          field.geometry = geometry;
+        const currentField = field;
+        if (currentField) {
+          currentField.geometry = fieldTextures.geometry;
         } else {
-          field = new THREE.Points(geometry, pointsMaterial!);
-          field.renderOrder = 2;
-          scene.add(field);
+          const nextField: PointsLike = new THREE.Points(fieldTextures.geometry, pointsMaterial!);
+          nextField.renderOrder = 2;
+          field = nextField;
+          scene.add(nextField);
         }
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+        activeRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
         uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio || 1, 1.5);
-        renderer.setSize(width, height, false);
+        activeRenderer.setSize(width, height, false);
       };
 
       rebuild();
@@ -501,7 +506,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
 
       const startedAt = performance.now();
       const render = (now: number) => {
-        if (disposed || !renderer) return;
+        if (disposed) return;
         frameId = window.requestAnimationFrame(render);
         if (document.visibilityState === "hidden") return;
         if (uniforms) {
@@ -509,7 +514,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
           currentPointer.lerp(targetPointer, 0.045);
           uniforms.uPointer.value.copy(currentPointer);
         }
-        renderer.render(scene, camera);
+        activeRenderer.render(scene, camera);
       };
       frameId = window.requestAnimationFrame(render);
     };
