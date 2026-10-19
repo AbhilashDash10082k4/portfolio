@@ -11,12 +11,49 @@ type PixelFieldProps = {
   triggerRef: RefObject<HTMLDivElement | null>;
 };
 
+type TextureLike = {
+  dispose(): void;
+  colorSpace: string;
+  minFilter: number;
+  magFilter: number;
+  generateMipmaps: boolean;
+};
+
+type GeometryLike = {
+  dispose(): void;
+  setAttribute(name: string, attribute: unknown): void;
+};
+
+type Vector2Like = {
+  set(x: number, y: number): unknown;
+  lerp(target: Vector2Like, alpha: number): Vector2Like;
+  copy(target: Vector2Like): Vector2Like;
+};
+
+type RendererLike = {
+  setClearColor(color: number, alpha: number): void;
+  setPixelRatio(value: number): void;
+  outputColorSpace: string;
+  setSize(width: number, height: number, updateStyle?: boolean): void;
+  render(scene: unknown, camera: unknown): void;
+  dispose(): void;
+  forceContextLoss(): void;
+};
+
+type PointsLike = {
+  geometry: GeometryLike;
+  renderOrder: number;
+};
+
+type RenderObjectLike = { renderOrder: number };
+type MaterialLike = { dispose(): void };
+
 type FieldTextures = {
-  photoTexture: any;
-  maskTexture: any;
+  photoTexture: TextureLike;
+  maskTexture: TextureLike;
   width: number;
   height: number;
-  geometry: any;
+  geometry: GeometryLike;
 };
 
 function clamp01(value: number) {
@@ -218,23 +255,23 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
     let frameId = 0;
     let resizeObserver: ResizeObserver | undefined;
     let scrollTrigger: ScrollTrigger | undefined;
-    let renderer: any;
-    let field: any;
-    let plane: any;
-    let geometry: any;
-    let planeGeometry: any;
-    let pointsMaterial: any;
-    let planeMaterial: any;
-    let photoTexture: any;
-    let maskTexture: any;
+    let renderer: RendererLike | undefined;
+    let field: PointsLike | undefined;
+    let plane: RenderObjectLike | undefined;
+    let geometry: GeometryLike | undefined;
+    let planeGeometry: GeometryLike | undefined;
+    let pointsMaterial: MaterialLike | undefined;
+    let planeMaterial: MaterialLike | undefined;
+    let photoTexture: TextureLike | undefined;
+    let maskTexture: TextureLike | undefined;
     let uniforms: {
       uTime: { value: number };
       uProgress: { value: number };
-      uPointer: { value: any };
-      uResolution: { value: any };
+      uPointer: { value: Vector2Like };
+      uResolution: { value: Vector2Like };
       uPixelRatio: { value: number };
-      uPhoto: { value: any };
-      uMask: { value: any };
+      uPhoto: { value: TextureLike | null };
+      uMask: { value: TextureLike | null };
     } | undefined;
     const targetPointer = new THREE.Vector2(0, 0);
     const currentPointer = new THREE.Vector2(0, 0);
