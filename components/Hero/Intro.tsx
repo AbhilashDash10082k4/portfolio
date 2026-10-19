@@ -6,6 +6,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { HeroPixelField } from "@/components/Hero/HeroPixelField";
 
 export function Intro() {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -65,6 +66,7 @@ export function Intro() {
               priority
               sizes="100vw"
             />
+            <HeroPixelField triggerRef={stageRef} />
           </div>
         </div>
         <div ref={copyRef} className="hero-copy-layer">
