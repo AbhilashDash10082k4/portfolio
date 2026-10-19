@@ -54,6 +54,8 @@ export function Intro() {
           Independent engineer · Full-stack, AI & automation
         </p>
         <div className="hero-portrait-positioner" aria-hidden="true">
+          <span className="hero-shooting-star hero-shooting-star--one" />
+          <span className="hero-shooting-star hero-shooting-star--two" />
           <div ref={imageRef} className="hero-portrait-layer">
             <Image
               src="/Contemplative%20Silhouette%20in%20Smoky%20Backlight.png"

@@ -10,7 +10,7 @@ export function IntroLoader() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => setVisible(false), 2250);
+    const timeout = window.setTimeout(() => setVisible(false), 1300);
     return () => window.clearTimeout(timeout);
   }, []);
 
@@ -23,7 +23,7 @@ export function IntroLoader() {
           aria-label="Loading ADSince2K4 portfolio"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.38, ease: "easeInOut" }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
         >
           <div className="intro-loader-content">
             <p className="intro-loader-label">Independent engineering studio</p>
