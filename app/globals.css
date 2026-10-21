@@ -2442,3 +2442,12 @@ canvas {
     bottom: clamp(3.5rem, 7svh, 4.5rem) !important;
   }
 }
+
+
+/* Ultrawide only: lift hero copy from the lower chest toward the neck.
+   Deliberately scoped to >=1800px; every other viewport stays unchanged. */
+@media (min-width: 1800px) {
+  #hero .hero-copy-layer {
+    bottom: clamp(9rem, 14svh, 13rem) !important;
+  }
+}
