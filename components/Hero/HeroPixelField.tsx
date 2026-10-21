@@ -267,6 +267,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
     let uniforms: {
       uTime: { value: number };
       uProgress: { value: number };
+      uHover: { value: number };
       uPointer: { value: Vector2Like };
       uResolution: { value: Vector2Like };
       uPixelRatio: { value: number };
@@ -275,6 +276,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
     } | undefined;
     const targetPointer = new THREE.Vector2(0, 0);
     const currentPointer = new THREE.Vector2(0, 0);
+    const hoverState = { value: 0 };
     let previousWidth = 0;
     let previousHeight = 0;
 
@@ -283,6 +285,13 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
         (event.clientX / Math.max(1, window.innerWidth) - 0.5) * 2,
         (event.clientY / Math.max(1, window.innerHeight) - 0.5) * 2,
       );
+    };
+    // Hover reveals the same scan field even when the page has not scrolled.
+    const onPointerEnter = () => {
+      gsap.to(hoverState, { value: 1, duration: 0.38, ease: "power2.out", overwrite: true });
+    };
+    const onPointerLeave = () => {
+      gsap.to(hoverState, { value: 0, duration: 0.62, ease: "power2.inOut", overwrite: true });
     };
 
     const init = async () => {
@@ -322,6 +331,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
       uniforms = {
         uTime: { value: 0 },
         uProgress: { value: 0 },
+        uHover: { value: 0 },
         uPointer: { value: new THREE.Vector2(0, 0) },
         uResolution: { value: new THREE.Vector2(1, 1) },
         uPixelRatio: { value: Math.min(window.devicePixelRatio || 1, 1.5) },
@@ -348,21 +358,23 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
           uniform vec2 uPointer;
           uniform vec2 uResolution;
           uniform float uProgress;
+          uniform float uHover;
           varying vec2 vUv;
           void main() {
             vec2 topUv = vec2(vUv.x, 1.0 - vUv.y);
             vec4 mask = texture2D(uMask, vUv);
             float alphaMask = mask.a;
             float depth = mask.r;
-            float active = smoothstep(0.015, 0.20, uProgress)
-              * (1.0 - smoothstep(0.86, 1.0, uProgress) * 0.72);
-            float scanY = uProgress * 1.18 - 0.08;
+            float progress = max(uProgress, uHover);
+            float active = smoothstep(0.015, 0.20, progress)
+              * (1.0 - smoothstep(0.86, 1.0, progress) * 0.52);
+            float scanY = progress * 1.18 - 0.08;
             float scanBand = 1.0 - smoothstep(0.0, 0.045, abs(topUv.y - scanY));
             float scanReveal = 1.0 - smoothstep(scanY - 0.025, scanY + 0.035, topUv.y);
             vec2 displacement = vec2(uPointer.x, -uPointer.y) * depth * 0.006;
-            displacement.y += uProgress * depth * 0.003;
+            displacement.y += progress * depth * 0.003;
             vec2 sampleUv = clamp(vUv + displacement, vec2(0.001), vec2(0.999));
-            float cellSize = mix(1.0, 7.0, smoothstep(0.05, 0.6, uProgress));
+            float cellSize = mix(1.0, 9.0, smoothstep(0.05, 0.6, progress));
             vec2 pixelUv = floor(sampleUv * uResolution / cellSize) * cellSize / uResolution;
             vec3 original = texture2D(uPhoto, sampleUv).rgb;
             vec3 pixelated = texture2D(uPhoto, clamp(pixelUv, vec2(0.001), vec2(0.999))).rgb;
@@ -390,6 +402,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
         vertexShader: `
           uniform float uTime;
           uniform float uProgress;
+          uniform float uHover;
           uniform vec2 uPointer;
           uniform float uPixelRatio;
           attribute vec2 aUv;
@@ -406,9 +419,10 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
           varying vec2 vUv;
           void main() {
             vUv = aUv;
-            float active = smoothstep(0.015, 0.18, uProgress)
-              * (1.0 - smoothstep(0.84, 1.0, uProgress) * 0.68);
-            float scanY = uProgress * 1.18 - 0.08;
+            float progress = max(uProgress, uHover);
+            float active = smoothstep(0.015, 0.18, progress)
+              * (1.0 - smoothstep(0.84, 1.0, progress) * 0.52);
+            float scanY = progress * 1.18 - 0.08;
             float scanBand = 1.0 - smoothstep(0.0, 0.09, abs(aUv.y - scanY));
             float scanReveal = 1.0 - smoothstep(scanY - 0.025, scanY + 0.06, aUv.y);
             vec3 shifted = position;
@@ -416,7 +430,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
             shifted.y -= uPointer.y * aDepth * 0.012;
             shifted.x += sin(uTime * 0.7 + aSeed * 18.0) * 0.0022 * aDepth;
             shifted.y += cos(uTime * 0.55 + aSeed * 21.0) * 0.0018 * aDepth;
-            shifted.y -= uProgress * aDepth * 0.008;
+            shifted.y -= progress * aDepth * 0.008;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(shifted, 1.0);
             gl_PointSize = aSize * uPixelRatio * (0.82 + scanBand * 1.45);
             vColor = aColor * (1.0 + scanBand * 0.8);
@@ -490,6 +504,8 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
       });
       resizeObserver.observe(host);
       window.addEventListener("pointermove", onPointerMove, { passive: true });
+      trigger.addEventListener("pointerenter", onPointerEnter);
+      trigger.addEventListener("pointerleave", onPointerLeave);
 
       gsap.registerPlugin(ScrollTrigger);
       scrollTrigger = ScrollTrigger.create({
@@ -511,6 +527,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
         if (document.visibilityState === "hidden") return;
         if (uniforms) {
           uniforms.uTime.value = (now - startedAt) / 1000;
+          uniforms.uHover.value = hoverState.value;
           currentPointer.lerp(targetPointer, 0.045);
           uniforms.uPointer.value.copy(currentPointer);
         }
@@ -525,6 +542,9 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
       disposed = true;
       window.cancelAnimationFrame(frameId);
       window.removeEventListener("pointermove", onPointerMove);
+      trigger.removeEventListener("pointerenter", onPointerEnter);
+      trigger.removeEventListener("pointerleave", onPointerLeave);
+      gsap.killTweensOf(hoverState);
       resizeObserver?.disconnect();
       scrollTrigger?.kill();
       geometry?.dispose();
