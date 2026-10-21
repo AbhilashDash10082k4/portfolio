@@ -6,10 +6,9 @@ export function Hero() {
   return (
     <Section
       id="hero"
-      className="relative flex min-h-[92svh] items-center overflow-hidden pb-24 pt-32 md:min-h-screen md:pt-28"
+      className="relative flex min-h-[100svh] items-stretch overflow-hidden p-0"
     >
-      <div aria-hidden="true" className="pointer-events-none absolute -right-28 top-1/4 size-72 rounded-full bg-accent/20 blur-3xl md:size-[28rem]" />
-      <div className="page-container relative z-10 pt-5">
+      <div className="page-container relative z-10 w-full max-w-none p-0">
         <Intro />
       </div>
       <ScrollButton />
