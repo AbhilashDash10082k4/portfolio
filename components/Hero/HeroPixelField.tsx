@@ -382,10 +382,15 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
             vec3 original = texture2D(uPhoto, sampleUv).rgb;
             vec3 pixelated = texture2D(uPhoto, clamp(pixelUv, vec2(0.001), vec2(0.999))).rgb;
             vec3 lime = vec3(0.57, 1.0, 0.28);
-            vec3 scanned = mix(pixelated, lime, 0.34 + scanBand * 0.34);
-            vec3 color = mix(original, scanned, 0.45 + scanBand * 0.45);
-            float alpha = alphaMask * active * scanReveal * (0.12 + scanBand * 0.36);
-            gl_FragColor = vec4(color, alpha);
+            vec3 scanned = mix(pixelated, lime, 0.58 + scanBand * 0.30);
+            vec3 color = mix(original, scanned, 0.62 + scanBand * 0.32);
+            // Keep the silhouette pixel field visible during hover; only the
+            // bright scan streak is narrow. Previously scanReveal hid most pixels.
+            float fieldAlpha = 0.34 + scanReveal * 0.28;
+            float streakAlpha = scanBand * 0.62;
+            float alpha = alphaMask * active * max(fieldAlpha, streakAlpha);
+            vec3 glow = vec3(0.58, 1.0, 0.22) * scanBand * 0.85;
+            gl_FragColor = vec4(color + glow, alpha);
             #include <tonemapping_fragment>
             #include <colorspace_fragment>
           }
@@ -442,7 +447,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
             vKind = aKind;
             vSeed = aSeed;
             vScan = scanBand;
-            vAlpha = active * scanReveal * (0.22 + scanBand * 0.78)
+            vAlpha = active * (0.28 + scanReveal * 0.22 + scanBand * 0.72)
               * (0.72 + 0.28 * sin(uTime * 1.5 + aSeed * 26.0));
           }
         `,
