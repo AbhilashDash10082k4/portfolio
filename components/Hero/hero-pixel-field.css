@@ -19,3 +19,6 @@
     display: none;
   }
 }
+
+/* Visible but transparent overlay; hover state is controlled by the hero stage. */
+.hero-pixel-field { opacity: 1; pointer-events: none; }
