@@ -281,9 +281,10 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
     let previousHeight = 0;
 
     const onPointerMove = (event: PointerEvent) => {
+      const bounds = host.getBoundingClientRect();
       targetPointer.set(
-        (event.clientX / Math.max(1, window.innerWidth) - 0.5) * 2,
-        (event.clientY / Math.max(1, window.innerHeight) - 0.5) * 2,
+        ((event.clientX - bounds.left) / Math.max(1, bounds.width) - 0.5) * 2,
+        ((event.clientY - bounds.top) / Math.max(1, bounds.height) - 0.5) * 2,
       );
     };
     // Hover reveals the same scan field even when the page has not scrolled.
@@ -514,6 +515,10 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
       });
       resizeObserver.observe(host);
       window.addEventListener("pointermove", onPointerMove, { passive: true });
+      // Bind to the actual portrait as well as the hero stage. This avoids
+      // browsers missing the intended hover target due to the layered layout.
+      host.addEventListener("pointerenter", onPointerEnter);
+      host.addEventListener("pointerleave", onPointerLeave);
       trigger.addEventListener("pointerenter", onPointerEnter);
       trigger.addEventListener("pointerleave", onPointerLeave);
 
@@ -552,6 +557,8 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
       disposed = true;
       window.cancelAnimationFrame(frameId);
       window.removeEventListener("pointermove", onPointerMove);
+      host.removeEventListener("pointerenter", onPointerEnter);
+      host.removeEventListener("pointerleave", onPointerLeave);
       trigger.removeEventListener("pointerenter", onPointerEnter);
       trigger.removeEventListener("pointerleave", onPointerLeave);
       gsap.killTweensOf(hoverState);
