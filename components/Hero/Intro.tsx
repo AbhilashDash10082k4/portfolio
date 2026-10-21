@@ -67,6 +67,7 @@ export function Intro() {
               priority
               sizes="100vw"
             />
+            <div className="hero-pixel-fallback" aria-hidden="true" />
             <HeroPixelField triggerRef={stageRef} />
           </div>
         </div>
