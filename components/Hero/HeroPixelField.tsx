@@ -355,6 +355,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
         fragmentShader: `
           uniform sampler2D uPhoto;
           uniform sampler2D uMask;
+          uniform float uTime;
           uniform vec2 uPointer;
           uniform vec2 uResolution;
           uniform float uProgress;
@@ -365,16 +366,18 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
             vec4 mask = texture2D(uMask, vUv);
             float alphaMask = mask.a;
             float depth = mask.r;
-            float progress = max(uProgress, uHover);
-            float active = smoothstep(0.015, 0.20, progress)
-              * (1.0 - smoothstep(0.86, 1.0, progress) * 0.52);
+            float activity = max(uProgress, uHover);
+            float progress = uProgress;
+            if (uHover > uProgress) progress = fract(uTime * 0.32) * 0.9 + 0.05;
+            float active = smoothstep(0.015, 0.20, activity)
+              * (1.0 - smoothstep(0.86, 1.0, activity) * 0.52);
             float scanY = progress * 1.18 - 0.08;
             float scanBand = 1.0 - smoothstep(0.0, 0.045, abs(topUv.y - scanY));
             float scanReveal = 1.0 - smoothstep(scanY - 0.025, scanY + 0.035, topUv.y);
             vec2 displacement = vec2(uPointer.x, -uPointer.y) * depth * 0.006;
-            displacement.y += progress * depth * 0.003;
+            displacement.y += activity * depth * 0.003;
             vec2 sampleUv = clamp(vUv + displacement, vec2(0.001), vec2(0.999));
-            float cellSize = mix(1.0, 9.0, smoothstep(0.05, 0.6, progress));
+            float cellSize = mix(1.0, 9.0, smoothstep(0.05, 0.6, activity));
             vec2 pixelUv = floor(sampleUv * uResolution / cellSize) * cellSize / uResolution;
             vec3 original = texture2D(uPhoto, sampleUv).rgb;
             vec3 pixelated = texture2D(uPhoto, clamp(pixelUv, vec2(0.001), vec2(0.999))).rgb;
@@ -419,9 +422,11 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
           varying vec2 vUv;
           void main() {
             vUv = aUv;
-            float progress = max(uProgress, uHover);
-            float active = smoothstep(0.015, 0.18, progress)
-              * (1.0 - smoothstep(0.84, 1.0, progress) * 0.52);
+            float activity = max(uProgress, uHover);
+            float progress = uProgress;
+            if (uHover > uProgress) progress = fract(uTime * 0.32) * 0.9 + 0.05;
+            float active = smoothstep(0.015, 0.18, activity)
+              * (1.0 - smoothstep(0.84, 1.0, activity) * 0.52);
             float scanY = progress * 1.18 - 0.08;
             float scanBand = 1.0 - smoothstep(0.0, 0.09, abs(aUv.y - scanY));
             float scanReveal = 1.0 - smoothstep(scanY - 0.025, scanY + 0.06, aUv.y);
@@ -430,7 +435,7 @@ export function HeroPixelField({ triggerRef }: PixelFieldProps) {
             shifted.y -= uPointer.y * aDepth * 0.012;
             shifted.x += sin(uTime * 0.7 + aSeed * 18.0) * 0.0022 * aDepth;
             shifted.y += cos(uTime * 0.55 + aSeed * 21.0) * 0.0018 * aDepth;
-            shifted.y -= progress * aDepth * 0.008;
+            shifted.y -= activity * aDepth * 0.008;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(shifted, 1.0);
             gl_PointSize = aSize * uPixelRatio * (0.82 + scanBand * 1.45);
             vColor = aColor * (1.0 + scanBand * 0.8);
