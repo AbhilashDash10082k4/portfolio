@@ -1973,3 +1973,137 @@ canvas {
     padding-top: clamp(32rem, min(58svh, 35vw), 82rem) !important;
   }
 }
+
+
+/* One-screen hero composition: compact, responsive content stack over the existing
+   full-bleed portrait. Keep the image crop and every previously tuned breakpoint. */
+.hero-stage {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: clamp(.65rem, 1.4svh, 1.25rem) !important;
+  height: auto !important;
+  min-height: calc(100svh - 7.25rem) !important;
+  padding: clamp(.75rem, 1.5svh, 1.25rem) 1.25rem clamp(1rem, 2svh, 1.5rem) !important;
+}
+.hero-stage > .hero-eyebrow {
+  position: relative;
+  z-index: 5;
+  flex: 0 0 auto;
+  margin: 0 !important;
+}
+.hero-copy-layer {
+  width: min(100%, 70rem) !important;
+  margin: auto auto 0 !important;
+  padding: 0 !important;
+  flex: 0 0 auto;
+  text-align: center;
+}
+.hero-copy-layer .hero-name {
+  margin-bottom: .15rem !important;
+  line-height: 1.15 !important;
+}
+.hero-copy-layer .hero-name-script {
+  font-size: clamp(2.15rem, 4.1vw, 4.1rem) !important;
+}
+.hero-copy-layer .page-title {
+  max-width: 100% !important;
+  font-size: clamp(2.25rem, 4.25vw, 4.7rem) !important;
+  line-height: .98 !important;
+}
+.hero-copy-layer .page-copy {
+  max-width: 45rem !important;
+  margin-top: .5rem !important;
+  font-size: clamp(.9rem, 1.15vw, 1.1rem) !important;
+  line-height: 1.48 !important;
+}
+.hero-copy-layer .hero-actions {
+  margin-top: .85rem !important;
+  gap: .7rem !important;
+}
+.hero-copy-layer .primary-button,
+.hero-copy-layer .secondary-button {
+  min-height: 3.1rem !important;
+  padding: .75rem 1.3rem !important;
+  font-size: clamp(.82rem, .95vw, .98rem) !important;
+}
+@media (min-width: 1800px) {
+  .hero-stage { min-height: calc(100svh - 8rem) !important; }
+  .hero-copy-layer { width: min(100%, 76rem) !important; }
+  .hero-copy-layer .hero-name-script { font-size: clamp(3rem, 3.5vw, 5rem) !important; }
+  .hero-copy-layer .page-title { font-size: clamp(3.3rem, 3.9vw, 5.3rem) !important; }
+  .hero-copy-layer .page-copy { font-size: clamp(1rem, .9vw, 1.2rem) !important; }
+}
+@media (min-width: 768px) and (max-width: 1399px) {
+  .hero-stage {
+    min-height: calc(100svh - 6.5rem) !important;
+    padding-inline: 1rem !important;
+  }
+  .hero-copy-layer .hero-name-script { font-size: clamp(2.25rem, 4vw, 3.5rem) !important; }
+  .hero-copy-layer .page-title { font-size: clamp(2.3rem, 4vw, 3.8rem) !important; }
+  .hero-copy-layer .page-copy { max-width: 38rem !important; }
+}
+@media (max-height: 760px) and (min-width: 768px) {
+  .hero-stage {
+    min-height: calc(100svh - 6rem) !important;
+    gap: .45rem !important;
+    padding-block: .5rem .75rem !important;
+  }
+  .hero-copy-layer .hero-name-script { font-size: clamp(1.9rem, 3.2vw, 3rem) !important; }
+  .hero-copy-layer .page-title { font-size: clamp(2rem, 3.4vw, 3.4rem) !important; }
+  .hero-copy-layer .page-copy { margin-top: .3rem !important; line-height: 1.35 !important; }
+  .hero-copy-layer .hero-actions { margin-top: .55rem !important; }
+}
+@media (max-width: 767px) {
+  .hero-stage {
+    min-height: max(680px, calc(100svh - 6rem)) !important;
+    padding: .75rem .75rem 1rem !important;
+    gap: .65rem !important;
+  }
+  .hero-stage > .hero-eyebrow {
+    max-width: calc(100vw - 1.5rem);
+    padding: .55rem .75rem !important;
+    font-size: clamp(.6rem, 2.5vw, .72rem) !important;
+    letter-spacing: 0 !important;
+    text-align: center;
+  }
+  .hero-copy-layer {
+    width: 100% !important;
+    margin-top: auto !important;
+    padding: 0 !important;
+  }
+  .hero-copy-layer .hero-name-script { font-size: clamp(2rem, 7.8vw, 3rem) !important; }
+  .hero-copy-layer .page-title {
+    font-size: clamp(1.9rem, 7.5vw, 3rem) !important;
+    line-height: 1.02 !important;
+  }
+  .hero-copy-layer .page-copy {
+    max-width: 34rem !important;
+    margin-top: .45rem !important;
+    font-size: clamp(.82rem, 3.5vw, .98rem) !important;
+    line-height: 1.42 !important;
+  }
+  .hero-copy-layer .hero-actions {
+    width: min(100%, 25rem);
+    flex-direction: column !important;
+    align-items: stretch !important;
+    margin: .7rem auto 0 !important;
+    gap: .5rem !important;
+  }
+  .hero-copy-layer .primary-button,
+  .hero-copy-layer .secondary-button {
+    width: 100%;
+    min-height: 2.8rem !important;
+    padding: .65rem 1rem !important;
+    font-size: .88rem !important;
+  }
+}
+@media (max-width: 380px) {
+  .hero-stage { min-height: max(660px, calc(100svh - 5rem)) !important; }
+  .hero-copy-layer .page-title { font-size: clamp(1.75rem, 7.8vw, 2.2rem) !important; }
+  .hero-copy-layer .hero-name-script { font-size: clamp(1.85rem, 8vw, 2.35rem) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-pixel-field { display: none !important; }
+}
