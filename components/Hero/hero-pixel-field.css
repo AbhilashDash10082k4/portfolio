@@ -22,3 +22,52 @@
 
 /* Visible but transparent overlay; hover state is controlled by the hero stage. */
 .hero-pixel-field { opacity: 1; pointer-events: none; }
+
+
+/* Always-visible-on-hover fallback: independent of WebGL shader support. */
+.hero-stage .hero-portrait-layer { isolation: isolate; }
+.hero-pixel-fallback {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    linear-gradient(rgba(185,255,98,.32) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(185,255,98,.32) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 42%, rgba(185,255,98,.24), transparent 68%);
+  background-size: 8px 8px, 8px 8px, 100% 100%;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(ellipse 43% 62% at 50% 42%, #000 20%, rgba(0,0,0,.88) 58%, transparent 100%);
+  mask-image: radial-gradient(ellipse 43% 62% at 50% 42%, #000 20%, rgba(0,0,0,.88) 58%, transparent 100%);
+  transition: opacity .22s ease-out;
+}
+.hero-pixel-fallback::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -24%;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(180deg, transparent, rgba(185,255,98,.05) 15%, rgba(185,255,98,.9) 50%, rgba(185,255,98,.12) 78%, transparent);
+  box-shadow: 0 0 24px rgba(185,255,98,.7);
+  opacity: 0;
+}
+.hero-stage .hero-portrait-layer:hover .hero-pixel-fallback { opacity: .82; }
+.hero-stage .hero-portrait-layer:hover .hero-pixel-fallback::after {
+  opacity: 1;
+  animation: hero-pixel-sweep 1.35s linear infinite;
+}
+.hero-stage .hero-portrait-layer:hover > img {
+  transform: scale(1.045) !important;
+  filter: saturate(1.35) contrast(1.18) brightness(1.06) !important;
+  transition: transform .65s cubic-bezier(.2,.75,.25,1), filter .35s ease-out;
+}
+@keyframes hero-pixel-sweep {
+  from { top: -24%; }
+  to { top: 108%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-pixel-fallback { display: none; }
+  .hero-stage .hero-portrait-layer:hover > img { transform: none !important; }
+}
