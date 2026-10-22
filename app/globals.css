@@ -2485,3 +2485,12 @@ canvas {
 @media (prefers-reduced-motion: reduce) {
   #hero .hero-scroll-cue__line { animation: none; opacity: .8; transform: translateX(-50%); }
 }
+
+
+/* 4K / ultrawide: lift the entire hero copy block substantially.
+   This rule is intentionally limited to >=1800px; all smaller screens stay unchanged. */
+@media (min-width: 1800px) {
+  #hero .hero-copy-layer {
+    bottom: clamp(11rem, 18svh, 17rem) !important;
+  }
+}
