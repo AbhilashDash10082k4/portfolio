@@ -2494,3 +2494,50 @@ canvas {
     bottom: clamp(11rem, 18svh, 17rem) !important;
   }
 }
+
+
+/* Responsive hero polish: preserve the approved 1024px composition. */
+@media (min-width: 1025px) and (max-width: 1799px) {
+  /* Match the larger navbar-to-banner gap used on tablet/mobile, and move copy
+     slightly down from the neck toward the chest. */
+  #hero .hero-eyebrow {
+    top: clamp(7.8rem, 11svh, 8.8rem) !important;
+  }
+  #hero .hero-copy-layer {
+    bottom: clamp(2.5rem, 4.5svh, 3.5rem) !important;
+  }
+}
+
+/* 4K / ultrawide: make the headline and CTAs read at the scale of the portrait. */
+@media (min-width: 1800px) {
+  #hero .hero-copy-layer .hero-name-script {
+    font-size: clamp(3.3rem, 3.8vw, 5.6rem) !important;
+  }
+  #hero .hero-copy-layer .page-title {
+    font-size: clamp(4.2rem, 4.6vw, 6.4rem) !important;
+    line-height: .98 !important;
+  }
+  #hero .hero-copy-layer .page-copy {
+    margin-top: .7rem !important;
+    font-size: clamp(1.05rem, 1vw, 1.3rem) !important;
+    line-height: 1.5 !important;
+  }
+  #hero .hero-copy-layer .hero-actions {
+    margin-top: 1.25rem !important;
+    gap: .8rem !important;
+  }
+  #hero .hero-copy-layer .primary-button,
+  #hero .hero-copy-layer .secondary-button {
+    min-height: 3.2rem !important;
+    padding: .85rem 1.5rem !important;
+    font-size: clamp(.95rem, 1vw, 1.12rem) !important;
+  }
+}
+
+/* Add breathing room between supporting copy/headline and CTAs without moving
+   the already-approved 768–1024px composition. */
+@media (max-width: 1799px) {
+  #hero .hero-copy-layer .hero-actions {
+    margin-top: 1rem !important;
+  }
+}
