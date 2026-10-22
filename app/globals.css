@@ -2451,3 +2451,37 @@ canvas {
     bottom: clamp(4.5rem, 8svh, 6rem) !important;
   }
 }
+
+
+/* Downward glow in the hero scroll cue. */
+#hero .hero-scroll-cue {
+  overflow: hidden;
+}
+#hero .hero-scroll-cue__line {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 2px;
+  height: 17px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, transparent 0%, var(--accent-strong) 75%, #f4ffd8 100%);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent-strong) 75%, transparent);
+  transform: translateX(-50%);
+  transform-origin: top;
+  animation: hero-scroll-glow 1.45s ease-in-out infinite;
+}
+#hero .hero-scroll-cue__icon {
+  position: absolute;
+  bottom: 3px;
+  z-index: 1;
+  background: var(--surface);
+  border-radius: 999px;
+}
+@keyframes hero-scroll-glow {
+  0% { opacity: .25; transform: translate(-50%, -3px) scaleY(.35); }
+  55% { opacity: 1; transform: translate(-50%, 2px) scaleY(1); }
+  100% { opacity: .25; transform: translate(-50%, 7px) scaleY(.45); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #hero .hero-scroll-cue__line { animation: none; opacity: .8; transform: translateX(-50%); }
+}
