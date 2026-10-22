@@ -2442,3 +2442,12 @@ canvas {
     bottom: clamp(3.5rem, 7svh, 4.5rem) !important;
   }
 }
+
+
+/* Normal desktop viewport: reserve a clear lane above the fixed scroll cue.
+   Scoped to 1025–1799px so tablet and ultrawide compositions are untouched. */
+@media (min-width: 1025px) and (max-width: 1799px) {
+  #hero .hero-copy-layer {
+    bottom: clamp(4.5rem, 8svh, 6rem) !important;
+  }
+}
