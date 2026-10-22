@@ -12,9 +12,10 @@ export function ScrollButton() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1, delay: 0.8 }}
       onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-      className="absolute bottom-7 left-1/2 z-30 flex h-12 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-border bg-surface/70 text-muted shadow-sm backdrop-blur-sm transition hover:border-accent-strong/40 hover:text-accent-strong"
+      className="hero-scroll-cue absolute bottom-7 left-1/2 z-30 flex h-12 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-border bg-surface/70 text-muted shadow-sm backdrop-blur-sm transition hover:border-accent-strong/40 hover:text-accent-strong"
     >
-      <ChevronDown aria-hidden="true" className="size-5 animate-bounce" />
+      <span aria-hidden="true" className="hero-scroll-cue__line" />
+      <ChevronDown aria-hidden="true" className="hero-scroll-cue__icon size-4" />
     </motion.button>
   );
 }
