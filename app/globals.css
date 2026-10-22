@@ -2607,3 +2607,12 @@ canvas {
     font-size: clamp(.95rem, .9vw, 1.2rem) !important;
   }
 }
+
+
+/* Final ultrawide-only position correction: keep all other breakpoints intact.
+   Reduce the bottom offset so the complete copy/CTA group sits lower on the torso. */
+@media (min-width: 1800px) {
+  #hero .hero-copy-layer {
+    bottom: 0.5rem !important;
+  }
+}
