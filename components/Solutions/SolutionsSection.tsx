@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { portfolioProjects } from "@/data/portfolio-projects";
+import styles from "./SolutionsSection.module.css";
 
 const statusStyles = {
   "In progress": "border-emerald-700/20 bg-emerald-100 text-emerald-800 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200",
@@ -29,7 +30,7 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
   const isGrid = layout === "grid";
 
   return (
-    <Section id="projects" className={"projects-section relative py-24 md:py-36 " + (isGrid ? "projects-page-grid" : "projects-home-editorial")}>
+    <Section id="projects" className={"projects-section relative py-24 md:py-36 " + (isGrid ? styles.projectsPageGrid : styles.homeEditorial)}>
       <div className="page-container">
         <div className="projects-heading mb-14 flex flex-col gap-7 md:mb-20 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
