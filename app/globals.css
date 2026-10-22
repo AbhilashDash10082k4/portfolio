@@ -2616,3 +2616,18 @@ canvas {
     bottom: 0.5rem !important;
   }
 }
+
+
+/* Tiny final polish for ultrawide hero only: slightly smaller type and more
+   breathing room below the CTA row. */
+@media (min-width: 1800px) {
+  #hero .hero-copy-layer .hero-name-script {
+    font-size: clamp(3.8rem, 4.35vw, 6.5rem) !important;
+  }
+  #hero .hero-copy-layer .page-title {
+    font-size: clamp(4.8rem, 5.1vw, 7.4rem) !important;
+  }
+  #hero .hero-copy-layer {
+    bottom: 1.8rem !important;
+  }
+}
