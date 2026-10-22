@@ -1,7 +1,6 @@
 /**
- * Editorial project showcase sourced from data/portfolio-projects.ts.
- * The first item is featured; subsequent items use varied card proportions.
- * Homepage limit keeps the preview curated while /projects shows all records.
+ * Shared project showcase. Homepage uses editorial rows; /projects uses a grid.
+ * Project content remains centralized in data/portfolio-projects.ts.
  */
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -23,36 +22,39 @@ const projectVisuals = [
   { image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80", label: "DIGITAL PRODUCTS", tone: "project-visual-ink" },
 ];
 
-export const SolutionsSection = ({ limit }: { limit?: number }) => {
+type SolutionsSectionProps = { limit?: number; layout?: "editorial" | "grid" };
+
+export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
   const projects = limit ? portfolioProjects.slice(0, limit) : portfolioProjects;
+  const isGrid = layout === "grid";
 
   return (
-    <Section id="projects" className="projects-section relative py-24 md:py-36">
+    <Section id="projects" className={"projects-section relative py-24 md:py-36 " + (isGrid ? "projects-page-grid" : "projects-home-editorial")}>
       <div className="page-container">
         <div className="projects-heading mb-14 flex flex-col gap-7 md:mb-20 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
-            <p className="page-eyebrow mb-5">A selection of work & experiments</p>
+            <p className="page-eyebrow mb-5">{isGrid ? "The complete collection" : "SELECTED WORK / EXPERIMENTS"}</p>
             <h2 className="projects-display-title">
-              Built with purpose.
-              <span> Still becoming.</span>
+              {isGrid ? "Projects & experiments." : "Built with purpose."}
+              <span>{isGrid ? " In progress and beyond." : " Still becoming."}</span>
             </h2>
           </div>
           <p className="max-w-xs text-sm leading-7 text-muted md:pb-2">
-            A growing collection of products, prototypes, and ideas worth exploring.
+            {isGrid ? "Products, prototypes, and automation experiments across AI and software." : "A growing collection of products, prototypes, and ideas worth exploring."}
           </p>
         </div>
 
-        <div className="projects-editorial-grid">
+        <div className={isGrid ? "projects-editorial-grid projects-full-grid" : "projects-editorial-list"}>
           {projects.map((project, index) => {
             const visual = projectVisuals[index % projectVisuals.length];
             const statusLabel = project.status === "Planned" ? "UPCOMING" : project.status.toUpperCase();
             return (
-              <article key={project.slug} className={"project-card editorial-project-card " + (index === 0 ? "project-card-featured" : "project-card-standard")}>
+              <article key={project.slug} className={"project-card editorial-project-card " + (isGrid ? "project-card-grid" : "project-row") + (index === 0 ? " project-card-featured" : "")}>
                 <div
                   className={"project-visual " + visual.tone}
                   role="img"
-                  aria-label={"Placeholder project image for " + project.title}
-                  style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.04) 35%, rgba(9,16,12,.68) 100%), url('" + visual.image + "')" }}
+                  aria-label={"Placeholder visual for " + project.title}
+                  style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" + visual.image + "')" }}
                 >
                   <span className="project-visual-label">{visual.label}</span>
                   <span className={"project-status " + statusStyles[project.status]}>{statusLabel}</span>
