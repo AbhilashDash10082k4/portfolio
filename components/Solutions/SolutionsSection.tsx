@@ -1,11 +1,15 @@
+"use client";
+
 /**
- * Shared project showcase. Homepage uses editorial rows; /projects uses a grid.
+ * Shared project showcase. Homepage uses compact editorial rows; /projects uses a grid.
  * Project content remains centralized in data/portfolio-projects.ts.
  */
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { portfolioProjects } from "@/data/portfolio-projects";
+import "./projects-interactions.css";
 
 const statusStyles = {
   "In progress": "border-emerald-700/20 bg-emerald-100 text-emerald-800 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200",
@@ -27,9 +31,48 @@ type SolutionsSectionProps = { limit?: number; layout?: "editorial" | "grid" };
 export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
   const projects = limit ? portfolioProjects.slice(0, limit) : portfolioProjects;
   const isGrid = layout === "grid";
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const previewRef = useRef<HTMLDivElement | null>(null);
+  const [activePreview, setActivePreview] = useState<number | null>(null);
+  const [pointer, setPointer] = useState({ x: -1000, y: -1000 });
+
+  useEffect(() => {
+    if (isGrid || !sectionRef.current) return;
+    const section = sectionRef.current;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      section.classList.add("projects-revealed");
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        section.classList.add("projects-revealed");
+        observer.disconnect();
+      }
+    }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [isGrid]);
+
+  useEffect(() => {
+    if (activePreview === null || isGrid) return;
+    const preview = previewRef.current;
+    if (!preview) return;
+    preview.style.transform = `translate3d(${pointer.x + 24}px, ${pointer.y + 18}px, 0)`;
+  }, [activePreview, pointer, isGrid]);
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== "mouse" || isGrid) return;
+    setPointer({ x: event.clientX, y: event.clientY });
+  };
 
   return (
-    <Section id="projects" className={"projects-section relative py-24 md:py-36 " + (isGrid ? "projects-page-grid" : "projects-home-editorial")}>
+    <Section
+      id="projects"
+      className={"projects-section relative py-24 md:py-36 " + (isGrid ? "projects-page-grid" : "projects-home-editorial")}
+      ref={sectionRef}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => setActivePreview(null)}
+    >
       <div className="page-container">
         <div className="projects-heading mb-14 flex flex-col gap-7 md:mb-20 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
@@ -49,17 +92,28 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
             const visual = projectVisuals[index % projectVisuals.length];
             const statusLabel = project.status === "Planned" ? "UPCOMING" : project.status.toUpperCase();
             return (
-              <article key={project.slug} className={"project-card editorial-project-card " + (isGrid ? "project-card-grid" : "project-row") + (index === 0 ? " project-card-featured" : "")}>
-                <div
-                  className={"project-visual " + visual.tone}
-                  role="img"
-                  aria-label={"Placeholder visual for " + project.title}
-                  style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" + visual.image + "')" }}
-                >
-                  <span className="project-visual-label">{visual.label}</span>
-                  <span className={"project-status " + statusStyles[project.status]}>{statusLabel}</span>
-                  <span className="project-visual-title" aria-hidden="true">{project.title}</span>
-                </div>
+              <article
+                key={project.slug}
+                className={"project-card editorial-project-card " + (isGrid ? "project-card-grid" : "project-row")}
+                onPointerEnter={(event) => {
+                  if (!isGrid && event.pointerType === "mouse") setActivePreview(index);
+                }}
+                onFocus={() => { if (!isGrid) setActivePreview(index); }}
+              >
+                {isGrid ? (
+                  <div
+                    className={"project-visual " + visual.tone}
+                    role="img"
+                    aria-label={"Placeholder visual for " + project.title}
+                    style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" + visual.image + "')" }}
+                  >
+                    <span className="project-visual-label">{visual.label}</span>
+                    <span className={"project-status " + statusStyles[project.status]}>{statusLabel}</span>
+                    <span className="project-visual-title" aria-hidden="true">{project.title}</span>
+                  </div>
+                ) : (
+                  <div className="project-row-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
+                )}
                 <div className="project-card-content">
                   <div className="project-card-meta">
                     <span>{String(index + 1).padStart(2, "0")} / {project.role}</span>
@@ -82,6 +136,17 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
             );
           })}
         </div>
+        {!isGrid && activePreview !== null && (
+          <div
+            ref={previewRef}
+            className="project-cursor-preview"
+            aria-hidden="true"
+            style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" + projectVisuals[activePreview % projectVisuals.length].image + "')" }}
+          >
+            <span>{projectVisuals[activePreview % projectVisuals.length].label}</span>
+            <strong>{projects[activePreview]?.title}</strong>
+          </div>
+        )}
         {limit && (
           <div className="mt-12 flex justify-center md:mt-16">
             <Link href="/projects" className="secondary-button">Explore all projects <ArrowUpRight aria-hidden="true" className="size-4" /></Link>
