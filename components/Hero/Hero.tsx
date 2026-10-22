@@ -1,6 +1,5 @@
 import { Section } from "@/components/ui/section";
 import { Intro } from "./Intro";
-import { ScrollButton } from "./ScrollButton";
 
 export function Hero() {
   return (
@@ -11,7 +10,6 @@ export function Hero() {
       <div className="page-container relative z-10 w-full max-w-none p-0">
         <Intro />
       </div>
-      <ScrollButton />
     </Section>
   );
 }
