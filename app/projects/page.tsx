@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <div className="pt-28 md:pt-32">
-      <SolutionsSection />
+      <SolutionsSection layout="grid" />
     </div>
   );
 }
