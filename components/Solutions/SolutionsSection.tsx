@@ -5,6 +5,7 @@
  * Project content remains centralized in data/portfolio-projects.ts.
  */
 import { useEffect, useRef, useState } from "react";
+import type { PointerEvent } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
@@ -60,7 +61,7 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
     preview.style.transform = `translate3d(${pointer.x + 24}px, ${pointer.y + 18}px, 0)`;
   }, [activePreview, pointer, isGrid]);
 
-  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
     if (event.pointerType !== "mouse" || isGrid) return;
     setPointer({ x: event.clientX, y: event.clientY });
   };
