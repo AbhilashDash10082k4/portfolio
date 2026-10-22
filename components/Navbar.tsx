@@ -71,7 +71,7 @@ export function Navbar() {
             return <Link key={link.href} href={link.href} aria-current={active ? "page" : undefined} className={"text-sm font-bold transition-colors hover:text-accent-strong " + (active ? "text-accent-strong" : "text-muted")}>{link.name}</Link>;
           })}
         </div>
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <ThemeToggle className={iconLinkClass} />
           <AmbientAudioToggle className={iconLinkClass} />
           <Link href="https://github.com/AbhilashDash10082k4" target="_blank" rel="noreferrer" aria-label="GitHub profile (opens in a new tab)" className={iconLinkClass}>
@@ -79,7 +79,7 @@ export function Navbar() {
           </Link>
           <Link href="/contact" className="primary-button ml-1 min-h-10 px-4 py-2 text-sm">Let’s talk <ArrowUpRight aria-hidden="true" className="size-4" /></Link>
         </div>
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-1 lg:hidden">
           <ThemeToggle className={iconLinkClass} />
           <button type="button" aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={isOpen} aria-controls="mobile-navigation" className={iconLinkClass} onClick={() => setIsOpen((open) => !open)}>
             {isOpen ? <X aria-hidden="true" className="size-4" /> : <Menu aria-hidden="true" className="size-4" />}
@@ -88,7 +88,7 @@ export function Navbar() {
       </nav>
       <AnimatePresence>
         {isOpen && (
-          <motion.div id="mobile-navigation" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.16 }} className="absolute left-3 right-3 top-[4.4rem] flex flex-col gap-1 rounded-3xl border border-border bg-surface/95 p-4 shadow-xl backdrop-blur-xl md:hidden">
+          <motion.div id="mobile-navigation" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.16 }} className="absolute left-3 right-3 top-[4.4rem] flex flex-col gap-1 rounded-3xl border border-border bg-surface/95 p-4 shadow-xl backdrop-blur-xl lg:hidden">
             {navLinks.map((link) => <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className={"rounded-xl px-4 py-3 text-center text-sm font-bold transition-colors hover:bg-surface-muted " + (pathname === link.href ? "text-accent-strong" : "text-muted")}>{link.name}</Link>)}
             <div className="mt-2 flex items-center justify-center gap-3 border-t border-border pt-3">
               <AmbientAudioToggle className={iconLinkClass} />

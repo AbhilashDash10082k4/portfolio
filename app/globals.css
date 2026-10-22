@@ -2494,3 +2494,140 @@ canvas {
     bottom: clamp(11rem, 18svh, 17rem) !important;
   }
 }
+
+
+/* Responsive hero polish: preserve the approved 1024px composition. */
+@media (min-width: 1025px) and (max-width: 1799px) {
+  /* Match the larger navbar-to-banner gap used on tablet/mobile, and move copy
+     slightly down from the neck toward the chest. */
+  #hero .hero-eyebrow {
+    top: clamp(7.8rem, 11svh, 8.8rem) !important;
+  }
+  #hero .hero-copy-layer {
+    bottom: clamp(2.5rem, 4.5svh, 3.5rem) !important;
+  }
+}
+
+/* 4K / ultrawide: make the headline and CTAs read at the scale of the portrait. */
+@media (min-width: 1800px) {
+  #hero .hero-copy-layer .hero-name-script {
+    font-size: clamp(3.3rem, 3.8vw, 5.6rem) !important;
+  }
+  #hero .hero-copy-layer .page-title {
+    font-size: clamp(4.2rem, 4.6vw, 6.4rem) !important;
+    line-height: .98 !important;
+  }
+  #hero .hero-copy-layer .page-copy {
+    margin-top: .7rem !important;
+    font-size: clamp(1.05rem, 1vw, 1.3rem) !important;
+    line-height: 1.5 !important;
+  }
+  #hero .hero-copy-layer .hero-actions {
+    margin-top: 1.25rem !important;
+    gap: .8rem !important;
+  }
+  #hero .hero-copy-layer .primary-button,
+  #hero .hero-copy-layer .secondary-button {
+    min-height: 3.2rem !important;
+    padding: .85rem 1.5rem !important;
+    font-size: clamp(.95rem, 1vw, 1.12rem) !important;
+  }
+}
+
+/* Add breathing room between supporting copy/headline and CTAs without moving
+   the already-approved 768–1024px composition. */
+@media (max-width: 1799px) {
+  #hero .hero-copy-layer .hero-actions {
+    margin-top: 1rem !important;
+  }
+}
+
+
+/* 2560px–4K: move the copy down onto the shoulders/chest and scale the full
+   composition together. Only applies to ultrawide screens. */
+@media (min-width: 1800px) {
+  #hero .hero-copy-layer {
+    bottom: clamp(3.5rem, 6.5svh, 6.5rem) !important;
+    width: min(96vw, 104rem) !important;
+  }
+  #hero .hero-copy-layer .hero-name {
+    font-size: clamp(1.1rem, 1.35vw, 1.6rem) !important;
+  }
+  #hero .hero-copy-layer .hero-name-script {
+    font-size: clamp(4rem, 4.6vw, 6.8rem) !important;
+  }
+  #hero .hero-copy-layer .page-title {
+    font-size: clamp(5rem, 5.4vw, 7.8rem) !important;
+    line-height: .96 !important;
+  }
+  #hero .hero-copy-layer .page-copy {
+    max-width: 58rem !important;
+    margin-top: .85rem !important;
+    font-size: clamp(1.25rem, 1.2vw, 1.65rem) !important;
+    line-height: 1.45 !important;
+  }
+  #hero .hero-copy-layer .hero-actions {
+    margin-top: 1.6rem !important;
+    gap: 1rem !important;
+  }
+  #hero .hero-copy-layer .primary-button,
+  #hero .hero-copy-layer .secondary-button {
+    min-height: 4rem !important;
+    padding: 1rem 1.9rem !important;
+    font-size: clamp(1.1rem, 1.1vw, 1.4rem) !important;
+    gap: .65rem !important;
+  }
+  #hero .hero-copy-layer .primary-button svg,
+  #hero .hero-copy-layer .secondary-button svg {
+    width: 1.3rem !important;
+    height: 1.3rem !important;
+  }
+}
+
+/* Widen the navigation pill and banner on 2560px–4K displays. */
+@media (min-width: 1800px) {
+  #hero ~ * { }
+  header nav {
+    width: min(96vw, 112rem) !important;
+    max-width: 112rem !important;
+    min-height: 5.5rem !important;
+    padding-inline: clamp(2rem, 2.8vw, 4rem) !important;
+    padding-block: 1rem !important;
+  }
+  header nav > a:first-child {
+    font-size: clamp(1.25rem, 1.2vw, 1.7rem) !important;
+  }
+  header nav > div a {
+    font-size: clamp(1rem, .95vw, 1.25rem);
+  }
+  #hero .hero-eyebrow {
+    top: clamp(8rem, 10svh, 10rem) !important;
+    max-width: min(70vw, 54rem) !important;
+    padding: .8rem 1.5rem !important;
+    font-size: clamp(.95rem, .9vw, 1.2rem) !important;
+  }
+}
+
+
+/* Final ultrawide-only position correction: keep all other breakpoints intact.
+   Reduce the bottom offset so the complete copy/CTA group sits lower on the torso. */
+@media (min-width: 1800px) {
+  #hero .hero-copy-layer {
+    bottom: 0.5rem !important;
+  }
+}
+
+
+/* Tiny final polish for ultrawide hero only: slightly smaller type and more
+   breathing room below the CTA row. */
+@media (min-width: 1800px) {
+  #hero .hero-copy-layer .hero-name-script {
+    font-size: clamp(3.8rem, 4.35vw, 6.5rem) !important;
+  }
+  #hero .hero-copy-layer .page-title {
+    font-size: clamp(4.8rem, 5.1vw, 7.4rem) !important;
+  }
+  #hero .hero-copy-layer {
+    bottom: 1.8rem !important;
+  }
+}
