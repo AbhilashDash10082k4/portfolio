@@ -283,3 +283,125 @@
   .projects-home-editorial .project-row .project-stack { margin-top: .55rem; }
   .projects-home-editorial .project-row-index { display: none !important; }
 }
+
+
+/* Viewport composition and center-out reveal for the homepage Projects section. */
+.projects-home-editorial:not(.projects-revealed) {
+  clip-path: inset(0 50% 0 50% round 0) !important;
+  opacity: 1;
+  transform: none;
+}
+.projects-home-editorial.projects-revealed {
+  animation: projects-center-out-reveal 820ms cubic-bezier(.2, 1, .25, 1) both !important;
+}
+@keyframes projects-center-out-reveal {
+  0% { clip-path: inset(0 50% 0 50% round 0); }
+  72% { clip-path: inset(0 -.5% 0 -.5% round 0); }
+  88% { clip-path: inset(0 .25% 0 .25% round 0); }
+  100% { clip-path: inset(0 0 0 0 round 0); }
+}
+@media (min-width: 1024px) {
+  .projects-home-editorial {
+    box-sizing: border-box;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(2rem, 4.5vh, 4.5rem) !important;
+  }
+  .projects-home-editorial > .page-container {
+    width: min(84vw, 1600px) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+  }
+  .projects-home-editorial .projects-heading {
+    margin-bottom: clamp(1rem, 2.8vh, 2.5rem) !important;
+  }
+  .projects-home-editorial .project-row {
+    padding-block: clamp(.65rem, 1.25vh, 1.15rem);
+  }
+  .projects-home-editorial .project-row .project-card-meta { margin-bottom: .3rem; }
+  .projects-home-editorial .project-row .project-card-bottom p { margin-top: .2rem; }
+  .projects-home-editorial .project-row .project-stack { margin-top: .35rem; }
+  .projects-home-editorial > .page-container > .mt-12 {
+    margin-top: clamp(1rem, 2.5vh, 2rem) !important;
+  }
+}
+@media (min-width: 1920px) {
+  .projects-home-editorial {
+    min-height: 100svh;
+    padding-block: clamp(2rem, 4vh, 4rem) !important;
+  }
+  .projects-home-editorial > .page-container {
+    width: min(88vw, 2160px) !important;
+    max-width: 2160px !important;
+  }
+  .projects-home-editorial .projects-heading {
+    align-items: flex-end;
+    margin-bottom: clamp(1.5rem, 3.2vh, 3rem) !important;
+    gap: 3vw !important;
+  }
+  .projects-home-editorial .projects-heading > div { max-width: 70% !important; }
+  .projects-home-editorial .projects-heading .page-eyebrow {
+    font-size: clamp(.9rem, .72vw, 1.2rem);
+    margin-bottom: clamp(.6rem, 1.2vh, 1rem) !important;
+  }
+  .projects-home-editorial .projects-heading .projects-display-title {
+    font-size: clamp(4.5rem, 4.7vw, 7.5rem) !important;
+    line-height: .91;
+    letter-spacing: -.075em;
+  }
+  .projects-home-editorial .projects-heading > p {
+    max-width: 34rem;
+    font-size: clamp(1.15rem, 1.05vw, 1.65rem);
+    line-height: 1.45;
+  }
+  .projects-home-editorial .project-row {
+    padding-block: clamp(.8rem, 1.45vh, 1.5rem);
+  }
+  .projects-home-editorial .project-row .project-card-meta {
+    font-size: clamp(.78rem, .58vw, 1.05rem);
+    margin-bottom: clamp(.3rem, .55vh, .6rem);
+  }
+  .projects-home-editorial .project-row .project-card-bottom h3 {
+    font-size: clamp(2rem, 2vw, 3.15rem);
+    line-height: 1.02;
+  }
+  .projects-home-editorial .project-row .project-card-bottom p {
+    max-width: 78ch;
+    font-size: clamp(1rem, .95vw, 1.45rem);
+    line-height: 1.35;
+    margin-top: .25rem;
+  }
+  .projects-home-editorial .project-row .project-round-link {
+    width: clamp(2.8rem, 3vw, 4rem);
+    height: clamp(2.8rem, 3vw, 4rem);
+  }
+  .projects-home-editorial .project-row .project-stack {
+    margin-top: clamp(.3rem, .7vh, .7rem);
+    gap: .45rem;
+  }
+  .projects-home-editorial .project-row .project-stack span {
+    font-size: clamp(.78rem, .58vw, 1.05rem);
+    padding: .26rem .65rem;
+  }
+  .projects-home-editorial > .page-container > .mt-12 {
+    margin-top: clamp(1.2rem, 2.5vh, 2.6rem) !important;
+  }
+}
+@media (max-height: 850px) and (min-width: 1024px) {
+  .projects-home-editorial { padding-block: 1.5rem !important; }
+  .projects-home-editorial .projects-heading { margin-bottom: 1rem !important; }
+  .projects-home-editorial .project-row { padding-block: .45rem; }
+  .projects-home-editorial .project-row .project-card-bottom p { line-height: 1.3; }
+  .projects-home-editorial .project-row .project-stack { margin-top: .25rem; }
+  .projects-home-editorial > .page-container > .mt-12 { margin-top: .85rem !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .projects-home-editorial:not(.projects-revealed) {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .projects-home-editorial.projects-revealed { animation: none !important; }
+}
