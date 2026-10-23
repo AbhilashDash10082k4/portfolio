@@ -2822,3 +2822,157 @@ canvas {
     will-change: auto !important;
   }
 }
+
+
+/* Projects: restore a naturally wider, balanced "Built with Purpose." heading
+   and give the editorial rows room to breathe instead of forcing one viewport. */
+.projects-home-editorial .project-built-with {
+  letter-spacing: -.035em !important;
+  font-size: 1em !important;
+  max-width: none;
+  width: auto;
+}
+.projects-home-editorial .projects-heading .projects-display-title {
+  width: max-content;
+  max-width: 100%;
+}
+.projects-home-editorial .projects-editorial-list .project-row {
+  padding-block: clamp(1.35rem, 2.5vh, 2.4rem) !important;
+}
+.projects-home-editorial .project-row .project-card-meta {
+  margin-bottom: clamp(.65rem, 1.1vh, 1rem) !important;
+}
+.projects-home-editorial .project-row .project-stack {
+  margin-top: clamp(.65rem, 1.2vh, 1rem) !important;
+}
+.projects-home-editorial .projects-heading {
+  margin-bottom: clamp(2rem, 4vh, 3.5rem) !important;
+}
+
+/* Animated horizontal service panels (768px+). Motion handles the spring
+   expansion; CSS supplies the responsive editorial panel styling. */
+.services-panel-strip {
+  display: flex;
+  width: 100%;
+  height: clamp(28rem, 62vh, 43rem);
+  min-height: 28rem;
+  gap: clamp(.25rem, .65vw, .65rem);
+  overflow: hidden;
+  border-radius: 1.1rem;
+}
+.services-panel {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: .8rem;
+  padding: clamp(.8rem, 1.4vw, 1.5rem);
+  background-color: color-mix(in srgb, var(--surface) 88%, transparent);
+  background-position: center;
+  background-size: cover;
+  color: var(--foreground);
+  cursor: pointer;
+  isolation: isolate;
+  outline-offset: 4px;
+}
+.services-panel::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--background) 20%, transparent), transparent 40%, rgba(5,10,8,.76));
+  content: "";
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+.services-panel.is-active::before { opacity: 1; }
+.services-panel-top,
+.services-panel-bottom {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(.58rem, .62vw, .75rem);
+  font-weight: 850;
+  letter-spacing: .12em;
+  line-height: 1.4;
+}
+.services-panel-top { color: var(--accent-strong); white-space: nowrap; }
+.services-panel-top span { color: var(--muted); }
+.services-panel-bottom {
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.services-panel.is-active .services-panel-bottom { color: #f7f8f4; }
+.services-panel-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: .8rem;
+}
+.services-panel-icon { width: 1.6rem; height: 1.6rem; color: var(--accent-strong); flex: 0 0 auto; }
+.services-panel h3 {
+  max-width: 100%;
+  color: var(--foreground);
+  font-size: clamp(1rem, 1.35vw, 1.8rem);
+  font-weight: 850;
+  letter-spacing: -.055em;
+  line-height: 1.02;
+  overflow-wrap: anywhere;
+}
+.services-panel.is-active h3 {
+  color: #f7f8f4;
+  font-size: clamp(1.65rem, 2.65vw, 3.3rem);
+  overflow-wrap: normal;
+}
+.services-panel-details { max-width: 31rem; color: rgba(247,248,244,.82); }
+.services-panel-italic {
+  margin: 0 0 .7rem;
+  color: var(--accent);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.05rem, 1.6vw, 1.65rem);
+  font-style: italic;
+  line-height: 1.2;
+}
+.services-panel-details > p:not(.services-panel-italic) {
+  max-width: 29rem;
+  font-size: clamp(.8rem, .9vw, 1rem);
+  line-height: 1.65;
+}
+.services-panel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-top: 1.1rem;
+  color: #f7f8f4;
+  font-size: .8rem;
+  font-weight: 850;
+}
+.services-panel-link:hover { color: var(--accent); }
+.services-story-list { display: none; }
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .services-story-section { padding-block: 5rem !important; }
+  .services-story-heading { margin-bottom: 2.5rem; }
+  .services-panel-strip { height: clamp(26rem, 60vh, 36rem); min-height: 26rem; }
+  .services-panel { padding: .75rem; }
+  .services-panel.is-active h3 { font-size: clamp(1.45rem, 2.5vw, 2.25rem); }
+  .services-panel-details > p:not(.services-panel-italic) { font-size: .78rem; }
+}
+@media (max-width: 768px) {
+  .services-panel-strip { display: none; }
+  .services-story-list { display: block; }
+  .services-story-heading { margin-bottom: 3rem; }
+  .service-story-row { gap: 1.35rem; padding-block: 2.4rem; }
+  .service-story-visual { min-height: 0; aspect-ratio: 1.5 / 1; max-height: 22rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .services-panel,
+  .services-panel::before { transition: none !important; }
+}
