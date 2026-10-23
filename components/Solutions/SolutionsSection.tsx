@@ -44,14 +44,35 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
       section.classList.add("projects-revealed");
       return;
     }
+    let revealAnimation: Animation | undefined;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        section.classList.add("projects-revealed");
-        observer.disconnect();
-      }
-    }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+
+      // Use the Web Animations API so CSS scroll-timeline support or CSS order
+      // cannot silently override the reveal in individual browsers.
+      section.classList.add("projects-revealed");
+      section.style.animation = "none";
+      revealAnimation = section.animate(
+        [
+          { clipPath: "inset(0 50% 0 50% round 0)", opacity: 0.92, offset: 0 },
+          { clipPath: "inset(0 0 0 0 round 0)", opacity: 1, offset: 0.76 },
+          { clipPath: "inset(0 .35% 0 .35% round 0)", opacity: 1, offset: 0.9 },
+          { clipPath: "inset(0 0 0 0 round 0)", opacity: 1, offset: 1 },
+        ],
+        { duration: 900, easing: "cubic-bezier(.16, 1, .3, 1)", fill: "both" },
+      );
+      revealAnimation.onfinish = () => {
+        section.style.clipPath = "inset(0 0 0 0)";
+        revealAnimation?.cancel();
+        revealAnimation = undefined;
+      };
+    }, { threshold: 0.01, rootMargin: "0px 0px -4% 0px" });
     observer.observe(section);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      revealAnimation?.cancel();
+    };
   }, [isGrid]);
 
   useEffect(() => {
