@@ -100,7 +100,7 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
           <div className="max-w-3xl">
             <p className="page-eyebrow mb-5">{isGrid ? "The complete collection" : "SELECTED WORK / EXPERIMENTS"}</p>
             <h2 className="projects-display-title">
-              {isGrid ? "Projects & experiments." : "Built with purpose."}
+              {isGrid ? "Projects & experiments." : <>Built with <span className="project-purpose-highlight">purpose.</span></>}
               <span>{isGrid ? " In progress and beyond." : " Still becoming."}</span>
             </h2>
           </div>
