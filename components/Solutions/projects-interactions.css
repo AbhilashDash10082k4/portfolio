@@ -422,3 +422,9 @@
   .projects-home-editorial .projects-display-title,
   .projects-home-editorial .project-row .project-card-bottom h3 { transition: none; }
 }
+
+
+.projects-home-editorial .project-purpose-highlight {
+  display: inline;
+  color: var(--accent-strong);
+}
