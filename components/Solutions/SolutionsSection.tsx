@@ -99,22 +99,20 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
                 onPointerEnter={(event) => {
                   if (!isGrid && event.pointerType === "mouse") setActivePreview(index);
                 }}
+                onPointerLeave={() => setActivePreview(null)}
                 onFocus={() => { if (!isGrid) setActivePreview(index); }}
+                onBlur={() => setActivePreview(null)}
               >
-                {isGrid ? (
-                  <div
-                    className={"project-visual " + visual.tone}
-                    role="img"
-                    aria-label={"Placeholder visual for " + project.title}
-                    style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" + visual.image + "')" }}
-                  >
-                    <span className="project-visual-label">{visual.label}</span>
-                    <span className={"project-status " + statusStyles[project.status]}>{statusLabel}</span>
-                    <span className="project-visual-title" aria-hidden="true">{project.title}</span>
-                  </div>
-                ) : (
-                  <div className="project-row-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
-                )}
+                <div
+                  className={"project-visual " + visual.tone}
+                  role="img"
+                  aria-label={"Placeholder visual for " + project.title}
+                  style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" + visual.image + "')" }}
+                >
+                  <span className="project-visual-label">{visual.label}</span>
+                  <span className={"project-status " + statusStyles[project.status]}>{statusLabel}</span>
+                  <span className="project-visual-title" aria-hidden="true">{project.title}</span>
+                </div>
                 <div className="project-card-content">
                   <div className="project-card-meta">
                     <span>{String(index + 1).padStart(2, "0")} / {project.role}</span>
