@@ -410,15 +410,13 @@
 /* Hover polish: use the site's existing Dancing Script font and accent token. */
 .projects-home-editorial .projects-display-title,
 .projects-home-editorial .project-row .project-card-bottom h3 {
-  transition: color 240ms ease, font-family 240ms ease, letter-spacing 240ms ease;
+  transition: color 240ms ease;
 }
 .projects-home-editorial:hover .projects-display-title,
 .projects-home-editorial:focus-within .projects-display-title,
 .projects-home-editorial .project-row:hover .project-card-bottom h3,
 .projects-home-editorial .project-row:focus-within .project-card-bottom h3 {
   color: var(--accent-strong);
-  font-family: var(--font-dancing-script), cursive;
-  letter-spacing: -.035em;
 }
 @media (prefers-reduced-motion: reduce) {
   .projects-home-editorial .projects-display-title,
