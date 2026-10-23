@@ -428,3 +428,32 @@
   display: inline;
   color: var(--accent-strong);
 }
+
+.projects-home-editorial .projects-display-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: .22em;
+  row-gap: 0;
+  font-size: clamp(3rem, 5.4vw, 5.5rem) !important;
+  line-height: 1 !important;
+}
+.projects-home-editorial .project-built-with {
+  display: inline;
+  color: #f5f5f0 !important;
+  font-family: inherit;
+  font-size: 1em;
+  font-style: normal;
+  letter-spacing: -.065em;
+  white-space: nowrap;
+}
+.projects-home-editorial .project-purpose-highlight {
+  display: inline;
+  color: var(--accent-strong) !important;
+  font-size: 1em;
+  white-space: nowrap;
+}
+.projects-home-editorial:hover .project-built-with,
+.projects-home-editorial:focus-within .project-built-with {
+  color: #f5f5f0 !important;
+}
