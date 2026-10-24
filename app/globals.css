@@ -3144,7 +3144,7 @@ canvas {
 /* Smooth service expansion: CSS interpolates flex size without spring layout oscillation. */
 .services-panel {
   flex: 1 1 0;
-  transition: flex-grow 760ms cubic-bezier(.22, 1, .36, 1), border-color 400ms ease;
+  transition: flex-grow 760ms cubic-bezier(.22, 1, .36, 1) 90ms, border-color 400ms ease;
   will-change: flex-grow;
 }
 .services-panel.is-active { flex-grow: 3.1; }
@@ -3200,7 +3200,8 @@ canvas {
   text-wrap: balance;
 }
 .tech-stack-title-first,
-.tech-stack-title-second { display: block; }
+.tech-stack-title-second { display: inline; }
+.tech-stack-title-second { margin-left: .22em; }
 @media (min-width: 1920px) {
   .projects-home-editorial > .page-container,
   .services-story-section > .page-container,
@@ -3213,5 +3214,6 @@ canvas {
     line-height: .92;
   }
   .tech-stack-title-first,
-  .tech-stack-title-second { white-space: nowrap; }
+  .tech-stack-title-second { display: block; white-space: nowrap; }
+  .tech-stack-title-second { margin-left: 0; }
 }
