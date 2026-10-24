@@ -3066,7 +3066,7 @@ canvas {
   font-weight: 650;
   letter-spacing: -.085em;
   line-height: .9;
-  text-wrap: nowrap;
+  white-space: normal;
 }
 .projects-page-grid .projects-display-title > span {
   display: block;
