@@ -2976,3 +2976,118 @@ canvas {
   .services-panel,
   .services-panel::before { transition: none !important; }
 }
+
+
+/* Consistent display-heading hierarchy: match the established Services heading. */
+.projects-home-editorial .project-built-with {
+  font-weight: 700 !important;
+  letter-spacing: -.045em !important;
+}
+.projects-home-editorial .projects-display-title {
+  font-weight: 650 !important;
+  letter-spacing: -.085em !important;
+}
+.projects-home-editorial .projects-heading .page-eyebrow,
+.projects-page-grid .projects-heading .page-eyebrow,
+.services-story-heading .page-eyebrow {
+  font-size: clamp(.72rem, .75vw, .95rem);
+  font-weight: 850;
+  letter-spacing: .15em;
+}
+
+/* Full-width service showcase on 2K/4K screens. */
+@media (min-width: 1920px) {
+  .services-story-section {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-block: clamp(3rem, 5vh, 5rem) !important;
+  }
+  .services-story-section > .page-container {
+    width: min(90vw, 2240px) !important;
+    max-width: 2240px !important;
+    margin-inline: auto !important;
+  }
+  .services-story-heading {
+    max-width: 100%;
+    margin-bottom: clamp(2.25rem, 5vh, 5rem) !important;
+  }
+  .services-story-heading .services-display-title {
+    max-width: 100%;
+    font-size: clamp(5rem, 5.8vw, 9.5rem);
+    line-height: .9;
+    letter-spacing: -.085em;
+  }
+  .services-story-heading > p:last-child {
+    max-width: 58rem;
+    margin-top: clamp(1rem, 2vh, 2rem);
+    font-size: clamp(1.15rem, 1.35vw, 1.8rem);
+    line-height: 1.6;
+  }
+  .services-panel-strip {
+    height: clamp(38rem, 58vh, 58rem);
+    min-height: 38rem;
+    gap: clamp(.5rem, .8vw, 1.1rem);
+  }
+  .services-panel {
+    border-radius: 1.1rem;
+    padding: clamp(1.2rem, 1.5vw, 2.2rem);
+  }
+  .services-panel-top,
+  .services-panel-bottom {
+    font-size: clamp(.75rem, .65vw, 1rem);
+  }
+  .services-panel-icon { width: clamp(2rem, 2.1vw, 3rem); height: clamp(2rem, 2.1vw, 3rem); }
+  .services-panel h3 { font-size: clamp(1.6rem, 1.7vw, 2.6rem); }
+  .services-panel.is-active h3 { font-size: clamp(2.8rem, 3.1vw, 4.8rem); }
+  .services-panel-details { max-width: 44rem; }
+  .services-panel-italic { font-size: clamp(1.6rem, 1.8vw, 2.6rem); }
+  .services-panel-details > p:not(.services-panel-italic) {
+    font-size: clamp(1.05rem, 1.05vw, 1.5rem);
+    line-height: 1.6;
+  }
+  .services-panel-link { margin-top: 1.5rem; font-size: 1rem; }
+}
+
+/* /projects: pull the section upward and keep its secondary headline on one line. */
+#projects.projects-page-grid {
+  padding-top: clamp(2rem, 4vh, 4rem) !important;
+  padding-bottom: clamp(4rem, 7vh, 7rem) !important;
+}
+.projects-page-grid .projects-heading {
+  margin-bottom: clamp(2rem, 4vh, 4rem) !important;
+}
+.projects-page-grid .projects-display-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+  font-size: clamp(4rem, 5.6vw, 7.2rem);
+  font-weight: 650;
+  letter-spacing: -.085em;
+  line-height: .9;
+  text-wrap: nowrap;
+}
+.projects-page-grid .projects-display-title > span {
+  display: block;
+  max-width: 100%;
+  margin-top: .12em;
+  color: var(--muted);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 3.1vw, 4rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.065em;
+  line-height: .98;
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+  .projects-page-grid .projects-display-title {
+    font-size: clamp(2.7rem, 12vw, 4rem);
+    white-space: normal;
+  }
+  .projects-page-grid .projects-display-title > span {
+    font-size: clamp(1.35rem, 6.4vw, 2.2rem);
+    white-space: nowrap;
+  }
+}
