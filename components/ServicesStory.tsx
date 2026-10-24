@@ -67,7 +67,8 @@ const ServicePanel = memo(function ServicePanel({
 });
 
 export function ServicesStory() {
-  const [activeIndex, setActiveIndex] = useState(0);\n  const activateService = useCallback((index: number) => setActiveIndex(index), []);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activateService = useCallback((index: number) => setActiveIndex(index), []);
 
   return (
     <Section id="services" className="services-story-section relative py-24 md:py-36">
