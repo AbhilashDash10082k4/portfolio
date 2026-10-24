@@ -3256,3 +3256,39 @@ canvas {
   .services-panel::after,
   .services-panel-details { transition: none !important; animation: none !important; }
 }
+
+
+/* Targeted responsive corrections from local review. */
+@media (min-width: 768px) and (max-width: 1919px) {
+  .projects-home-editorial {
+    margin-top: clamp(3rem, 6vw, 5.5rem) !important;
+    padding-top: clamp(4rem, 6vw, 6rem) !important;
+  }
+  .projects-home-editorial > .page-container,
+  .services-story-section > .page-container,
+  .tech-stack-section > .page-container {
+    width: min(calc(100% - 5rem), 76rem) !important;
+    max-width: 76rem !important;
+    margin-inline: auto !important;
+  }
+}
+
+/* Restore the fine grid on ultra-wide displays without changing their layout. */
+@media (min-width: 1920px) {
+  .studio-grid {
+    opacity: .78 !important;
+    background-size: 52px 52px !important;
+    mask-image: none !important;
+  }
+  .projects-home-editorial > .page-container,
+  .services-story-section > .page-container,
+  .tech-stack-section > .page-container {
+    width: min(90vw, 2240px) !important;
+    max-width: 2240px !important;
+  }
+}
+
+/* Make active service photography atmospheric rather than competing with its copy. */
+.services-panel.is-active::before {
+  background: linear-gradient(180deg, rgba(5, 9, 8, .42) 0%, rgba(5, 9, 8, .58) 48%, rgba(5, 9, 8, .9) 100%) !important;
+}
