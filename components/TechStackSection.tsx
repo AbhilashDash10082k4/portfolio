@@ -53,8 +53,8 @@ const groups = [
 
 export function TechStackSection() {
   return (
-    <section className="page-container py-14 md:py-20" aria-labelledby="tech-stack-heading">
-      <div className="max-w-2xl">
+    <section className="tech-stack-section page-container py-14 md:py-20" aria-labelledby="tech-stack-heading">
+      <div className="tech-stack-heading max-w-2xl">
         <p className="page-eyebrow">Tools I work with</p>
         <h2 id="tech-stack-heading" className="mt-4 text-3xl font-semibold tracking-[-0.055em] sm:text-4xl">
           The stack behind the <span className="text-accent-strong">solutions.</span>
