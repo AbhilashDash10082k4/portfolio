@@ -31,15 +31,13 @@ const ServicePanel = memo(function ServicePanel({
   return (
     <motion.article
       className={"services-panel " + (active ? "is-active " : "") + service.visual}
-      animate={{ flexGrow: active ? 3.1 : 1 }}
-      transition={{ type: "spring", stiffness: 150, damping: 28, mass: 1.05 }}
       onMouseEnter={() => onActivate(index)}
       onFocus={() => onActivate(index)}
       onClick={() => onActivate(index)}
       tabIndex={0}
       aria-expanded={active}
       aria-label={service.title}
-      style={{ backgroundImage: active ? "linear-gradient(180deg, rgba(7,12,10,.06), rgba(7,12,10,.82)), url('" + service.image + "')" : undefined }}
+      style={{ "--service-image": active ? `url("${service.image}")` : "none" } as React.CSSProperties}
     >
       <span className="services-panel-top">{service.number} <span>/ SERVICE</span></span>
       <div className="services-panel-center">
