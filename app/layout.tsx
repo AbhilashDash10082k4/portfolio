@@ -5,6 +5,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Dancing_Script } from "next/font/google";
 import "./globals.css";
+import "./responsive-large-screens.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import SmoothScrolling from "@/components/SmoothScroll";
