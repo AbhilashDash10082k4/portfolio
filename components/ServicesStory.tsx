@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { memo, useCallback, useState } from "react";
+import type { CSSProperties } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight, Bot, Workflow, AudioLines, MessagesSquare, PanelsTopLeft } from "lucide-react";
 import { Section } from "@/components/ui/section";
@@ -37,7 +38,7 @@ const ServicePanel = memo(function ServicePanel({
       tabIndex={0}
       aria-expanded={active}
       aria-label={service.title}
-      style={{ "--service-image": active ? `url("${service.image}")` : "none" } as React.CSSProperties}
+      style={{ "--service-image": active ? `url("${service.image}")` : "none" } as CSSProperties}
     >
       <span className="services-panel-top">{service.number} <span>/ SERVICE</span></span>
       <div className="services-panel-center">
