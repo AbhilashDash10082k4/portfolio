@@ -3308,3 +3308,22 @@ canvas {
     -webkit-mask-image: none !important;
   }
 }
+
+
+/* Hard-force the grid onto the fixed background layer itself at 2K/4K.
+   This avoids the grid child being obscured by stacking/section backgrounds. */
+@media (min-width: 1920px) {
+  .studio-background {
+    background-color: var(--background) !important;
+    background-image:
+      linear-gradient(to right, rgba(125, 177, 145, .24) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(125, 177, 145, .24) 1px, transparent 1px),
+      radial-gradient(ellipse at 28% 18%, rgba(185, 239, 88, .09), transparent 48%),
+      radial-gradient(ellipse at 70% 60%, rgba(75, 171, 145, .07), transparent 52%) !important;
+    background-size: 52px 52px, 52px 52px, auto, auto !important;
+    background-position: 0 0, 0 0, center, center !important;
+  }
+  .studio-background .studio-grid {
+    display: none !important;
+  }
+}
