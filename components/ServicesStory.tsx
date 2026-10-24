@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { memo, useCallback, useState } from "react";
 import type { CSSProperties } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowUpRight, Bot, Workflow, AudioLines, MessagesSquare, PanelsTopLeft } from "lucide-react";
 import { Section } from "@/components/ui/section";
 
@@ -44,21 +44,19 @@ const ServicePanel = memo(function ServicePanel({
       <div className="services-panel-center">
         <Icon aria-hidden="true" className="services-panel-icon" strokeWidth={1.4} />
         <h3>{service.title}</h3>
-        <AnimatePresence initial={false}>
-          {active && (
-            <motion.div
-              className="services-panel-details"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 6 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <p className="services-panel-italic">{service.italic}</p>
-              <p>{service.description}</p>
-              <Link href={"/contact?service=" + encodeURIComponent(service.title)} className="services-panel-link">Discuss this service <ArrowUpRight aria-hidden="true" size={16} /></Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {active && (
+          <motion.div
+            key={service.number}
+            className="services-panel-details"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.22, delay: 0.12, ease: "easeOut" }}
+          >
+            <p className="services-panel-italic">{service.italic}</p>
+            <p>{service.description}</p>
+            <Link href={"/contact?service=" + encodeURIComponent(service.title)} className="services-panel-link">Discuss this service <ArrowUpRight aria-hidden="true" size={16} /></Link>
+          </motion.div>
+        )}
       </div>
       <span className="services-panel-bottom">{service.title.toUpperCase()}</span>
     </motion.article>
