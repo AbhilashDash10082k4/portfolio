@@ -3181,3 +3181,37 @@ canvas {
   .services-panel::after,
   .services-panel h3 { transition: none !important; animation: none !important; }
 }
+
+
+/* Keep the Projects, Services, and Tools content edges aligned at every width. */
+.projects-home-editorial > .page-container,
+.services-story-section > .page-container,
+.tech-stack-section.page-container {
+  width: min(100% - 2.5rem, 76rem) !important;
+  max-width: 76rem !important;
+  margin-inline: auto !important;
+}
+.tech-stack-heading { max-width: 100% !important; }
+.tech-stack-display-title {
+  font-size: clamp(2.8rem, 7.2vw, 6.8rem);
+  font-weight: 650;
+  letter-spacing: -.085em;
+  line-height: .94;
+  text-wrap: balance;
+}
+.tech-stack-title-first,
+.tech-stack-title-second { display: block; }
+@media (min-width: 1920px) {
+  .projects-home-editorial > .page-container,
+  .services-story-section > .page-container,
+  .tech-stack-section.page-container {
+    width: min(90vw, 2240px) !important;
+    max-width: 2240px !important;
+  }
+  .tech-stack-display-title {
+    font-size: clamp(5rem, 5.8vw, 9.5rem);
+    line-height: .92;
+  }
+  .tech-stack-title-first,
+  .tech-stack-title-second { white-space: nowrap; }
+}
