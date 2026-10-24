@@ -9,17 +9,11 @@
   }
 
   .studio-grid {
-    background-size: 52px 52px;
+    background-size: clamp(69px, 3.61vw, 92px);
   }
 }
 
-/* The projects page needs a deliberate breathing space below the floating navbar. */
+/* The projects heading needs breathing room below the floating navbar. */
 .projects-page-grid {
-  padding-top: 5rem !important;
-}
-
-@media (min-width: 1920px) {
-  .projects-page-grid {
-    padding-top: 5rem !important;
-  }
+  padding-top: 13rem !important;
 }
