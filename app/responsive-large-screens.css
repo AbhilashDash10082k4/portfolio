@@ -5,11 +5,11 @@
  */
 @media (min-width: 1920px) {
   html {
-    font-size: clamp(21.33px, 1.111vw, 28.44px);
+    font-size: clamp(16px, calc(1.944vw - 21.33px), 28.44px);
   }
 
   .studio-grid {
-    background-size: clamp(69px, 3.61vw, 92px);
+    background-size: clamp(52px, calc(6.25vw - 68px), 92px);
   }
 }
 
