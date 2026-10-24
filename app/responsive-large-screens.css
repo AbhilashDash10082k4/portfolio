@@ -1,0 +1,25 @@
+/*
+ * Large-display responsive scaling.
+ * Imported after globals.css so existing desktop/mobile rules remain unchanged below 1920px.
+ * Root-relative typography, spacing, cards, and page-container widths scale together on ultrawide screens.
+ */
+@media (min-width: 1920px) {
+  html {
+    font-size: clamp(21.33px, 1.111vw, 28.44px);
+  }
+
+  .studio-grid {
+    background-size: 52px 52px;
+  }
+}
+
+/* The projects page needs a deliberate breathing space below the floating navbar. */
+.projects-page-grid {
+  padding-top: 5rem !important;
+}
+
+@media (min-width: 1920px) {
+  .projects-page-grid {
+    padding-top: 5rem !important;
+  }
+}
