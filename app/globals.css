@@ -3217,3 +3217,42 @@ canvas {
   .tech-stack-title-second { display: block; white-space: nowrap; }
   .tech-stack-title-second { margin-left: 0; }
 }
+
+
+/* Extra breathing room between the hero and selected work, scaled by viewport. */
+.projects-home-editorial {
+  padding-top: clamp(6.5rem, 10vw, 11rem) !important;
+}
+
+/* Let panel widths settle before moving, then use a longer eased transition. */
+.services-panel {
+  transition:
+    flex-grow 1100ms cubic-bezier(.16, 1, .3, 1) 180ms,
+    border-color 500ms ease;
+}
+.services-panel-details {
+  animation: service-details-in 420ms cubic-bezier(.22, 1, .36, 1) 180ms both;
+}
+.services-panel::after {
+  transition:
+    opacity 820ms cubic-bezier(.16, 1, .3, 1) 100ms,
+    transform 1100ms cubic-bezier(.16, 1, .3, 1) 100ms;
+}
+.services-panel::before {
+  transition: opacity 820ms cubic-bezier(.16, 1, .3, 1) 100ms;
+}
+
+/* Darker overlays keep service-specific photography legible in both panel states. */
+.services-panel.is-active::before {
+  opacity: 1;
+  background: linear-gradient(180deg, rgba(7, 12, 10, .28), rgba(7, 12, 10, .82));
+}
+.service-story-visual::before {
+  background: linear-gradient(145deg, rgba(7, 12, 10, .24), rgba(7, 12, 10, .76));
+}
+@media (prefers-reduced-motion: reduce) {
+  .services-panel,
+  .services-panel::before,
+  .services-panel::after,
+  .services-panel-details { transition: none !important; animation: none !important; }
+}
