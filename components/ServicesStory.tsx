@@ -3,16 +3,15 @@
 import Link from "next/link";
 import { memo, useCallback, useState } from "react";
 import type { CSSProperties } from "react";
-import { motion } from "motion/react";
 import { ArrowUpRight, Bot, Workflow, AudioLines, MessagesSquare, PanelsTopLeft } from "lucide-react";
 import { Section } from "@/components/ui/section";
 
 const services = [
-  { number: "01", title: "AI Agents", italic: "Systems that take initiative.", description: "Purpose-built agents that reason over context, use tools, and move real work forward with clear boundaries.", tags: ["Tool use", "Knowledge", "Orchestration"], icon: Bot, image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=82", visual: "service-visual-ai" },
-  { number: "02", title: "AI Automations", italic: "Less busywork. Better flow.", description: "Connected workflows that move information between the tools your team already relies on.", tags: ["Integrations", "Workflow design", "APIs"], icon: Workflow, image: "https://images.unsplash.com/photo-1518186233392-c232efbf2373?auto=format&fit=crop&w=1400&q=82", visual: "service-visual-automation" },
+  { number: "01", title: "AI Agents", italic: "Systems that take initiative.", description: "Purpose-built agents that reason over context, use tools, and move real work forward with clear boundaries.", tags: ["Tool use", "Knowledge", "Orchestration"], icon: Bot, image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=82", visual: "service-visual-ai" },
+  { number: "02", title: "AI Automations", italic: "Less busywork. Better flow.", description: "Connected workflows that move information between the tools your team already relies on.", tags: ["Integrations", "Workflow design", "APIs"], icon: Workflow, image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=82", visual: "service-visual-automation" },
   { number: "03", title: "Voice Agents", italic: "Conversations with a purpose.", description: "Natural voice experiences for support, qualification, scheduling, and other repeatable conversations.", tags: ["Speech", "Realtime", "Telephony"], icon: AudioLines, image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1400&q=82", visual: "service-visual-voice" },
   { number: "04", title: "AI Chatbots", italic: "Useful answers, grounded in context.", description: "Conversational interfaces connected to your content, products, and business processes.", tags: ["RAG", "Support", "Knowledge"], icon: MessagesSquare, image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1400&q=82", visual: "service-visual-chat" },
-  { number: "05", title: "Website Design & Development", italic: "Digital experiences, built to last.", description: "Distinctive websites and full-stack products that balance visual clarity with maintainable engineering.", tags: ["Next.js", "Product UI", "Full-stack"], icon: PanelsTopLeft, image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=82", visual: "service-visual-web" },
+  { number: "05", title: "Website Design & Development", italic: "Digital experiences, built to last.", description: "Distinctive websites and full-stack products that balance visual clarity with maintainable engineering.", tags: ["Next.js", "Product UI", "Full-stack"], icon: PanelsTopLeft, image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1400&q=82", visual: "service-visual-web" },
 ];
 
 type Service = (typeof services)[number];
@@ -45,17 +44,11 @@ const ServicePanel = memo(function ServicePanel({
         <Icon aria-hidden="true" className="services-panel-icon" strokeWidth={1.4} />
         <h3>{service.title}</h3>
         {active && (
-          <motion.div
-            key={service.number}
-            className="services-panel-details"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.22, delay: 0.12, ease: "easeOut" }}
-          >
+          <div key={service.number} className="services-panel-details">
             <p className="services-panel-italic">{service.italic}</p>
             <p>{service.description}</p>
             <Link href={"/contact?service=" + encodeURIComponent(service.title)} className="services-panel-link">Discuss this service <ArrowUpRight aria-hidden="true" size={16} /></Link>
-          </motion.div>
+          </div>
         )}
       </div>
       <span className="services-panel-bottom">{service.title.toUpperCase()}</span>
