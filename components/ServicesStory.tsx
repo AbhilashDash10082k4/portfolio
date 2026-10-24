@@ -29,7 +29,7 @@ const ServicePanel = memo(function ServicePanel({
 }) {
   const Icon = service.icon;
   return (
-    <motion.article
+    <article
       className={"services-panel " + (active ? "is-active " : "") + service.visual}
       onMouseEnter={() => onActivate(index)}
       onFocus={() => onActivate(index)}
@@ -52,7 +52,7 @@ const ServicePanel = memo(function ServicePanel({
         )}
       </div>
       <span className="services-panel-bottom">{service.title.toUpperCase()}</span>
-    </motion.article>
+    </article>
   );
 });
 
