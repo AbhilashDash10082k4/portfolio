@@ -1,11 +1,16 @@
+"use client";
+
 /**
- * Shared project showcase. Homepage uses editorial rows; /projects uses a grid.
+ * Shared project showcase. Homepage uses compact editorial rows; /projects uses a grid.
  * Project content remains centralized in data/portfolio-projects.ts.
  */
+import { useEffect, useRef, useState } from "react";
+import type { PointerEvent } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { portfolioProjects } from "@/data/portfolio-projects";
+import "./projects-interactions.css";
 
 const statusStyles = {
   "In progress": "border-emerald-700/20 bg-emerald-100 text-emerald-800 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200",
@@ -27,16 +32,76 @@ type SolutionsSectionProps = { limit?: number; layout?: "editorial" | "grid" };
 export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
   const projects = limit ? portfolioProjects.slice(0, limit) : portfolioProjects;
   const isGrid = layout === "grid";
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const previewRef = useRef<HTMLDivElement | null>(null);
+  const [activePreview, setActivePreview] = useState<number | null>(null);
+  const [pointer, setPointer] = useState({ x: -1000, y: -1000 });
+
+  useEffect(() => {
+    if (isGrid || !sectionRef.current) return;
+    const section = sectionRef.current;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      section.classList.add("projects-revealed");
+      return;
+    }
+    let revealAnimation: Animation | undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+
+      // Use the Web Animations API so CSS scroll-timeline support or CSS order
+      // cannot silently override the reveal in individual browsers.
+      section.classList.add("projects-revealed");
+      section.style.animation = "none";
+      revealAnimation = section.animate(
+        [
+          { clipPath: "inset(0 50% 0 50% round 0)", opacity: 0.92, offset: 0 },
+          { clipPath: "inset(0 0 0 0 round 0)", opacity: 1, offset: 0.76 },
+          { clipPath: "inset(0 .35% 0 .35% round 0)", opacity: 1, offset: 0.9 },
+          { clipPath: "inset(0 0 0 0 round 0)", opacity: 1, offset: 1 },
+        ],
+        { duration: 900, easing: "cubic-bezier(.16, 1, .3, 1)", fill: "both" },
+      );
+      revealAnimation.onfinish = () => {
+        section.style.clipPath = "inset(0 0 0 0)";
+        revealAnimation?.cancel();
+        revealAnimation = undefined;
+      };
+    }, { threshold: 0.01, rootMargin: "0px 0px -4% 0px" });
+    observer.observe(section);
+    return () => {
+      observer.disconnect();
+      revealAnimation?.cancel();
+    };
+  }, [isGrid]);
+
+  useEffect(() => {
+    if (activePreview === null || isGrid) return;
+    const preview = previewRef.current;
+    if (!preview) return;
+    preview.style.transform = `translate3d(${pointer.x + 24}px, ${pointer.y + 18}px, 0)`;
+  }, [activePreview, pointer, isGrid]);
+
+  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== "mouse" || isGrid) return;
+    setPointer({ x: event.clientX, y: event.clientY });
+  };
 
   return (
-    <Section id="projects" className={"projects-section relative py-24 md:py-36 " + (isGrid ? "projects-page-grid" : "projects-home-editorial")}>
+    <Section
+      id="projects"
+      className={"projects-section relative py-24 md:py-36 " + (isGrid ? "projects-page-grid" : "projects-home-editorial")}
+      ref={sectionRef}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => setActivePreview(null)}
+    >
       <div className="page-container">
         <div className="projects-heading mb-14 flex flex-col gap-7 md:mb-20 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
             <p className="page-eyebrow mb-5">{isGrid ? "The complete collection" : "SELECTED WORK / EXPERIMENTS"}</p>
             <h2 className="projects-display-title">
-              {isGrid ? "Projects & experiments." : "Built with purpose."}
-              <span>{isGrid ? " In progress and beyond." : " Still becoming."}</span>
+              {isGrid ? "Projects & experiments." : <><span className="project-built-with">Built with</span>{" "}<span className="project-purpose-highlight">Purpose.</span></>}
+              {isGrid && <span> In progress and beyond.</span>}
             </h2>
           </div>
           <p className="max-w-xs text-sm leading-7 text-muted md:pb-2">
@@ -49,7 +114,16 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
             const visual = projectVisuals[index % projectVisuals.length];
             const statusLabel = project.status === "Planned" ? "UPCOMING" : project.status.toUpperCase();
             return (
-              <article key={project.slug} className={"project-card editorial-project-card " + (isGrid ? "project-card-grid" : "project-row") + (index === 0 ? " project-card-featured" : "")}>
+              <article
+                key={project.slug}
+                className={"project-card editorial-project-card " + (isGrid ? "project-card-grid" : "project-row")}
+                onPointerEnter={(event) => {
+                  if (!isGrid && event.pointerType === "mouse") setActivePreview(index);
+                }}
+                onPointerLeave={() => setActivePreview(null)}
+                onFocus={() => { if (!isGrid) setActivePreview(index); }}
+                onBlur={() => setActivePreview(null)}
+              >
                 <div
                   className={"project-visual " + visual.tone}
                   role="img"
@@ -82,6 +156,17 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
             );
           })}
         </div>
+        {!isGrid && activePreview !== null && (
+          <div
+            ref={previewRef}
+            className="project-cursor-preview"
+            aria-hidden="true"
+            style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" + projectVisuals[activePreview % projectVisuals.length].image + "')" }}
+          >
+            <span>{projectVisuals[activePreview % projectVisuals.length].label}</span>
+            <strong>{projects[activePreview]?.title}</strong>
+          </div>
+        )}
         {limit && (
           <div className="mt-12 flex justify-center md:mt-16">
             <Link href="/projects" className="secondary-button">Explore all projects <ArrowUpRight aria-hidden="true" className="size-4" /></Link>
