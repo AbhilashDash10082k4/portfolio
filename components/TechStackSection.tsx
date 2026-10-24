@@ -56,8 +56,9 @@ export function TechStackSection() {
     <section className="tech-stack-section page-container py-14 md:py-20" aria-labelledby="tech-stack-heading">
       <div className="tech-stack-heading max-w-2xl">
         <p className="page-eyebrow">Tools I work with</p>
-        <h2 id="tech-stack-heading" className="mt-4 text-3xl font-semibold tracking-[-0.055em] sm:text-4xl">
-          The stack behind the <span className="text-accent-strong">solutions.</span>
+        <h2 id="tech-stack-heading" className="tech-stack-display-title mt-4">
+          <span className="tech-stack-title-first">The stack behind</span>
+          <span className="tech-stack-title-second">the <span className="text-accent-strong">solutions.</span></span>
         </h2>
         <p className="page-copy mt-5">
           I choose tools around the problem, not the other way around. This is the set of technologies and approaches I currently work with and keep expanding.
