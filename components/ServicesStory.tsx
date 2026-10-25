@@ -1,8 +1,11 @@
+"use client";
+
 /**
  * Scroll-led service storytelling with lightweight CSS image panels.
  * Uses decorative remote placeholder photography until project-specific assets are supplied.
  */
 import Link from "next/link";
+import { motion } from "motion/react";
 import { ArrowUpRight, Bot, Workflow, AudioLines, MessagesSquare, PanelsTopLeft } from "lucide-react";
 import { Section } from "@/components/ui/section";
 
@@ -72,7 +75,7 @@ export function ServicesStory() {
           {services.map((service) => {
             const Icon = service.icon;
             return (
-              <article className="service-story-row" key={service.number}>
+              <motion.article className="service-story-row" key={service.number}>
                 <div className="service-story-copy">
                   <span className="service-story-number">{service.number} <span> / SERVICE</span></span>
                   <Icon className="service-story-icon" aria-hidden="true" strokeWidth={1.4} />
@@ -87,7 +90,7 @@ export function ServicesStory() {
                   <span className="service-visual-caption">{service.title.toUpperCase()}</span>
                   <span className="service-visual-orbit" aria-hidden="true" />
                 </div>
-              </article>
+              </motion.article>
             );
           })}
         </div>
