@@ -3327,3 +3327,15 @@ canvas {
     display: none !important;
   }
 }
+
+
+/* 1024px alignment fix: match the left content edge of the homepage
+   "Built with Purpose" section. Keep the reference section and 1440px+ unchanged. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .page-container {
+    padding-inline: 3.75rem;
+  }
+  .projects-home-editorial > .page-container {
+    padding-inline: 0;
+  }
+}
