@@ -2822,3 +2822,16 @@ canvas {
     will-change: auto !important;
   }
 }
+
+
+/* 1024px tablet/laptop alignment: use the homepage "Built with Purpose"
+   content edge as the shared reference for every other page/section.
+   The reference project section itself and all 1440px+ layouts stay untouched. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .page-container {
+    padding-inline: 3.75rem;
+  }
+  .projects-home-editorial > .page-container {
+    padding-inline: 0;
+  }
+}
