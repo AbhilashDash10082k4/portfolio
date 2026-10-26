@@ -3410,9 +3410,9 @@ canvas {
     inset: 0;
     z-index: 15;
     pointer-events: none;
-    opacity: .2;
+    opacity: .48;
     background-image:
-      linear-gradient(to right, rgba(125, 177, 145, .42) 1px, transparent 1px),
+      linear-gradient(to right, rgba(125, 177, 145, .52) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(125, 177, 145, .42) 1px, transparent 1px);
     background-size: 52px 52px;
     background-position: 0 0;
