@@ -3399,3 +3399,23 @@ canvas {
     gap: clamp(1.5rem, 1.8vw, 3rem);
   }
 }
+
+
+/* Final ultra-wide grid fix: render the grid as a viewport overlay so opaque
+   section backgrounds cannot cover it. Scoped to 1920px+ only. */
+@media (min-width: 1920px) {
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    pointer-events: none;
+    opacity: .2;
+    background-image:
+      linear-gradient(to right, rgba(125, 177, 145, .42) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(125, 177, 145, .42) 1px, transparent 1px);
+    background-size: 52px 52px;
+    background-position: 0 0;
+    mix-blend-mode: screen;
+  }
+}
