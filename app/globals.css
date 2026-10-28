@@ -3487,3 +3487,10 @@ canvas {
   }
   .contact-page-shell .surface-card { padding: clamp(1.5rem, 1.8vw, 2.75rem) !important; }
 }
+
+/* Let the blog route share the viewport with the footer; the root main shell
+   otherwise enforces min-height: 100vh before the footer can begin. */
+@media (min-width: 1920px) {
+  main:has(.blog-page-shell) { min-height: 0 !important; }
+  .blog-page-shell { min-height: calc(100svh - 11rem) !important; }
+}
