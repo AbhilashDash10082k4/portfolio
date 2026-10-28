@@ -3503,12 +3503,12 @@ canvas {
     isolation: isolate;
   }
   body::after {
-    z-index: 0 !important;
-    opacity: .42 !important;
+    z-index: 15 !important;
+    opacity: .24 !important;
     background-image:
       repeating-linear-gradient(to right, rgba(153, 205, 170, .34) 0 1px, transparent 1px 52px),
       repeating-linear-gradient(to bottom, rgba(153, 205, 170, .34) 0 1px, transparent 1px 52px) !important;
-    mix-blend-mode: normal !important;
+    mix-blend-mode: screen !important;
     pointer-events: none !important;
   }
   body > * {
