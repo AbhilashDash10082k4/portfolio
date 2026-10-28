@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="page-container pb-24 pt-36 md:pt-44">
+    <div className="page-container about-page-shell pb-24 pt-36 md:pt-44">
       <header className="max-w-4xl">
         <p className="page-eyebrow">A little about me</p>
         <h1 className="page-title mt-5">Curious by nature. <span className="text-accent-strong">Engineer by practice.</span></h1>
@@ -22,7 +22,7 @@ export default function AboutPage() {
         <article className="surface-card p-7 sm:p-9">
           <p className="page-eyebrow">How I think about engineering</p>
           <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">Useful beats complicated.</h2>
-          <div className="mt-5 space-y-4 leading-7 text-muted">
+          <div className="about-body-copy mt-5 space-y-4 leading-7 text-muted">
             <p>I care about the full journey: understanding the problem, shaping the experience, designing the system, and making the pieces work together.</p>
             <p>I’m especially interested in tools that remove repetitive work and help people spend more time on decisions that actually need their attention.</p>
             <p>I’m still learning, experimenting, and refining my approach. I value clear reasoning, working software, and honest trade-offs over complexity for its own sake.</p>

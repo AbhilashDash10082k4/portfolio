@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   return (
-    <div className="page-container min-h-[70vh] pb-24 pt-36 md:pt-44">
+    <div className="page-container blog-page-shell min-h-[70vh] pb-24 pt-36 md:pt-44">
       <header className="max-w-3xl">
         <p className="page-eyebrow">Notes from building</p>
         <h1 className="page-title mt-5">Ideas, experiments, <span className="text-accent-strong">and lessons learned.</span></h1>
