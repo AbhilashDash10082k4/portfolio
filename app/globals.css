@@ -3537,3 +3537,30 @@ canvas {
     align-items: center !important;
   }
 }
+
+
+/* Single source of truth for the studio grid on ultra-wide screens.
+   Earlier 1920px overrides alternately hid .studio-grid and layered competing
+   body pseudo-elements. Keep the grid on the fixed background component. */
+@media (min-width: 1920px) {
+  body::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .studio-background {
+    z-index: 0 !important;
+    background-color: var(--background) !important;
+    background-image:
+      linear-gradient(to right, rgba(153, 205, 170, .22) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(153, 205, 170, .22) 1px, transparent 1px),
+      radial-gradient(ellipse at 28% 18%, rgba(185, 239, 88, .09), transparent 48%),
+      radial-gradient(ellipse at 70% 60%, rgba(75, 171, 145, .07), transparent 52%) !important;
+    background-size: 52px 52px, 52px 52px, auto, auto !important;
+    background-position: 0 0, 0 0, center, center !important;
+  }
+
+  .studio-background .studio-grid {
+    display: none !important;
+  }
+}
