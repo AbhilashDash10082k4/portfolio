@@ -3494,3 +3494,46 @@ canvas {
   main:has(.blog-page-shell) { min-height: 0 !important; }
   .blog-page-shell { min-height: calc(100svh - 11rem) !important; }
 }
+
+
+/* Final 2K/4K corrections from visual review. Keep <=1440px untouched. */
+@media (min-width: 1920px) {
+  /* Keep the grid above background layers but below all page content. */
+  body {
+    isolation: isolate;
+  }
+  body::after {
+    z-index: 0 !important;
+    opacity: .42 !important;
+    background-image:
+      repeating-linear-gradient(to right, rgba(153, 205, 170, .34) 0 1px, transparent 1px 52px),
+      repeating-linear-gradient(to bottom, rgba(153, 205, 170, .34) 0 1px, transparent 1px 52px) !important;
+    mix-blend-mode: normal !important;
+    pointer-events: none !important;
+  }
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Use one readable body-copy size throughout About, including the smaller
+     chess and interest-card descriptions. Headings retain their hierarchy. */
+  .about-page-shell p:not(.page-eyebrow) {
+    font-size: clamp(1.2rem, 1.12vw, 1.65rem) !important;
+    line-height: 1.7 !important;
+  }
+
+  /* Center the complete contact composition in the available viewport. */
+  .contact-page-shell {
+    display: flex !important;
+    align-items: center !important;
+    min-height: calc(100svh - 5.5rem) !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  .contact-page-shell > .grid {
+    width: 100% !important;
+    margin-block: auto !important;
+    align-items: center !important;
+  }
+}
