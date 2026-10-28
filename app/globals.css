@@ -3419,3 +3419,71 @@ canvas {
     mix-blend-mode: screen;
   }
 }
+
+
+/* Ultra-wide layout parity: only 1920px+; leave 1440px and below untouched.
+   Projects are intentionally excluded from every rule in this block. */
+@media (min-width: 1920px) {
+  .studio-background .studio-grid { opacity: .9 !important; }
+  body::after {
+    opacity: .7 !important;
+    background-image:
+      linear-gradient(to right, rgba(153, 205, 170, .58) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(153, 205, 170, .58) 1px, transparent 1px) !important;
+    background-size: 52px 52px !important;
+  }
+
+  .about-page-shell .page-title {
+    font-size: clamp(6rem, 5.4vw, 9rem) !important;
+    line-height: .96 !important;
+  }
+  .about-page-shell .page-copy,
+  .about-page-shell .about-body-copy {
+    font-size: clamp(1.25rem, 1.15vw, 1.75rem) !important;
+    line-height: 1.7 !important;
+  }
+  .about-page-shell > header { max-width: min(88vw, 1500px) !important; }
+  .about-page-shell > section { max-width: min(88vw, 2240px); }
+
+  .blog-page-shell {
+    box-sizing: border-box;
+    min-height: calc(100svh - 5.5rem) !important;
+    padding-top: clamp(7.5rem, 11svh, 10rem) !important;
+    padding-bottom: 1.5rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .blog-page-shell > header { max-width: min(88vw, 1500px) !important; }
+  .blog-page-shell > section {
+    margin-top: clamp(1.5rem, 3svh, 2.75rem) !important;
+    max-width: min(88vw, 1120px) !important;
+    padding: clamp(1.5rem, 1.7vw, 2.75rem) !important;
+  }
+  .blog-page-shell > p { margin-top: 1.25rem !important; }
+
+  .contact-page-shell {
+    min-height: calc(100svh - 7rem);
+    box-sizing: border-box;
+    padding-top: clamp(8rem, 11svh, 10.5rem) !important;
+    padding-bottom: 2rem !important;
+  }
+  .contact-page-shell > .grid {
+    width: 100%;
+    max-width: 1900px;
+    margin-inline: auto;
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr) !important;
+    align-items: center !important;
+    gap: clamp(3rem, 4vw, 6rem) !important;
+  }
+  .contact-page-shell > .grid > header { position: static !important; max-width: 100%; }
+  .contact-page-shell .page-title {
+    font-size: clamp(5.5rem, 5vw, 8rem) !important;
+    line-height: .96 !important;
+  }
+  .contact-page-shell .page-copy {
+    font-size: clamp(1.15rem, 1vw, 1.5rem) !important;
+    line-height: 1.65 !important;
+  }
+  .contact-page-shell .surface-card { padding: clamp(1.5rem, 1.8vw, 2.75rem) !important; }
+}
