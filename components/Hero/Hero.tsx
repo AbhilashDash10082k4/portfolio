@@ -1,5 +1,5 @@
-import { Section } from "@/components/ui/section";
-import { Intro } from "./Intro";
+import { Section } from '@/components/ui/section';
+import { Intro } from './Intro';
 
 export function Hero() {
   return (

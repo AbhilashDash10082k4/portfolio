@@ -32,10 +32,10 @@ export default function AboutPage() {
           <div>
             <p className="page-eyebrow">Beyond the keyboard</p>
             <span className="mt-6 block text-4xl leading-none text-accent-strong" aria-hidden="true">♞</span>
-            <h2 className="mt-4 text-2xl font-bold tracking-tight">A chess player, too.</h2>
-            <p className="mt-4 leading-7 text-muted">I enjoy playing chess. It’s a good reminder to be patient, recognize patterns, and think a few moves ahead—skills that come in handy when working through a difficult engineering problem.</p>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">A chess player, too.</h2>
+            <p className="about-body-copy mt-4 leading-7 text-muted">I enjoy playing chess. It’s a good reminder to be patient, recognize patterns, and think a few moves ahead—skills that come in handy when working through a difficult engineering problem.</p>
           </div>
-          <p className="mt-8 border-t border-border pt-5 text-sm font-semibold text-muted">Curiosity doesn’t stop when the editor closes.</p>
+          <p className="about-body-copy mt-8 border-t border-border pt-5 text-sm font-semibold text-muted">Curiosity doesn’t stop when the editor closes.</p>
         </article>
       </section>
 
@@ -44,18 +44,18 @@ export default function AboutPage() {
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           <article className="rounded-2xl border border-border bg-surface/75 p-6">
             <Code2 className="size-6 text-accent-strong" aria-hidden="true" />
-            <h3 className="mt-4 text-lg font-bold">Building products</h3>
-            <p className="mt-2 text-sm leading-6 text-muted">Interfaces, APIs, data models, and the details that make software feel coherent.</p>
+            <h3 className="mt-4 text-lg font-bold sm:text-xl">Building products</h3>
+            <p className="about-body-copy mt-2 text-sm leading-6 text-muted">Interfaces, APIs, data models, and the details that make software feel coherent.</p>
           </article>
           <article className="rounded-2xl border border-border bg-surface/75 p-6">
             <Lightbulb className="size-6 text-accent-strong" aria-hidden="true" />
-            <h3 className="mt-4 text-lg font-bold">Exploring AI</h3>
-            <p className="mt-2 text-sm leading-6 text-muted">Agents and integrations that connect models to tools, context, and practical outcomes.</p>
+            <h3 className="mt-4 text-lg font-bold sm:text-xl">Exploring AI</h3>
+            <p className="about-body-copy mt-2 text-sm leading-6 text-muted">Agents and integrations that connect models to tools, context, and practical outcomes.</p>
           </article>
           <article className="rounded-2xl border border-border bg-surface/75 p-6">
             <Compass className="size-6 text-accent-strong" aria-hidden="true" />
-            <h3 className="mt-4 text-lg font-bold">Learning in public</h3>
-            <p className="mt-2 text-sm leading-6 text-muted">Testing ideas, learning from what breaks, and improving through iteration.</p>
+            <h3 className="mt-4 text-lg font-bold sm:text-xl">Learning in public</h3>
+            <p className="about-body-copy mt-2 text-sm leading-6 text-muted">Testing ideas, learning from what breaks, and improving through iteration.</p>
           </article>
         </div>
       </section>

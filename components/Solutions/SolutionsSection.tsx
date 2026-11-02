@@ -1,37 +1,72 @@
-"use client";
+'use client';
 
 /**
  * Shared project showcase. Homepage uses compact editorial rows; /projects uses a grid.
  * Project content remains centralized in data/portfolio-projects.ts.
  */
-import { useEffect, useRef, useState } from "react";
-import type { PointerEvent } from "react";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { Section } from "@/components/ui/section";
-import { portfolioProjects } from "@/data/portfolio-projects";
-import "./projects-interactions.css";
+import { useEffect, useRef, useState } from 'react';
+import type { PointerEvent } from 'react';
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
+import { Section } from '@/components/ui/section';
+import { Magnetic } from '@/components/ui/Magnetic';
+import { portfolioProjects } from '@/data/portfolio-projects';
+import './projects-interactions.css';
 
 const statusStyles = {
-  "In progress": "border-emerald-700/20 bg-emerald-100 text-emerald-800 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200",
-  Prototype: "border-sky-700/20 bg-sky-100 text-sky-800 dark:border-sky-300/20 dark:bg-sky-400/10 dark:text-sky-200",
-  Planned: "border-border bg-surface-muted text-muted",
+  'In progress':
+    'border-emerald-700/20 bg-emerald-100 text-emerald-800 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200',
+  Prototype:
+    'border-sky-700/20 bg-sky-100 text-sky-800 dark:border-sky-300/20 dark:bg-sky-400/10 dark:text-sky-200',
+  Planned: 'border-border bg-surface-muted text-muted',
 } as const;
 
 const projectVisuals = [
-  { image: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1600&q=82", label: "PRODUCT SYSTEMS", tone: "project-visual-sage" },
-  { image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80", label: "EXPERIMENT / 02", tone: "project-visual-lime" },
-  { image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80", label: "AUTOMATION LAB", tone: "project-visual-ink" },
-  { image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80", label: "AI WORKFLOWS", tone: "project-visual-cream" },
-  { image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80", label: "VOICE SYSTEMS", tone: "project-visual-sage" },
-  { image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80", label: "DIGITAL PRODUCTS", tone: "project-visual-ink" },
+  {
+    image:
+      'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1600&q=82',
+    label: 'PRODUCT SYSTEMS',
+    tone: 'project-visual-sage',
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80',
+    label: 'EXPERIMENT / 02',
+    tone: 'project-visual-lime',
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+    label: 'AUTOMATION LAB',
+    tone: 'project-visual-ink',
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
+    label: 'AI WORKFLOWS',
+    tone: 'project-visual-cream',
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
+    label: 'VOICE SYSTEMS',
+    tone: 'project-visual-sage',
+  },
+  {
+    image:
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
+    label: 'DIGITAL PRODUCTS',
+    tone: 'project-visual-ink',
+  },
 ];
 
-type SolutionsSectionProps = { limit?: number; layout?: "editorial" | "grid" };
+type SolutionsSectionProps = { limit?: number; layout?: 'editorial' | 'grid' };
 
 export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
-  const projects = limit ? portfolioProjects.slice(0, limit) : portfolioProjects;
-  const isGrid = layout === "grid";
+  const projects = limit
+    ? portfolioProjects.slice(0, limit)
+    : portfolioProjects;
+  const isGrid = layout === 'grid';
   const sectionRef = useRef<HTMLElement | null>(null);
   const previewRef = useRef<HTMLDivElement | null>(null);
   const [activePreview, setActivePreview] = useState<number | null>(null);
@@ -40,39 +75,7 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
   useEffect(() => {
     if (isGrid || !sectionRef.current) return;
     const section = sectionRef.current;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      section.classList.add("projects-revealed");
-      return;
-    }
-    let revealAnimation: Animation | undefined;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      observer.disconnect();
-
-      // Use the Web Animations API so CSS scroll-timeline support or CSS order
-      // cannot silently override the reveal in individual browsers.
-      section.classList.add("projects-revealed");
-      section.style.animation = "none";
-      revealAnimation = section.animate(
-        [
-          { clipPath: "inset(0 50% 0 50% round 0)", opacity: 0.92, offset: 0 },
-          { clipPath: "inset(0 0 0 0 round 0)", opacity: 1, offset: 0.76 },
-          { clipPath: "inset(0 .35% 0 .35% round 0)", opacity: 1, offset: 0.9 },
-          { clipPath: "inset(0 0 0 0 round 0)", opacity: 1, offset: 1 },
-        ],
-        { duration: 900, easing: "cubic-bezier(.16, 1, .3, 1)", fill: "both" },
-      );
-      revealAnimation.onfinish = () => {
-        section.style.clipPath = "inset(0 0 0 0)";
-        revealAnimation?.cancel();
-        revealAnimation = undefined;
-      };
-    }, { threshold: 0.01, rootMargin: "0px 0px -4% 0px" });
-    observer.observe(section);
-    return () => {
-      observer.disconnect();
-      revealAnimation?.cancel();
-    };
+    section.classList.add('projects-revealed');
   }, [isGrid]);
 
   useEffect(() => {
@@ -83,14 +86,17 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
   }, [activePreview, pointer, isGrid]);
 
   const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
-    if (event.pointerType !== "mouse" || isGrid) return;
+    if (event.pointerType !== 'mouse' || isGrid) return;
     setPointer({ x: event.clientX, y: event.clientY });
   };
 
   return (
     <Section
       id="projects"
-      className={"projects-section relative py-24 md:py-36 " + (isGrid ? "projects-page-grid" : "projects-home-editorial")}
+      className={
+        'projects-section relative py-24 md:py-36 ' +
+        (isGrid ? 'projects-page-grid' : 'projects-home-editorial')
+      }
       ref={sectionRef}
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setActivePreview(null)}
@@ -98,58 +104,120 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
       <div className="page-container">
         <div className="projects-heading mb-14 flex flex-col gap-7 md:mb-20 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
-            <p className="page-eyebrow mb-5">{isGrid ? "The complete collection" : "SELECTED WORK / EXPERIMENTS"}</p>
+            <p className="page-eyebrow mb-5">
+              {isGrid
+                ? 'The complete collection'
+                : 'SELECTED WORK / EXPERIMENTS'}
+            </p>
             <h2 className="projects-display-title">
-              {isGrid ? "Projects & experiments." : <><span className="project-built-with">Built with</span>{" "}<span className="project-purpose-highlight">Purpose.</span></>}
+              {isGrid ? (
+                'Projects & experiments.'
+              ) : (
+                <>
+                  <span className="project-built-with">Built with</span>{' '}
+                  <span className="project-purpose-highlight">Purpose.</span>
+                </>
+              )}
               {isGrid && <span> In progress and beyond.</span>}
             </h2>
           </div>
           <p className="max-w-xs text-sm leading-7 text-muted md:pb-2">
-            {isGrid ? "Products, prototypes, and automation experiments across AI and software." : "A growing collection of products, prototypes, and ideas worth exploring."}
+            {isGrid
+              ? 'Products, prototypes, and automation experiments across AI and software.'
+              : 'A growing collection of products, prototypes, and ideas worth exploring.'}
           </p>
         </div>
 
-        <div className={isGrid ? "projects-editorial-grid projects-full-grid" : "projects-editorial-list"}>
+        <div
+          className={
+            isGrid
+              ? 'projects-editorial-grid projects-full-grid'
+              : 'projects-editorial-list'
+          }
+        >
           {projects.map((project, index) => {
             const visual = projectVisuals[index % projectVisuals.length];
-            const statusLabel = project.status === "Planned" ? "UPCOMING" : project.status.toUpperCase();
+            const statusLabel =
+              project.status === 'Planned'
+                ? 'UPCOMING'
+                : project.status.toUpperCase();
             return (
               <article
                 key={project.slug}
-                className={"project-card editorial-project-card " + (isGrid ? "project-card-grid" : "project-row")}
+                data-cursor="VIEW"
+                className={
+                  'project-card editorial-project-card ' +
+                  (isGrid ? 'project-card-grid' : 'project-row')
+                }
                 onPointerEnter={(event) => {
-                  if (!isGrid && event.pointerType === "mouse") setActivePreview(index);
+                  if (!isGrid && event.pointerType === 'mouse')
+                    setActivePreview(index);
                 }}
                 onPointerLeave={() => setActivePreview(null)}
-                onFocus={() => { if (!isGrid) setActivePreview(index); }}
+                onFocus={() => {
+                  if (!isGrid) setActivePreview(index);
+                }}
                 onBlur={() => setActivePreview(null)}
               >
                 <div
-                  className={"project-visual " + visual.tone}
+                  className={'project-visual ' + visual.tone}
                   role="img"
-                  aria-label={"Placeholder visual for " + project.title}
-                  style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" + visual.image + "')" }}
+                  aria-label={'Placeholder visual for ' + project.title}
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" +
+                      visual.image +
+                      "')",
+                  }}
                 >
                   <span className="project-visual-label">{visual.label}</span>
-                  <span className={"project-status " + statusStyles[project.status]}>{statusLabel}</span>
-                  <span className="project-visual-title" aria-hidden="true">{project.title}</span>
+                  <span
+                    className={'project-status ' + statusStyles[project.status]}
+                  >
+                    {statusLabel}
+                  </span>
+                  <span className="project-visual-title" aria-hidden="true">
+                    {project.title}
+                  </span>
                 </div>
                 <div className="project-card-content">
                   <div className="project-card-meta">
-                    <span>{String(index + 1).padStart(2, "0")} / {project.role}</span>
-                    <span>{project.stack.slice(0, 2).join(" · ")}</span>
+                    <span>
+                      {String(index + 1).padStart(2, '0')} / {project.role}
+                    </span>
+                    <span>{project.stack.slice(0, 2).join(' · ')}</span>
                   </div>
                   <div className="project-card-bottom">
                     <div>
                       <h3>{project.title}</h3>
                       <p>{project.summary}</p>
                     </div>
-                    <Link href={project.repositoryUrl ?? "/contact?project=" + encodeURIComponent(project.title)} target={project.repositoryUrl ? "_blank" : undefined} rel={project.repositoryUrl ? "noreferrer" : undefined} aria-label={(project.repositoryUrl ? "View source for " : "Discuss ") + project.title} className="project-round-link">
-                      <ArrowUpRight aria-hidden="true" className="size-5" />
-                    </Link>
+                    <Magnetic strength={0.4}>
+                      <Link
+                        href={
+                          project.repositoryUrl ??
+                          '/contact?project=' + encodeURIComponent(project.title)
+                        }
+                        target={project.repositoryUrl ? '_blank' : undefined}
+                        rel={project.repositoryUrl ? 'noreferrer' : undefined}
+                        aria-label={
+                          (project.repositoryUrl
+                            ? 'View source for '
+                            : 'Discuss ') + project.title
+                        }
+                        className="project-round-link"
+                      >
+                        <ArrowUpRight aria-hidden="true" className="size-5" />
+                      </Link>
+                    </Magnetic>
                   </div>
-                  <div className="project-stack" aria-label={project.title + " technology and focus areas"}>
-                    {project.stack.map((item) => <span key={item}>{item}</span>)}
+                  <div
+                    className="project-stack"
+                    aria-label={project.title + ' technology and focus areas'}
+                  >
+                    {project.stack.map((item) => (
+                      <span key={item}>{item}</span>
+                    ))}
                   </div>
                 </div>
               </article>
@@ -161,15 +229,25 @@ export const SolutionsSection = ({ limit, layout }: SolutionsSectionProps) => {
             ref={previewRef}
             className="project-cursor-preview"
             aria-hidden="true"
-            style={{ backgroundImage: "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" + projectVisuals[activePreview % projectVisuals.length].image + "')" }}
+            style={{
+              backgroundImage:
+                "linear-gradient(180deg, rgba(9,16,12,.02) 25%, rgba(9,16,12,.5) 100%), url('" +
+                projectVisuals[activePreview % projectVisuals.length].image +
+                "')",
+            }}
           >
-            <span>{projectVisuals[activePreview % projectVisuals.length].label}</span>
+            <span>
+              {projectVisuals[activePreview % projectVisuals.length].label}
+            </span>
             <strong>{projects[activePreview]?.title}</strong>
           </div>
         )}
         {limit && (
           <div className="mt-12 flex justify-center md:mt-16">
-            <Link href="/projects" className="secondary-button">Explore all projects <ArrowUpRight aria-hidden="true" className="size-4" /></Link>
+            <Link href="/projects" className="secondary-button">
+              Explore all projects{' '}
+              <ArrowUpRight aria-hidden="true" className="size-4" />
+            </Link>
           </div>
         )}
       </div>

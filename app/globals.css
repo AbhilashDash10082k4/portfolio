@@ -144,12 +144,16 @@ textarea {
 .studio-grid {
   position: absolute;
   inset: 0;
-  opacity: 1;
+  z-index: 2;
+  opacity: 0.55 !important;
   background-image:
-    linear-gradient(to right, rgba(43, 122, 109, 0.16) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(43, 122, 109, 0.16) 1px, transparent 1px);
+    linear-gradient(to right, rgba(135, 195, 155, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(135, 195, 150, 0.12) 1px, transparent 1px) !important;
   background-size: 52px 52px;
-  mask-image: radial-gradient(ellipse at 50% 10%, #000 0%, rgba(0, 0, 0, 0.72) 44%, transparent 82%);
+  background-position: 0 0;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  pointer-events: none;
 }
 
 .studio-particles {
@@ -440,6 +444,38 @@ textarea {
   background: rgba(185, 239, 88, 0.2);
 }
 
+.custom-cursor-ring.custom-cursor-badge-active {
+  width: 68px !important;
+  height: 28px !important;
+  margin: -14px 0 0 -34px !important;
+  border-radius: 999px !important;
+  border-color: var(--accent) !important;
+  background: var(--accent) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 18px rgba(185, 239, 88, 0.35);
+}
+
+.custom-cursor-badge-text {
+  font-size: 0.65rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  color: var(--accent-foreground);
+  line-height: 1;
+  user-select: none;
+}
+
+.light .custom-cursor-ring.custom-cursor-badge-active {
+  border-color: #1a7a4c !important;
+  background: #1a7a4c !important;
+  box-shadow: 0 4px 18px rgba(26, 122, 76, 0.28);
+}
+
+.light .custom-cursor-badge-text {
+  color: #ffffff !important;
+}
+
 @media (pointer: fine) {
   body,
   a,
@@ -523,13 +559,8 @@ textarea {
   .project-card {
     transform-style: preserve-3d;
     will-change: transform;
-    animation: project-depth linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 34%;
-  }
-  @keyframes project-depth {
-    from { opacity: .58; transform: perspective(1100px) translateY(36px) rotateX(5deg) scale(.975); }
-    to { opacity: 1; transform: perspective(1100px) translateY(0) rotateX(0) scale(1); }
+    opacity: 1;
+    transform: none;
   }
 }
 .project-card {
@@ -707,19 +738,6 @@ textarea {
   color: var(--accent-strong);
   font-weight: 500;
 }
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-portrait-layer, .hero-copy-layer, .hero-editorial-note {
-      animation: hero-scroll-fade linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0px 560px;
-    }
-    @keyframes hero-scroll-fade {
-      from { opacity: 1; transform: translateY(0) scale(1); }
-      to { opacity: 0; transform: translateY(-38px) scale(.975); }
-    }
-  }
-}
 
 .projects-section {
   padding-top: clamp(5rem, 11vw, 10rem);
@@ -883,7 +901,7 @@ textarea {
 .project-visual-ink { background-color: #171b22; }
 .project-visual-cream { background-color: #d9d5c8; }
 @media (hover: hover) and (pointer: fine) {
-  .editorial-project-card:hover .project-visual { border-radius: 1.4rem; transform: translateY(-3px); }
+  .editorial-project-card:hover .project-visual { border-radius: 1.4rem; transform: none; }
 }
 .services-story-section {
   padding-top: clamp(5rem, 12vw, 11rem);
@@ -985,19 +1003,6 @@ textarea {
   box-shadow: 0 0 24px var(--accent);
   content: "";
 }
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .service-story-row {
-      animation: service-story-reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 32%;
-    }
-    @keyframes service-story-reveal {
-      from { opacity: .42; transform: translateY(34px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  }
-}
 @media (max-width: 767px) {
   .hero-stage { min-height: 720px; padding-block: 2.5rem 4rem; }
   .hero-portrait-layer { inset: 0 -6% -2%; border-radius: 45% 45% 1rem 1rem; }
@@ -1019,7 +1024,7 @@ textarea {
   .service-story-visual { min-height: 330px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-portrait-layer, .hero-copy-layer, .hero-editorial-note, .service-story-row { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .service-story-row { animation: none !important; }
 }
 
 
@@ -1115,17 +1120,15 @@ textarea {
 .dark .studio-aurora-two { background: radial-gradient(ellipse, rgba(75,171,145,.32), transparent 72%); }
 .dark .studio-aurora-three { opacity: .18; }
 .dark .studio-grid {
-  opacity: 1;
+  opacity: 1 !important;
   background-image:
-    linear-gradient(to right, rgba(125,177,145,.19) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(125,177,145,.19) 1px, transparent 1px);
-  mask-image: radial-gradient(ellipse at 50% 18%, #000 0%, rgba(0,0,0,.8) 55%, rgba(0,0,0,.25) 100%);
+    linear-gradient(to right, rgba(135, 195, 155, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(135, 195, 150, 0.22) 1px, transparent 1px) !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
 }
 /* The GSAP scrub controls hero fading; avoid browser-dependent CSS scroll timelines. */
 .hero-portrait-layer, .hero-copy-layer, .hero-editorial-note { animation: none !important; }
-@media (prefers-reduced-motion: reduce) {
-  .hero-portrait-layer, .hero-copy-layer { opacity: 1 !important; transform: none !important; }
-}
 
 
 /* Final hero correction: no dome, prominent badge, full-width blended portrait,
@@ -1714,8 +1717,8 @@ canvas {
    Bottom object alignment moves the source crop up; the small transform fine-tunes it. */
 .hero-portrait-layer img {
   object-fit: cover !important;
-  object-position: center 100% !important;
-  transform: translate3d(0, -14%, 0) scale(1.12) !important;
+  object-position: center 48% !important;
+  transform: none !important;
   transform-origin: center center !important;
   filter: saturate(1.02) contrast(1.22) brightness(.96) !important;
   -webkit-mask-image: none !important;
@@ -1754,50 +1757,6 @@ canvas {
   opacity: .8;
   animation: reference-star-glow 3.8s ease-in-out infinite alternate;
 }
-.hero-shooting-star {
-  position: absolute;
-  z-index: 3;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  background: #fff;
-  box-shadow: 0 0 5px 2px rgba(255,255,255,.85), 0 0 14px 5px rgba(213,255,202,.45);
-  will-change: transform, opacity;
-  animation: shooting-star-travel 6.5s linear infinite;
-}
-.hero-shooting-star::after {
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 0;
-  width: clamp(72px, 9vw, 150px);
-  height: 2px;
-  transform: translateX(-100%) rotate(-24deg);
-  transform-origin: left center;
-  background: linear-gradient(90deg, transparent, rgba(226,255,219,.12) 30%, rgba(255,255,255,.96));
-  filter: drop-shadow(0 0 4px rgba(225,255,221,.85));
-}
-.hero-shooting-star--one {
-  top: calc(10rem + 19vh);
-  left: 7vw;
-  animation-delay: 0s;
-}
-.hero-shooting-star--two {
-  top: calc(10rem + 36vh);
-  left: 13vw;
-  animation-delay: -3.25s;
-  animation-duration: 6.5s;
-}
-@keyframes shooting-star-travel {
-  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-24deg); }
-  2% { opacity: 1; }
-  22% { opacity: 1; transform: translate3d(43vw, 24vh, 0) rotate(-24deg); }
-  26%, 100% { opacity: 0; transform: translate3d(50vw, 27vh, 0) rotate(-24deg); }
-}
 @keyframes reference-star-glow {
   0% { opacity: .52; filter: drop-shadow(0 0 2px rgba(225,255,221,.35)); }
   100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(225,255,221,.95)); }
@@ -1819,8 +1778,8 @@ canvas {
     height: calc(100svh + 7rem) !important;
   }
   .hero-portrait-layer img {
-    object-position: center 100% !important;
-    transform: translate3d(0, -12%, 0) scale(1.08) !important;
+    object-position: center 48% !important;
+    transform: none !important;
     filter: saturate(.98) contrast(1.16) brightness(.9) !important;
   }
   .hero-portrait-positioner::after {
@@ -1832,8 +1791,6 @@ canvas {
       radial-gradient(circle at 94% 52%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px),
       radial-gradient(circle at 88% 83%, rgba(255,255,255,.9) 0 1px, rgba(222,255,218,.55) 1.4px, transparent 3px);
   }
-  .hero-shooting-star--one { top: calc(7rem + 18vh); }
-  .hero-shooting-star--two { top: calc(7rem + 43vh); left: 5vw; }
 }
 @media (max-width: 380px) {
   .hero-copy-layer .page-title { font-size: clamp(1.8rem, 8vw, 2.25rem) !important; }
@@ -1842,7 +1799,6 @@ canvas {
 @media (prefers-reduced-motion: reduce) {
   .hero-portrait-layer img { transform: none !important; }
   .hero-portrait-positioner::after { animation: none !important; opacity: .8; }
-  .hero-shooting-star { animation: none !important; display: none !important; }
   .intro-loader-track span { animation: none !important; width: 100% !important; }
 }
 
@@ -2224,6 +2180,7 @@ canvas {
   height: 100% !important;
   object-fit: cover !important;
   object-position: center 48% !important;
+  transform: none !important;
   opacity: 1 !important;
   filter: saturate(.84) contrast(1.06) brightness(.9) !important;
   -webkit-mask-image: none !important;
@@ -2252,7 +2209,8 @@ canvas {
 }
 #hero .hero-copy-layer {
   position: absolute !important;
-  z-index: 4 !important;
+  z-index: 20 !important;
+  isolation: isolate !important;
   left: 50% !important;
   bottom: clamp(.75rem, 2.5svh, 2.5rem) !important;
   width: min(92vw, 72rem) !important;
@@ -2698,8 +2656,8 @@ canvas {
   transition: transform 220ms ease, background 220ms ease, color 220ms ease;
 }
 .projects-home-editorial .project-row:hover .project-visual {
-  transform: translateY(-5px) scale(1.015);
-  filter: saturate(1.08);
+  transform: none;
+  filter: none;
 }
 .projects-home-editorial .project-row:hover .project-round-link {
   transform: rotate(45deg);
@@ -2780,47 +2738,13 @@ canvas {
 }
 
 
-/* Center-out reveal for the homepage projects section, inspired by the reference transition. */
-@supports (animation-timeline: view()) and (clip-path: inset(50%)) {
-  @media (prefers-reduced-motion: no-preference) {
-    .projects-home-editorial {
-      animation-name: projects-center-reveal;
-      animation-duration: 1ms;
-      animation-timing-function: cubic-bezier(.16, 1, .3, 1);
-      animation-fill-mode: both;
-      animation-timeline: view(block);
-      animation-range: entry 0% entry 58%;
-      transform-origin: center center;
-      will-change: clip-path, opacity, transform;
-    }
-
-    @keyframes projects-center-reveal {
-      from {
-        clip-path: inset(46% 46% 46% 46% round 1.5rem);
-        opacity: .72;
-        transform: scale(.965);
-      }
-      72% {
-        clip-path: inset(0 0 0 0 round .25rem);
-        opacity: 1;
-        transform: scale(1.006);
-      }
-      to {
-        clip-path: inset(0 0 0 0 round 0);
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .projects-home-editorial {
-    animation: none !important;
-    clip-path: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    will-change: auto !important;
-  }
+/* Homepage projects section cross-browser visible */
+.projects-home-editorial {
+  animation: none !important;
+  clip-path: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  will-change: auto !important;
 }
 
 
@@ -3273,12 +3197,23 @@ canvas {
   }
 }
 
-/* Restore the fine grid on ultra-wide displays without changing their layout. */
+/* Visible studio background grid on 1920px+ (2K/4K) displays. */
 @media (min-width: 1920px) {
-  .studio-grid {
-    opacity: .78 !important;
-    background-size: 52px 52px !important;
+  .studio-background .studio-grid,
+  .studio-grid,
+  .dark .studio-grid {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 2 !important;
+    opacity: 1 !important;
+    background-image:
+      linear-gradient(to right, rgba(135, 195, 155, .24) 1.25px, transparent 1.25px),
+      linear-gradient(to bottom, rgba(135, 195, 150, .24) 1.25px, transparent 1.25px) !important;
+    background-size: 92px 92px !important;
+    background-position: 0 0 !important;
     mask-image: none !important;
+    -webkit-mask-image: none !important;
   }
   .projects-home-editorial > .page-container,
   .services-story-section > .page-container,
@@ -3288,46 +3223,21 @@ canvas {
   }
 }
 
+@media (min-width: 3000px) {
+  .studio-background .studio-grid,
+  .studio-grid,
+  .dark .studio-grid {
+    background-size: 138px 138px !important;
+    background-image:
+      linear-gradient(to right, rgba(135, 195, 155, .10) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(135, 195, 150, .10) 1px, transparent 1px) !important;
+  }
+}
+
 /* Make active service photography atmospheric rather than competing with its copy. */
 .services-panel.is-active::before {
   background: linear-gradient(180deg, rgba(5, 9, 8, .42) 0%, rgba(5, 9, 8, .58) 48%, rgba(5, 9, 8, .9) 100%) !important;
 }
-
-
-/* Explicitly restore visible grid lines on 2560px/4K displays.
-   Override both standard and WebKit masks, which can otherwise fade the grid away. */
-@media (min-width: 1920px) {
-  .studio-background .studio-grid {
-    z-index: 1 !important;
-    opacity: 1 !important;
-    background-image:
-      linear-gradient(to right, rgba(125, 177, 145, .2) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(125, 177, 145, .2) 1px, transparent 1px) !important;
-    background-size: 52px 52px !important;
-    mask-image: none !important;
-    -webkit-mask-image: none !important;
-  }
-}
-
-
-/* Hard-force the grid onto the fixed background layer itself at 2K/4K.
-   This avoids the grid child being obscured by stacking/section backgrounds. */
-@media (min-width: 1920px) {
-  .studio-background {
-    background-color: var(--background) !important;
-    background-image:
-      linear-gradient(to right, rgba(125, 177, 145, .24) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(125, 177, 145, .24) 1px, transparent 1px),
-      radial-gradient(ellipse at 28% 18%, rgba(185, 239, 88, .09), transparent 48%),
-      radial-gradient(ellipse at 70% 60%, rgba(75, 171, 145, .07), transparent 52%) !important;
-    background-size: 52px 52px, 52px 52px, auto, auto !important;
-    background-position: 0 0, 0 0, center, center !important;
-  }
-  .studio-background .studio-grid {
-    display: none !important;
-  }
-}
-
 
 /* 1024px alignment fix: match the left content edge of the homepage
    "Built with Purpose" section. Keep the reference section and 1440px+ unchanged. */
@@ -3340,26 +3250,9 @@ canvas {
   }
 }
 
-
 /* Ultra-wide layout correction (1920px+ only).
    Preserve every breakpoint below 1920px, including the 1024px padding fix. */
 @media (min-width: 1920px) {
-  /* Keep the grid as its own visible layer; the later background override
-     previously hid this child on ultra-wide displays. */
-  .studio-background .studio-grid {
-    display: block !important;
-    position: absolute !important;
-    z-index: 2 !important;
-    inset: 0 !important;
-    opacity: .82 !important;
-    background-image:
-      linear-gradient(to right, rgba(125, 177, 145, .22) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(125, 177, 145, .22) 1px, transparent 1px) !important;
-    background-size: 52px 52px !important;
-    background-position: 0 0 !important;
-    mask-image: none !important;
-    -webkit-mask-image: none !important;
-  }
 
   /* Expand general page containers, not just Projects/Services/Tools. */
   .page-container {
@@ -3400,47 +3293,29 @@ canvas {
   }
 }
 
-
-/* Final ultra-wide grid fix: render the grid as a viewport overlay so opaque
-   section backgrounds cannot cover it. Scoped to 1920px+ only. */
 @media (min-width: 1920px) {
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 15;
-    pointer-events: none;
-    opacity: .48;
-    background-image:
-      linear-gradient(to right, rgba(125, 177, 145, .52) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(125, 177, 145, .52) 1px, transparent 1px);
-    background-size: 52px 52px;
-    background-position: 0 0;
-    mix-blend-mode: screen;
-  }
-}
-
-
-/* Ultra-wide layout parity: only 1920px+; leave 1440px and below untouched.
-   Projects are intentionally excluded from every rule in this block. */
-@media (min-width: 1920px) {
-  .studio-background .studio-grid { opacity: .9 !important; }
-  body::after {
-    opacity: .7 !important;
-    background-image:
-      linear-gradient(to right, rgba(153, 205, 170, .58) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(153, 205, 170, .58) 1px, transparent 1px) !important;
-    background-size: 52px 52px !important;
-  }
 
   .about-page-shell .page-title {
     font-size: clamp(6rem, 5.4vw, 9rem) !important;
     line-height: .96 !important;
   }
   .about-page-shell .page-copy,
-  .about-page-shell .about-body-copy {
+  .about-page-shell .about-body-copy,
+  .about-page-shell .about-body-copy p,
+  .about-page-shell article p {
     font-size: clamp(1.25rem, 1.15vw, 1.75rem) !important;
     line-height: 1.7 !important;
+  }
+  .about-page-shell article h2 {
+    font-size: clamp(2.1rem, 1.85vw, 2.85rem) !important;
+    line-height: 1.18 !important;
+  }
+  .about-page-shell article h3 {
+    font-size: clamp(1.4rem, 1.25vw, 1.95rem) !important;
+    line-height: 1.25 !important;
+  }
+  .about-page-shell .page-eyebrow {
+    font-size: clamp(0.95rem, 0.75vw, 1.2rem) !important;
   }
   .about-page-shell > header { max-width: min(88vw, 1500px) !important; }
   .about-page-shell > section { max-width: min(88vw, 2240px); }

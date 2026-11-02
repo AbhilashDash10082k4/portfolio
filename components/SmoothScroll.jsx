@@ -3,11 +3,46 @@
 // IMPORTANT: Keep ReactLenis mounted at the root. Smooth scrolling is intentional;
 // do not replace this with an inert/native-scroll wrapper without explicit approval.
 
-import { ReactLenis } from 'lenis/react';
+import { useEffect, useRef } from 'react';
+import { ReactLenis, useLenis } from 'lenis/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+function LenisScrollTriggerBridge() {
+  useLenis(() => {
+    ScrollTrigger.update();
+  });
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.refresh();
+  }, []);
+
+  return null;
+}
 
 export default function SmoothScrolling({ children }) {
+  const lenisRef = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const updateLenis = (time) => {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    };
+
+    gsap.ticker.add(updateLenis);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      gsap.ticker.remove(updateLenis);
+    };
+  }, []);
+
   return (
     <ReactLenis
+      ref={lenisRef}
+      autoRaf={false}
       root
       options={{
         lerp: 0.05, // Lower = smoother (0.05-0.1 recommended)
@@ -21,7 +56,9 @@ export default function SmoothScrolling({ children }) {
         syncTouch: false, // Better for performance on mobile
       }}
     >
+      <LenisScrollTriggerBridge />
       {children}
     </ReactLenis>
   );
 }
+

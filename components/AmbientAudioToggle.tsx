@@ -1,72 +1,79 @@
 "use client";
 
 import * as React from "react";
-import { Disc3, ExternalLink, X } from "lucide-react";
+import { Volume2, VolumeX } from "lucide-react";
 
 /**
- * One-click Spotify soundtrack entry point. Spotify owns track playback and
- * account restrictions; browsers may still block audible autoplay. No music
- * files are copied into this repository.
+ * Background audio player for Ashke.
+ * Autoplays on page load at low volume (with fallback for browser interaction policies).
+ * Provides one-click stop and resume control in the navigation.
  */
 export function AmbientAudioToggle({ className = "" }: { className?: string }) {
-  const [open, setOpen] = React.useState(false);
-  const [paused, setPaused] = React.useState(false);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   React.useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+    const audio = new Audio("/Ashke.mp3");
+    audio.loop = true;
+    audio.volume = 0.2; // Low background volume
+    audioRef.current = audio;
+
+    const playAudio = () => {
+      audio
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {
+          // Autoplay was prevented by browser policy; start on first interaction
+          const onFirstInteraction = () => {
+            audio
+              .play()
+              .then(() => setIsPlaying(true))
+              .catch(() => {});
+            window.removeEventListener("pointerdown", onFirstInteraction);
+            window.removeEventListener("keydown", onFirstInteraction);
+          };
+          window.addEventListener("pointerdown", onFirstInteraction, { once: true });
+          window.addEventListener("keydown", onFirstInteraction, { once: true });
+        });
     };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+
+    playAudio();
+
+    return () => {
+      audio.pause();
+      audio.src = "";
+    };
+  }, []);
+
+  const toggleAudio = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      audio
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {});
+    }
+  };
 
   return (
-    <span className="relative inline-flex">
-      <button
-        type="button"
-        className={className}
-        onClick={() => {
-          if (open) {
-            setOpen(false);
-            setPaused(true);
-          } else {
-            setOpen(true);
-            setPaused(false);
-          }
-        }}
-        aria-expanded={open}
-        aria-haspopup="dialog"
-        aria-label={open ? "Close Ashke music player" : "Start Ashke soundtrack"}
-        title={open ? "Close music player" : "Start Ashke by Karan Aujla"}
-      >
-        {open ? <X aria-hidden="true" className="size-4" /> : <Disc3 aria-hidden="true" className="size-4" />}
-      </button>
-      {open && (
-        <div role="dialog" aria-label="Ashke music player" className="absolute right-0 top-[calc(100%+0.75rem)] z-[80] w-[min(88vw,22rem)] rounded-2xl border border-border bg-surface/95 p-3 shadow-2xl backdrop-blur-2xl">
-          <div className="mb-3 flex items-center justify-between gap-3 px-1">
-            <div>
-              <p className="text-sm font-extrabold">Ashke</p>
-              <p className="text-xs text-muted">Karan Aujla · MXRCI</p>
-            </div>
-            <a href="https://open.spotify.com/embed/playlist/6uoQcJ0Tv9qMVF7t83jQYt" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-bold text-accent-strong hover:underline">
-              Spotify <ExternalLink aria-hidden="true" className="size-3" />
-            </a>
-          </div>
-          <iframe
-            title="Spotify playlist featuring Ashke by Karan Aujla and MXRCI"
-            src="https://open.spotify.com/embed/playlist/6uoQcJ0Tv9qMVF7t83jQYt?utm_source=generator&theme=0&autoplay=1"
-            width="100%"
-            height="152"
-            style={{ border: 0, borderRadius: 12 }}
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-          />
-          <p className="mt-2 px-1 text-[11px] leading-5 text-muted">
-            Playback continues while browsing this site. Spotify login, track availability, and browser autoplay rules may affect playback.
-          </p>
-        </div>
+    <button
+      type="button"
+      className={`${className} ambient-audio-toggle`}
+      data-cursor={isPlaying ? "MUTE" : "PLAY"}
+      onClick={toggleAudio}
+      aria-label={isPlaying ? "Stop Ashke audio" : "Resume Ashke audio"}
+      title={isPlaying ? "Stop Ashke (Karan Aujla)" : "Play Ashke (Karan Aujla)"}
+    >
+      {isPlaying ? (
+        <Volume2 aria-hidden="true" className="size-4 text-accent-strong" />
+      ) : (
+        <VolumeX aria-hidden="true" className="size-4 text-muted" />
       )}
-    </span>
+    </button>
   );
 }
